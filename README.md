@@ -30,7 +30,7 @@ drwxr-xr-x 24 rwby rwby 4096 Nov 16 15:12 ../
 -rw-------  1 rwby rwby 3326 Nov 16 15:18 textmining_rsa        <- PRIVATER SCHLÜSSEL  
 -rw-r--r--  1 rwby rwby  749 Nov 16 15:18 textmining_rsa.pub    <- ÖFFENTLICHER SCHLÜSSEL  
 rwby@Rwby:~$ cat .ssh/textmining_rsa.pub   
-ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDLJ2vohWrEi4sNXyA7yUfMOwOHzOuTcx+rqK4fRYr4ylu6weLwoQ2cgNMmyM6oz7OfX6Dx3ice3gghVFaoaPmvxEhmZHU69O3awde2dHZI4PVZGrqPu82KyN5u+E6gg936IOsXrQoPv+HTCd3HZgEhwdotaKYmtELk2FrzNsTXtTwVcRcMckAQiPem00wyAgRrE3rVj+jOLqs3b/I8L35iPy0hBejxfPOvwReLoyeJOPVLuudnXWI6lFw73cxYjgYEKfjG0cBwwvAcdrsBRgvBUydqH6sg9TuYHXSCjoNh9PA1MoCYU52tMiRv/7+oibWyIwNlLZwe2WACnzzVYtXAWHm2QJN7WDuu+UH4hq6oKoJVJe9tdhrqmt2ZQkOyMCAdi0YPs0oG+7h1jiH/XoszeE87hQBtsR+fe3LmJvqBjcVL3hR1hF8dv6c+mjmiQ7I8RQgDlg89Qra5StV6OudSaemrxcDQfHjOLn5sIbvV8oHKOFHtkOkzSa927XnebOUskBQWKMI+BMaLa6+JhIdmVUZCLgWDRrF7+AwtRyuljM0Z4zttSDl4Nk/wdaobffrIbEF/5thufpyBBDg+5QKRlN3xdKwO19d67q3zl66Ss06ko6fdE+vOkzDS8zLPqpGlYjpVv2ZrEcQQCvN/6XCEbmQS1gHkx42bR5KRcI8qiQ== robby.wagner1991@web.de
+ssh-rsa ...== robby.wagner1991@web.de
 
 _____________________________________________________________________________________________________________
 
