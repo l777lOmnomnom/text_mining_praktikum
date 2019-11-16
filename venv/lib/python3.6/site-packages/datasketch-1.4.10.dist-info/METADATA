@@ -1,0 +1,45 @@
+Metadata-Version: 2.1
+Name: datasketch
+Version: 1.4.10
+Summary: Probabilistic data structures for processing and searching very large datasets
+Home-page: https://ekzhu.github.io/datasketch
+Author: ekzhu
+Author-email: ekzhu@cs.toronto.edu
+License: MIT
+Keywords: database datamining
+Platform: UNKNOWN
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Database
+Classifier: Topic :: Scientific/Engineering :: Information Analysis
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.2
+Classifier: Programming Language :: Python :: 3.3
+Classifier: Programming Language :: Python :: 3.4
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
+Provides-Extra: test
+Provides-Extra: dev
+Provides-Extra: experimental_aio
+Requires-Dist: numpy (>=1.11)
+Requires-Dist: redis (>=2.10.0)
+Provides-Extra: dev
+Requires-Dist: check-manifest; extra == 'dev'
+Provides-Extra: experimental_aio
+Provides-Extra: experimental_aio
+Requires-Dist: aiounittest; (python_version >= "3.6") and extra == 'experimental_aio'
+Requires-Dist: motor; (python_version >= "3.6") and extra == 'experimental_aio'
+Provides-Extra: test
+Requires-Dist: coverage; extra == 'test'
+Requires-Dist: mock (>=2.0.0); extra == 'test'
+Requires-Dist: mockredispy; extra == 'test'
+Requires-Dist: nose-exclude; extra == 'test'
+
+datasketch
+==========
+
+Probabilistic data structures implemented in Python.
+
+
