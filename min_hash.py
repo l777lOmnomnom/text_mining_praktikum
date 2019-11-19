@@ -8,7 +8,8 @@ class Minhash:
         #                                            'resources',
         #                                            'de_web_2019.01000.warc.gz'))
 
-        self.data = data_handler.get_data("/tmp/output.source")
+        self.data1 = data_handler.get_data("/tmp/output.source", 10)
+        self.data2 = data_handler.get_data("/tmp/output.source", 10, 10)
 
     @staticmethod
     def update_minhash_set(data, minhash_set=None):
@@ -41,6 +42,6 @@ class Minhash:
         return float(len(s1.intersection(s2)))/float(len(s1.union(s2)))
 
 
-#if __name__ == "__main__":
-#    m = Minhash()
+if __name__ == "__main__":
+    m = Minhash()
 

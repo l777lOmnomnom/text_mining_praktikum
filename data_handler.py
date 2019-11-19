@@ -5,7 +5,7 @@ import warcio
 import argparse
 
 
-def get_data(input_file, elements=500):
+def get_data(input_file, elements=500, offset=0):
     """
     Reads data from an extracted warc.gz and yields a list with the different elements.
     There is a default max element size of 1000 and an offset if you want to get elements somewhere in the data set.
@@ -15,13 +15,25 @@ def get_data(input_file, elements=500):
     :param offset: NotImplemented()
     :return: result_dict
     """
+    line = None  # Placeholder
     return_dict = dict()
 
     with open(input_file, 'r') as source:
 
         current_elements = 0
+        skipped_elements = 0
         source_iterator = iter(source)
 
+        # Offsets the iterator
+        if offset != 0:
+            while skipped_elements <= offset:
+                line = next(source_iterator)
+                if re.search("<source><location>", line):
+                    skipped_elements += 1
+
+            header = line  # Otherwise the header wouldn't be available bellow as the next method continues
+
+        # Create the actual dict with the data extries from offset to elements + offset
         while current_elements < elements:
             line = next(source_iterator)
 
@@ -34,6 +46,8 @@ def get_data(input_file, elements=500):
                 continue
 
             else:
+                # If you want to add your own return format add the return objects definition in the beginning of the
+                # function and fill it here with the payload here (or with header infos above) (return x, y, z).
                 body = return_dict.get(header, "")
                 return_dict.update({header: "{} {}".format(body, line)})
 
