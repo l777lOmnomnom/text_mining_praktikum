@@ -61,6 +61,6 @@ Geht dafür in eurem Interpreter auf den text-mining ordner des repos, geht in d
 
 Wollt ihr selbst packages installieren und hochladen aktiviert auf der commando-zeile die venv mit   
 rwby@Rwby:~$ cd git/textmining  
-rwby@Rwby:~$ .venv/bin/activate  
+rwby@Rwby:~$ . venv/bin/activate  
 rwby@Rwby:~$ pip install package  
 rwby@Rwby:~$ deactivate  
