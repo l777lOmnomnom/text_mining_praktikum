@@ -5,7 +5,10 @@ import argparse
 
 
 def extract_archive(input_file, output_file="/tmp/output.source"):
-    """ Extracts a warc.gz file.
+    """
+    Extracts a warc.gz file. Can also be called from command line via :
+
+    $ python3 datahandler.py -i input_file -o output_file
 
     :param input_file: Path to the warc.gz archive
     :param output_file: Path to the destination file (default: /tmp/output.source)
