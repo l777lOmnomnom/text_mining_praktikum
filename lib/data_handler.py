@@ -5,9 +5,9 @@ import warcio
 import argparse
 
 
-def get_data(input_file, elements=500, offset=0):
+def read_source(input_file, elements=500, offset=0):
     """
-    Reads data from an extracted warc.gz and yields a list with the different elements.
+    Reads data from an extracted warc.gz and yields a dict with {str(header): str(body)}
     There is a default max element size of 1000 and an offset if you want to get elements somewhere in the data set.
 
     :param input_file: path of the extracted source file
@@ -17,6 +17,10 @@ def get_data(input_file, elements=500, offset=0):
     """
     line = None  # Placeholder
     return_dict = dict()
+
+    if input_file.split(".")[-1] is "gz":
+        print("Input file is an archive. Extracting it now ...")
+        input_file = extract_archive(input_file)
 
     with open(input_file, 'r') as source:
 
@@ -65,14 +69,13 @@ def extract_archive(input_file, output_file="/tmp/output.source"):
     :param output_file: Path to the destination file (default: /tmp/output.source)
     :return:
     """
-    size = None  # Not implemented
     current_file_loc = os.path.dirname(os.path.abspath(__file__))
 
     if not os.path.isfile(input_file):
         raise FileNotFoundError("File {} not found!".format(input_file))
 
     if os.path.isfile(output_file):
-        print("Found existing output file ({}). Renaming it to {}.old and continue ...")
+        print("Found existing output file ({}). Renaming it to {}.old and continue ...".format(output_file, output_file))
         os.rename(output_file, "{}.old".format(output_file))
 
     tool_path = os.path.join(current_file_loc, 'tools', 'jwarcex-standalone-2.0.0.jar')
@@ -90,7 +93,7 @@ def extract_archive(input_file, output_file="/tmp/output.source"):
     else:
         print("Successfully extracted {} to {}!".format(input_file, output_file))
 
-    return
+    return output_file
 
 
 parser = argparse.ArgumentParser()
