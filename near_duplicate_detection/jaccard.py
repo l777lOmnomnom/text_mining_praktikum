@@ -1,74 +1,165 @@
-from datasketch import MinHash
+import os
+import sys
 
+sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)),".."))
+
+from datasketch import MinHash
 from lib import data_handler
 
 
-class Minhash:
-    def __init__(self, input_file=None):
-        self.__input_file = input_file
+class JaccardSim:
+    def __init__(self, config):
+        self.__input_file = config["input"]
+        self.__database = config["database"]
 
-        self.__data = data_handler.read_source(input_file)
-
-        self.build_jaccard_database()
+        # Currently limited of a small subset of data
+        self.__data = data_handler.get_header_body_dict(self.__input_file)
 
     @property
     def data(self):
         return self.__data
 
-    def build_jaccard_database(self):
-        minhash_sets_list, jaccard_sets_list = list(), list()
-        for source, words in self.data.items():
+    @property
+    def database(self):
+        return self.__database
 
-            print("Current source: {}".format(source))
+    @staticmethod
+    def init_dataset(dataset):
+        """
+
+        :param datset:
+        :return:
+        """
+        dataset_list = list()
+
+        i = 0
+        for header1, body1 in dataset.items():
+            i += 1
+            j = 0
+            for header2, body2 in dataset.items():
+                j += 1
+                if j > i:
+                    dataset_list.append(Dataset(header1, header2 ,body1, body2))
+
+        return dataset_list
+
+    def calculate_jaccard_sim(self):
+        """
+
+        :return:
+        """
+        sets_dict = dict()
+
+        for source, words in self.data.items():
+            sets_dict.update({str(source): set(words.split(" "))})
+
+        datasets = self.init_dataset(sets_dict)
+
+        for dataset in datasets:
+            jaccard_sim = self.__calculate_jaccard_sim(dataset.body_tuple)
+            dataset.calc_jaccard_sim = jaccard_sim
+
+        data_handler.update_database_jaccard(datasets, self.database)
+
+        return
+
+    def estimate_jaccard_sim(self):
+        """
+
+        :return:
+        """
+        sets_dict = dict()
+        for source, words in self.data.items():
             m = MinHash()
             for word in words:
                 m.update(word.encode('utf8'))
+            sets_dict.update({str(source): m})
 
-            minhash_sets_list.append(m)
-            jaccard_sets_list.append(set(words.split(" ")))
+        datasets = self.init_dataset(sets_dict)
 
-        for index, s in enumerate(minhash_sets_list):
-            for i in range(index + 1, len(minhash_sets_list)):
-                jaccard_sim = s.jaccard(minhash_sets_list[i])
-                print("Estimated Jaccard for data1 and data2 is", jaccard_sim)
+        for dataset in datasets:
+            jaccard_sim = self.__estimate_jaccard_sim(dataset.body_tuple)
+            dataset.est_jaccard_sim = jaccard_sim
 
-        for index, s in enumerate(jaccard_sets_list):
-            for i in range(index + 1, len(jaccard_sets_list)):
-                actual_jaccard = float(len(s.intersection(jaccard_sets_list[i]))) / float(len(s.union(jaccard_sets_list[i])))
-                print("Actual Jaccard for data1 and data2 is", actual_jaccard)
+        data_handler.update_database_jaccard(datasets, self.database)
 
+        return
 
     @staticmethod
-    def update_minhash_set(data, minhash_set=None):
+    def __calculate_jaccard_sim(body_tuple):
         """
-        This updates a minhash set. If no set is given, a new one will be created and returned. Otherwise the given
-        minhash set is updated.
 
-        :param data:
-        :param minhash_set:
         :return:
         """
-        if not minhash_set:
-            minhash_set = MinHash()
 
-        if not type(data) == type(list()):
-            raise TypeError("Received {} but expected list instead!".format(type(data)))
+        actual_jaccard = float(len(body_tuple[0].intersection(body_tuple[1]))) / float(len(body_tuple[0].union(body_tuple[1])))
+        print("Actual Jaccard for data1 and data2 is", actual_jaccard)
 
-        return minhash_set.update(data.encode('utf8'))
+        return actual_jaccard
 
     @staticmethod
-    def calc_jaccard_similarity(set1, set2):
+    def __estimate_jaccard_sim(body_tuple):
         """
-        This calculates the jaccard similarity between set1 and set2.
 
-        :param set1:
-        :param set2:
+        :param minhash_sets_list:
         :return:
         """
-        s1, s2 = set(set1), set(set2)
-        return float(len(s1.intersection(s2)))/float(len(s1.union(s2)))
+        jaccard_sim = body_tuple[0].jaccard(body_tuple[1])
+        print("Estimated Jaccard for data1 and data2 is", jaccard_sim)
+
+        return jaccard_sim
+
+
+class Dataset:
+    def __init__(self, header1, header2, body1, body2):
+        self.__header_tuple = "{}#{}".format(header1, header2)
+        self.__body_tuple = (body1, body2)
+        self.__est_jaccard_sim = None
+        self.__calc_jaccard_sim = None
+        self.__est_jaccard_time = None
+        self.__calc_jaccard_time = None
+
+    @property
+    def header_tuple(self):
+        return self.__header_tuple
+
+    @property
+    def body_tuple(self):
+        return self.__body_tuple
+
+    @property
+    def est_jaccard_sim(self):
+        return self.__est_jaccard_sim
+
+    @property
+    def calc_jaccard_sim(self):
+        return self.__calc_jaccard_sim
+
+    @property
+    def est_jaccard_time(self):
+        return self.__est_jaccard_time
+
+    @property
+    def calc_jaccard_time(self):
+        return self.__calc_jaccard_time
+
+    @est_jaccard_sim.setter
+    def est_jaccard_sim(self, sim):
+        self.__est_jaccard_sim = sim
+
+    @calc_jaccard_sim.setter
+    def calc_jaccard_sim(self, sim):
+        self.__calc_jaccard_sim = sim
+
+    def dump(self):
+        return {self.header_tuple: {"est_jaccard_sim": self.est_jaccard_sim,
+                                    "est_jaccard_time": self.est_jaccard_time,
+                                    "calc_jaccard_sim": self.calc_jaccard_sim,
+                                    "calc_jaccard_time": self.calc_jaccard_time}}
 
 
 if __name__ == "__main__":
-    m = Minhash("examples/output.source")
+    pass
+    #m = JaccardSim("examples/output.source")
+    #m = JaccardSim(os.path.join(os.path.dirname(os.path.abspath(__file__)),"..","examples","output.source"))
 
