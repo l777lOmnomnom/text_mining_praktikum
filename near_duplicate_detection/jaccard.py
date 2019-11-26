@@ -70,7 +70,7 @@ class JaccardSim:
                 self.estimate_jaccard_sim()
                 self.calculate_jaccard_sim()
             else:
-                getattr(self, self.mode)(self.elements, self.offset)
+                getattr(self, self.mode)()
 
             self.offset += self.elements
             self.data, is_finished_flag = self.data_handler.get_data(self.elements, self.offset)
@@ -88,7 +88,6 @@ class JaccardSim:
             for word in words:
                 m.update(word.encode('utf8'))
             sets_dict.update({str(source): m})
-        print(sets_dict)
 
         datasets = self.__init_dataset(sets_dict)
 
