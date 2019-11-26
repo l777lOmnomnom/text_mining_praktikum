@@ -6,7 +6,7 @@ sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)),".."))
 from datasketch import MinHash
 from lib import data_handler
 
-
+# BESCHREIBUNG
 class JaccardSim:
     def __init__(self, config):
         self.__input_file = config["input"]
