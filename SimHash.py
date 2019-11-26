@@ -1,4 +1,4 @@
-warc = open("de_web_2019.01016_2.txt", "r")
+warc = open("de_web_2019.01016_2.txt", "r") #replace with own doc
 newFile = open("hashes" + ".txt", "w+")
 
 
@@ -13,9 +13,11 @@ prevSim = "1"*64
 loc = ""
 shingles = []
 h = 0
+d = 0
 similarity = []
 
 def getSim(shingles):
+    print("hashing...")
     sim = "0"*64
     sim = split(sim)
     
@@ -85,6 +87,7 @@ def getSim(shingles):
     return h
     
 def sort(similarity):
+    print("sorting...")
     for j in range(0, len(similarity)):
         for i in range(1, len(similarity)):
             #print(similarity)
@@ -101,12 +104,13 @@ def createHashFile(similarity):
 
 def hamming(bin1, bin2):
     ham = 0
-    print(bin1 + "---" + bin2)
+    #print(bin1 + "---" + bin2)
     for i in range(0, len(bin1)):
         if bin1[i]!=bin2[i]:
             ham+=1
     return ham
 
+print("reading...")
 for line in warc:
     if line.startswith("<source>"):
         #print(line.find("</location>"))
@@ -115,18 +119,20 @@ for line in warc:
         for stopword in stopwords:
             text = text.replace(" " + stopword + " ", " ")
             text = text.replace("\n" + stopword + " ", " ")
+            text = text.replace(" ", "")
         
         for i in range(0, len(text)):
             text = text.strip()
-            shingles.append(text[i:i+6])
+            shingles.append(text[i:i+10])
             #print(text[i:i+6])
         
         #print(shingles)
-        
+        print(d)
+        d+=1
         sim = getSim(shingles)
         similarity = similarity + [(prevLoc, sim, int(sim,2), "")]
-        print(prevLoc)
-        print(sim)
+        #print(prevLoc)
+        #print(sim)
         prevSim = sim
         prevLoc = loc
         
@@ -139,9 +145,13 @@ for line in warc:
  
 sort(similarity)
 print(similarity)
-for i in range(1,len(similarity)):
-    simH = [(similarity[i][0], similarity[i][1], similarity[i][2], hamming(similarity[i-1][1], similarity[i][1]))]
-    similarity[i] = simH
+for i in range(1, len(similarity)):
+    print(i)
+    simH = ((similarity[i][0], similarity[i][1], similarity[i][2], hamming(similarity[i-1][1], similarity[i][1])))
+    #print(simH)
+    similarity.pop(i)
+    similarity.insert(i, simH)
+    print(similarity)
     
 createHashFile(similarity)
 
