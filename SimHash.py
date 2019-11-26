@@ -1,4 +1,4 @@
-warc = open("de_web_2019.01016_2.txt", "r") #replace with own doc
+warc = open("de_web_2019.01016_3.txt", "r") #replace with own doc
 newFile = open("hashes" + ".txt", "w+")
 
 
@@ -94,7 +94,14 @@ def sort(similarity):
             if similarity[i-1][1] < similarity[i][1]:
                 #print("swap-" + str(i-1) + "-" + str(i))
                 similarity[i-1], similarity[i] = similarity[i], similarity[i-1]
-                
+ 
+def bitShift(sim):
+    print("shifting...")
+    simH = sim[0:4]
+    sim = sim[4:] + simH
+    return sim
+    
+ 
 def createHashFile(similarity):
     for i in range(0, len(similarity)):
         newFile.write(similarity[i][0] + "\n")
@@ -127,9 +134,10 @@ for line in warc:
             #print(text[i:i+6])
         
         #print(shingles)
-        print(d)
+        print("website" + str(d))
         d+=1
         sim = getSim(shingles)
+        sim = bitShift(sim)
         similarity = similarity + [(prevLoc, sim, int(sim,2), "")]
         #print(prevLoc)
         #print(sim)
@@ -144,14 +152,14 @@ for line in warc:
         text = text + line
  
 sort(similarity)
-print(similarity)
+#print(similarity)
 for i in range(1, len(similarity)):
-    print(i)
+    #print(i)
     simH = ((similarity[i][0], similarity[i][1], similarity[i][2], hamming(similarity[i-1][1], similarity[i][1])))
     #print(simH)
     similarity.pop(i)
     similarity.insert(i, simH)
-    print(similarity)
+    #print(similarity)
     
 createHashFile(similarity)
 
