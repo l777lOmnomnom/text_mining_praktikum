@@ -37,44 +37,38 @@ def __update_config(conf_dict, values):
     return conf_dict
 
 
+# The basic concept is to call main.py with the -c parameter and give it a config file containing all values you need
+# for the run. The Config parser will read all parameters from the command line and check if there is a -c parameter.
+# If so it will load the config supplied with -c otherwise load the default config.
+# Then if the config contains values that are also present via command line parameter it will be updated to the value
+# submitted via command line.
+
+
 parser = argparse.ArgumentParser()
 
-# Mandatory Parameters which should not be put into the config as they are only required here!
 parser.add_argument("-c", "--config", help="path of the config file (default: conf/example.conf)")
 parser.add_argument("-m", "--mode", help="Choose between following modes: {}".format(MODES))
-
-# Files to operate on
 parser.add_argument("-i", "--input", help="path of an archive")
 parser.add_argument("-o", "--output", help="path of the destination")
 parser.add_argument("-db", "--database", help="path of the database (jaccard simularity)")
-
-
-# Optional Parameters and parameters that should update the config
-# ...
 
 args = parser.parse_args()
 
 
 if __name__ == "__main__":  # This is True is main.py was called from a command line
 
-    # The args parser takes command line arguments which can be passed using the args container.
-    # You can also use a config file to store the parameters and just use "python3 main.py -c path/to/your/config" to
-    # start processing . Nonetheless, parameters from the command line overwrite config entries!
-
     if args.config:
         config = __load_conf(args.config)
     else:
         config = __load_conf()
 
+    # If you add command line parameters add an entry here with "parameter_name": args.parameter_name
     updates = {"input": args.input, "output": args.output, "mode": args.mode, "config": args.config,
                "database": args.database}
-    config = __update_config(config, updates)
+    config = __update_config(config, updates)  # Updates the config with cmd parameters
 
     # Finally add a if clause "if config["mode"] == "your_mode_name": call_your_scripts_function()
 
     if config["mode"] in ["estimate_jaccard_sim", "calculate_jaccard_sim", "both_jaccard_sim"]:
-        __class = jaccard.JaccardSim(config)
-        if config["mode"] == "both_jaccard_sim":
-            getattr(__class, "estimate_jaccard_sim")()
-            getattr(__class, "calculate_jaccard_sim")()
-        #getattr(__class, config["mode"])()
+        __Jaccard = jaccard.JaccardSim(config)
+        __Jaccard.main()
