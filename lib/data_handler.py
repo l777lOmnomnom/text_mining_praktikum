@@ -26,6 +26,9 @@ class __DataHandler:
         self.__output = config.get("output")
         self.__database = config.get("database")
 
+        if not os.path.isfile(self.__database):
+            os.mkdir(self.__database)
+
     @property
     def input(self):
         return self.__input
@@ -162,6 +165,8 @@ class DataHandlerMinHash(__DataHandler):
                         header = line.split("</location>")[0].replace("<source><location>", "")
                         current_elements += 1
 
+                        os.system("clear")
+                        print("Got element {}".format(current_elements + offset))
                     #  This is stupid but it works
                     elif line is "\n" or id(line) == 140591544343968:
                         continue

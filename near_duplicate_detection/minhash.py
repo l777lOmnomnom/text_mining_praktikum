@@ -73,7 +73,7 @@ class Minhash:
             for index, word in enumerate(words):
                 os.system("clear")
                 m.update(word.encode('utf8'))
-                print("{} minhash sets created ... ")
+                print("{} minhash sets created ... ".format(index))
 
             sets_dict.update({str(source): m})
 
