@@ -92,14 +92,24 @@ class DataHandlerMinHash(__DataHandler):
             print("Input file is an archive. Extracting it to /tmp/output.source")
             self.input = self.__extract_archive(self.input)
 
-    def get_data(self, elements, offset):
+    def get_data(self, _all=True, elements=1000, offset=0):
         """
 
+        :param _all:
         :param elements:
         :param offset:
         :return:
         """
-        return_dict, is_finished_flag = self.__read_source(self.input, elements, offset)
+        return_dict = dict()
+        is_finished_flag = False
+
+        if not _all:
+            return_dict, is_finished_flag = self.__read_source(self.input, elements, offset)
+        else:
+            while not is_finished_flag:
+                new_return_dict, is_finished_flag = self.__read_source(self.input, elements, offset)
+                return_dict.update(new_return_dict)
+                offset += elements
 
         return return_dict, is_finished_flag
 
@@ -136,7 +146,6 @@ class DataHandlerMinHash(__DataHandler):
             try:
                 # Offsets the iterator
                 if offset != 0:
-                    print(offset)
                     while skipped_elements <= int(offset):
                         line = next(source_iterator)
                         if re.search("<source><location>", line):
@@ -152,7 +161,6 @@ class DataHandlerMinHash(__DataHandler):
                     if re.search("<source><location>", line):
                         header = line.split("</location>")[0].replace("<source><location>", "")
                         current_elements += 1
-                        print(current_elements)
 
                     #  This is stupid but it works
                     elif line is "\n" or id(line) == 140591544343968:

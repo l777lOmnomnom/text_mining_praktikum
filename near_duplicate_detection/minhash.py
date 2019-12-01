@@ -1,27 +1,23 @@
 import os
 import sys
 
-sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)),".."))
+sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
 
 from datasketch import MinHash
 from lib import data_handler
 
 
-class JaccardSim:
+class Minhash:
     def __init__(self, config):
         self.data_handler = data_handler.DataHandlerMinHash(config)
 
-        self.__elements = config.get("elements", 100)
+        self.__elements = config.get("elements", 10000)
         self.__offset = config.get("offset", 0)
-        self.__mode = config.get("mode")
+        self.__all = config.get("all", True)
         self.__tracker = 0
 
         # Currently limited of a small subset of data
         self.__data = dict()
-
-    @property
-    def mode(self):
-        return self.__mode
 
     @property
     def tracker(self):
@@ -53,47 +49,41 @@ class JaccardSim:
 
         :return:
         """
-        print("Current element size: {}, current offset: {}".format(self.elements, self.offset))
-        self.data, is_finished_flag = self.data_handler.get_data(self.elements, self.offset)
-        if self.mode == "both_jaccard_sim":
-            self.calculate_jaccard_sim()
-            self.estimate_jaccard_sim()
-        else:
-            getattr(self, self.mode)()
-
-        self.offset += self.elements
+        is_finished_flag = False
 
         while not is_finished_flag:
-            print("Current element size: {}, current offset: {}".format(self.elements, self.offset))
-
-            if self.mode == "both_jaccard_sim":
-                self.estimate_jaccard_sim()
-                self.calculate_jaccard_sim()
-            else:
-                getattr(self, self.mode)()
-
+            self.data, is_finished_flag = self.data_handler.get_data(True, self.elements, self.offset)
+            self.estimate_jaccard_sim()
             self.offset += self.elements
-            self.data, is_finished_flag = self.data_handler.get_data(self.elements, self.offset)
 
         return
 
+    # TODO: Have one dedicated simhash create func and one for the estimation to measure time more accurate
     def estimate_jaccard_sim(self):
         """
 
         :return:
         """
         sets_dict = dict()
+
+        print("Setting up Minhash sets")
+
         for source, words in self.data.items():
             m = MinHash()
-            for word in words:
+            for index, word in enumerate(words):
+                os.system("clear")
                 m.update(word.encode('utf8'))
+                print("{} minhash sets created ... ")
+
             sets_dict.update({str(source): m})
 
         datasets = self.__init_dataset(sets_dict)
 
-        for dataset in datasets:
-            jaccard_sim = self.__estimate_jaccard_sim(dataset.body_tuple)
+        print("Estimating Jaccard Similarity")
 
+        for dataset in datasets:
+            os.system("clear")
+            jaccard_sim = self.__estimate_jaccard_sim(dataset.body_tuple)
             print("Calculations done: {}".format(self.tracker))
 
             dataset.est_jaccard_sim = jaccard_sim
@@ -131,37 +121,6 @@ class JaccardSim:
 
         return dataset_list
 
-    def calculate_jaccard_sim(self):
-        """
-
-        :return:
-        """
-
-        sets_dict = dict()
-
-        for source, words in self.data.items():
-            sets_dict.update({str(source): set(words.split(" "))})
-
-        datasets = self.__init_dataset(sets_dict)
-
-        for dataset in datasets:
-            jaccard_sim = self.__calculate_jaccard_sim(dataset.body_tuple)
-
-            print("Calculations done: {}".format(self.tracker))
-
-            dataset.calc_jaccard_sim = jaccard_sim
-
-        self.data_handler.update_database(datasets)
-
-        return
-
-    @staticmethod
-    def __calculate_jaccard_sim(body_tuple):
-        """
-
-        :return:
-        """
-        return float(len(body_tuple[0].intersection(body_tuple[1]))) / float(len(body_tuple[0].union(body_tuple[1])))
 
 class Dataset:
     def __init__(self, header1, header2, body1, body2):
