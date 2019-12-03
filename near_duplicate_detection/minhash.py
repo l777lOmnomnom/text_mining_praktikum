@@ -13,7 +13,7 @@ class Minhash:
 
         self.__elements = config.get("elements", 10000)
         self.__offset = config.get("offset", 0)
-        self.__all = config.get("all", True)
+        self.__all = config.get("all", False)
         self.__tracker = 0
 
         # Currently limited of a small subset of data
@@ -52,7 +52,7 @@ class Minhash:
         is_finished_flag = False
 
         while not is_finished_flag:
-            self.data, is_finished_flag = self.data_handler.get_data(True, self.elements, self.offset)
+            self.data, is_finished_flag = self.data_handler.get_data(self.__all, self.elements, self.offset)
             self.estimate_jaccard_sim()
             self.offset += self.elements
 
@@ -70,10 +70,11 @@ class Minhash:
 
         for source, words in self.data.items():
             m = MinHash()
+            os.system('clear')
+            print("{} minhash sets created ... ".format(len(sets_dict) + 1))
+
             for index, word in enumerate(words):
-                os.system("clear")
                 m.update(word.encode('utf8'))
-                print("{} minhash sets created ... ".format(index))
 
             sets_dict.update({str(source): m})
 
@@ -118,7 +119,7 @@ class Minhash:
                 j += 1
                 if j > i:
                     dataset_list.append(Dataset(header1, header2, body1, body2))
-
+                print("{} cross product data sets created".format(i*j))
         return dataset_list
 
 

@@ -26,8 +26,8 @@ class __DataHandler:
         self.__output = config.get("output")
         self.__database = config.get("database")
 
-        if not os.path.isfile(self.__database):
-            os.mkdir(self.__database)
+        #if not os.path.isfile(self.__database):
+        #    os.mkdir(self.__database)
 
     @property
     def input(self):
@@ -95,7 +95,7 @@ class DataHandlerMinHash(__DataHandler):
             print("Input file is an archive. Extracting it to /tmp/output.source")
             self.input = self.__extract_archive(self.input)
 
-    def get_data(self, _all=True, elements=1000, offset=0):
+    def get_data(self, _all=False, elements=1000, offset=0):
         """
 
         :param _all:
@@ -107,7 +107,8 @@ class DataHandlerMinHash(__DataHandler):
         is_finished_flag = False
 
         if not _all:
-            return_dict, is_finished_flag = self.__read_source(self.input, elements, offset)
+            return_dict, _ = self.__read_source(self.input, elements, offset)
+            is_finished_flag = True
         else:
             while not is_finished_flag:
                 new_return_dict, is_finished_flag = self.__read_source(self.input, elements, offset)
