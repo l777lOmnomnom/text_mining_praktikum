@@ -2,34 +2,18 @@ import os
 import json
 import argparse
 
-from near_duplicate_detection import minhash
+from near_duplicate_detection import min_hash, sim_hash
 
 FILE = os.path.dirname(os.path.abspath(__file__))  # Points to this folder (/home/something/something/text_mining/)
-MODES = {"minhash": minhash.Minhash}
-
-"""
-There are 2 ways of starting injecting your variables into the scripts. Both will create a dictonary with your values as
-config_dict = {"config_entry_name": value} which should be added to your class call.
-
-command_line arguments
-    - add your argument to the argument parser ('parser.add_argument("-i", "--input", help="path of an archive")')
-      (you can use already existing parameters without changing anything, they are available via config.get("parameter")
-    - add your argument to the update at the bottom (this is mandatory!)
-
-config arguments
-    - add a config file in conf
-    - add your parameters to the config file (see conf/example.conf)
-    - start main.py with the -c parameter or edit the example.conf which is the default config
-    
-Finally add your class to MODES on the top of the file. If your config or command line parameter includes "mode" and 
-mode is an entry in the MODES dict the class will be automatically called with the config dict.
-"""
+MODES = {"minhash": min_hash.Minhash, "simhash": sim_hash.Simhash}
 
 
 def __load_conf(config_name=os.path.join(FILE, "conf/example.conf")):
-    """
+    """ This is the first function to be called. It will load all config entries from the config file.
+    You can specify a config by calling this script with -c /path/to/conf.file
+    All values loaded from the config are stored in a dictonary and are handed to the class you specified in MODES
 
-    :param config_name:
+    :param config_name: The path to the config file
     :return:
     """
     try:
@@ -44,6 +28,7 @@ def __load_conf(config_name=os.path.join(FILE, "conf/example.conf")):
 def __update_config(conf_dict, values):
     """
     This overwrites all config parameters if a corresponding command line input exists
+
     :param conf_dict:
     :param values:
     :return:
@@ -65,17 +50,18 @@ parser.add_argument("-db", "--database", help="path of the database directory")
 args = parser.parse_args()
 
 
-if __name__ == "__main__":  # This is True is main.py was called from a command line
+if __name__ == "__main__":  # This is True if main.py was called from a command line
 
-    #if args.config:
-    #    config = __load_conf(args.config)
-    #else:
-    config = __load_conf()
+    if args.config:
+        config = __load_conf(args.config)
+    else:
+        config = __load_conf()
 
     # If you add command line parameters add an entry here with "parameter_name": args.parameter_name
-    #updates = {"source": args.input, "archive": args.output, "database": args.database}
+    # This will then be added to the config
+    #updates = {"database": args.database}
 
     #config = __update_config(config, updates)  # Updates the config with cmd parameters
 
-    # Finally add your class in the dictonary at the top (MODES) and add the key as mode
+    # Add your class in the dictonary at the top (MODES) and add the key as mode in our config (see example.conf)
     MODES.get(config.get("mode"))(config).main()

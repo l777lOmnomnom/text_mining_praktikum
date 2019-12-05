@@ -78,8 +78,7 @@ class __DataHandler:
         hash_list = []
         hash_db = dict()
 
-        start_time = time.time()
-        with open("/home/omnomnom/git/text_mining/data/archives/de_web_2019.01000.warc.gz", 'rb') as stream:
+        with open("/home/omnomnom/git/text_mining/examples/de_web_2019.01000.warc.gz", 'rb') as stream:
             archive_stream = ArchiveIterator(stream)
             for record in archive_stream:
                 if record.rec_type == 'response' and record.http_headers.get_header('Content-Type') in self.utf_8:
@@ -105,7 +104,7 @@ class __DataHandler:
 
                         hash_list.append(_hash)
                         hash_db.update({offset: _hash})
-
+                        print(hash_db)
                         print("{} / {} hashes created".format(i, elements))
 
                         self.update_database(hash_db, self.mode)
@@ -116,7 +115,7 @@ class __DataHandler:
                     archive_stream.close()
                     break
 
-        return hash_list
+        return hash_db
 
     def hash(self, text):
         raise ModuleNotFoundError("Dont call the base class ...")
@@ -148,7 +147,7 @@ class DataHandlerMinHash(__DataHandler):
         self.mode = "minhash"
 
     def get_hash_list(self, input_file, elements=1000, offset=0):
-        super().get_hash_list(input_file, elements, offset)
+        return super().get_hash_list(input_file, elements, offset)
 
     def hash(self, text):
         """

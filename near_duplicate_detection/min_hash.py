@@ -11,23 +11,12 @@ class Minhash:
     def __init__(self, config):
         self.data_handler = data_handler.DataHandlerMinHash()
 
-        self.__elements = config.get("elements", 2500)
+        self.__input = config.get("archive")
+        print(self.input)
+        self.__database = config.get("database")
+        self.__elements = config.get("elements", 25)
         self.__offset = config.get("offset", 0)
         self.__all = config.get("all", False)
-        self.__tracker = 0
-        self.__input = config.get("archive")
-        self.__output = config.get("output")
-        self.__database = config.get("database")
-
-        print(self.input)
-
-        # Currently limited of a small subset of data
-        self.__data = dict()
-
-    @property
-    def tracker(self):
-        self.__tracker += 1
-        return self.__tracker
 
     @property
     def elements(self):
@@ -42,28 +31,12 @@ class Minhash:
         self.__offset = _o
 
     @property
-    def data(self):
-        return self.__data
-
-    @data.setter
-    def data(self, _d):
-        self.__data = _d
-
-    @property
     def input(self):
         return self.__input
 
     @input.setter
     def input(self, __i):
         self.__input = __i
-
-    @property
-    def output(self):
-        return self.__output
-
-    @output.setter
-    def output(self, __o):
-        self.__output = __o
 
     @property
     def database(self):
@@ -78,44 +51,33 @@ class Minhash:
 
         :return:
         """
-        hash_list, data_dict = self.data_handler.get_hash_list(self.input, self.elements)
+        jaccard_dict = dict()
+        hash_db = self.data_handler.get_hash_list(self.input, self.elements)
+        i = 0
+        for offset1, hash1 in hash_db.items():
+            i += 1
+            j = 0
+            for offset2, hash2 in hash_db.items():
+                j += 1
+                if j > i:
+                    jaccard_sim = self.estimate_jaccard_sim(hash1, hash2)
+
+                    tmp_list = jaccard_dict.get(jaccard_sim, list())
+                    tmp_list.append("{}#{}".format(hash1, hash2))
+                    jaccard_dict[jaccard_sim] = tmp_list
+
+        print(jaccard_dict)
 
         return
 
     # TODO: Have one dedicated simhash create func and one for the estimation to measure time more accurate
-    def estimate_jaccard_sim(self):
+    @staticmethod
+    def estimate_jaccard_sim(minhash1, minhash2):
         """
 
         :return:
         """
-        sets_dict = dict()
-
-        print("Setting up Minhash sets")
-
-        for source, words in self.data.items():
-            m = MinHash()
-            os.system('clear')
-            print("{} minhash sets created ... ".format(len(sets_dict) + 1))
-
-            for index, word in enumerate(words):
-                m.update(word.encode('utf8'))
-
-            sets_dict.update({str(source): m})
-
-        datasets = self.__init_dataset(sets_dict)
-
-        print("Estimating Jaccard Similarity")
-
-        for dataset in datasets:
-            os.system("clear")
-            jaccard_sim = self.__estimate_jaccard_sim(dataset.body_tuple)
-            print("Calculations done: {}".format(self.tracker))
-
-            dataset.est_jaccard_sim = jaccard_sim
-
-        self.data_handler.update_database(datasets)
-
-        return
+        return minhash1.jaccard(minhash2)
 
     @staticmethod
     def __estimate_jaccard_sim(body_tuple):
@@ -124,7 +86,6 @@ class Minhash:
         :param body_tuple:
         :return:
         """
-        return body_tuple[0].jaccard(body_tuple[1])
 
     @staticmethod
     def __init_dataset(dataset):
