@@ -9,12 +9,17 @@ from lib import data_handler
 
 class Minhash:
     def __init__(self, config):
-        self.data_handler = data_handler.DataHandlerMinHash(config)
+        self.data_handler = data_handler.DataHandlerMinHash()
 
-        self.__elements = config.get("elements", 10000)
+        self.__elements = config.get("elements", 2500)
         self.__offset = config.get("offset", 0)
         self.__all = config.get("all", False)
         self.__tracker = 0
+        self.__input = config.get("archive")
+        self.__output = config.get("output")
+        self.__database = config.get("database")
+
+        print(self.input)
 
         # Currently limited of a small subset of data
         self.__data = dict()
@@ -44,17 +49,36 @@ class Minhash:
     def data(self, _d):
         self.__data = _d
 
+    @property
+    def input(self):
+        return self.__input
+
+    @input.setter
+    def input(self, __i):
+        self.__input = __i
+
+    @property
+    def output(self):
+        return self.__output
+
+    @output.setter
+    def output(self, __o):
+        self.__output = __o
+
+    @property
+    def database(self):
+        return self.__database
+
+    @database.setter
+    def database(self, __d):
+        self.__database = __d
+
     def main(self):
         """
 
         :return:
         """
-        is_finished_flag = False
-
-        while not is_finished_flag:
-            self.data, is_finished_flag = self.data_handler.get_data(self.__all, self.elements, self.offset)
-            self.estimate_jaccard_sim()
-            self.offset += self.elements
+        hash_list, data_dict = self.data_handler.get_hash_list(self.input, self.elements)
 
         return
 

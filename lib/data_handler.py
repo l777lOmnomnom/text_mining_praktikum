@@ -2,6 +2,19 @@ import re
 import os
 import json
 import subprocess
+import time
+#import pandas as pd
+from warcio import ArchiveIterator
+import simhash
+import re
+import ctypes
+import json
+import time
+from bs4 import BeautifulSoup
+from datasketch import MinHash
+import jsonpickle
+
+
 # import warcio
 # import argparse
 
@@ -21,109 +34,136 @@ class DataHandlerException(Exception):
 
 
 class __DataHandler:
-    def __init__(self, config):
-        self.__input = config.get("input")
-        self.__output = config.get("output")
-        self.__database = config.get("database")
-
-        #if not os.path.isfile(self.__database):
-        #    os.mkdir(self.__database)
-
     @property
-    def input(self):
-        return self.__input
+    def utf_8(self):
+        return ['text/html; charset=UTF-8',
+                'text/html; charset=utf-8',
+                'text/html;charset=UTF-8',
+                'text/html;charset=utf-8',
+                'text/html; Charset=UTF-8',
+                'text/html; Charset=utf-8;charset=UTF-8',
+                'text/html; charset=utf8']
 
-    @input.setter
-    def input(self, __i):
-        self.__input = __i
-
-    @property
-    def output(self):
-        return self.__output
-
-    @output.setter
-    def output(self, __o):
-        self.__output = __o
-
-    @property
-    def database(self):
-        return self.__database
-
-    @database.setter
-    def database(self, __d):
-        self.__database = __d
-
-    def update_database(self, data):
+    @staticmethod
+    def update_database(new_data, mode, database=os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data", "hash_db")):  # noqa
         """
 
-        :param data:
+        :param new_data:
+        :param database:
         :return:
         """
-        new_data = dict()
-
         try:
-            for dataset in data:
-                new_data.update(dataset.dump())
+            with open(database, "r") as db:
+                data = json.load(db)
 
-            with open(self.database, "r") as db:
-                try:
-                    old_data = json.load(db)
-                except json.JSONDecodeError:
-                    old_data = dict()
+        except Exception:
+            data = dict()
 
-            new_data.update(old_data)
+        for offset, _hash in new_data.items():
+            old_entry = data.get(offset, dict())
+            new_hash = {"{}_hash".format(mode): jsonpickle.encode(_hash)}
+            new_entry = old_entry.update(new_hash)
 
-            with open(self.database, "w") as db:
-                json.dump(new_data, db)
-        except Exception as err:
-            print("There was a problem updating the database {} with {} \n{}".format(self.database, data, err))
-            return False
+            data.update({offset: new_entry})
 
-        return True
+        with open(database, "w") as db:
+            json.dump(data, db)
+
+    def get_hash_list(self, input_file, elements=1000, offset=0):
+        """
+
+        :return:
+        """
+        i = 0
+        hash_list = []
+        hash_db = dict()
+
+        start_time = time.time()
+        with open("/home/omnomnom/git/text_mining/data/archives/de_web_2019.01000.warc.gz", 'rb') as stream:
+            archive_stream = ArchiveIterator(stream)
+            for record in archive_stream:
+                if record.rec_type == 'response' and record.http_headers.get_header('Content-Type') in self.utf_8:
+                    soup = BeautifulSoup(record.content_stream(), 'lxml', from_encoding='utf-8')
+                    for script in soup(["script", "style"]):
+                        script.extract()
+
+                    try:
+                        text = soup.body.get_text(separator=' ')
+                        lines = (line.strip() for line in text.splitlines())
+                        # break multi-headlines into a line each
+                        chunks = (phrase.strip() for line in lines for phrase in line.split("  "))
+                        # drop blank lines
+                        text = '\n'.join(chunk for chunk in chunks if chunk)
+
+                    except AttributeError as err:
+                        print('Wrong Encoding at offset ' + str(archive_stream.get_record_offset()))
+                    else:
+                        i += 1
+                        _hash = self.hash(text)
+
+                        offset = archive_stream.get_record_offset()
+
+                        hash_list.append(_hash)
+                        hash_db.update({offset: _hash})
+
+                        print("{} / {} hashes created".format(i, elements))
+
+                        self.update_database(hash_db, self.mode)
+
+                # TODO: Implement an offset counter
+                # Stop if max elements is reached
+                if i > elements:
+                    archive_stream.close()
+                    break
+
+        return hash_list
+
+    def hash(self, text):
+        raise ModuleNotFoundError("Dont call the base class ...")
 
 
 class DataHandlerSimHash(__DataHandler):
-    def __init__(self, config):
-        super(DataHandlerSimHash, self).__init__(config)
+    def __init__(self):
+        super(DataHandlerSimHash, self).__init__()
+        self.mode = "simhash"
+
+    def get_hash_list(self, input_file, elements=1000, offset=0):
+        super().get_hash_list(input_file, elements, offset)
+
+    def hash(self, text):
+        shingles = (' '.join(tokens) for tokens in simhash.shingle(self.tokenize(text), 3))
+
+        return simhash.compute([ctypes.c_ulong(hash(shingle)).value for shingle in shingles])
+
+    @staticmethod
+    def tokenize(text):
+        tokens = re.split("\s+", re.sub(r'[^\w\s]', '', text.lower()))
+        # print(tokens)
+        return tokens
 
 
 class DataHandlerMinHash(__DataHandler):
-    def __init__(self, config):
-        super(DataHandlerMinHash, self).__init__(config)
+    def __init__(self):
+        super(DataHandlerMinHash, self).__init__()
+        self.mode = "minhash"
 
-        if self.input.split(".")[-1] == "gz":
-            print("Input file is an archive. Extracting it to /tmp/output.source")
-            self.input = self.__extract_archive(self.input)
+    def get_hash_list(self, input_file, elements=1000, offset=0):
+        super().get_hash_list(input_file, elements, offset)
 
-    def get_data(self, _all=False, elements=1000, offset=0):
+    def hash(self, text):
         """
 
-        :param _all:
-        :param elements:
-        :param offset:
+        :param text:
         :return:
         """
-        return_dict = dict()
-        is_finished_flag = False
+        m = None
+        for words in text.split("\n"):
+            m = MinHash()
 
-        if not _all:
-            return_dict, _ = self.__read_source(self.input, elements, offset)
-            is_finished_flag = True
-        else:
-            while not is_finished_flag:
-                new_return_dict, is_finished_flag = self.__read_source(self.input, elements, offset)
-                return_dict.update(new_return_dict)
-                offset += elements
+            for word in words:
+                m.update(word.encode('utf8'))
 
-        return return_dict, is_finished_flag
-
-    def update_database(self, data):
-        """
-
-        :param data:
-        :return:
-        """
-        return super().update_database(data)
+        return m
 
     @staticmethod
     def __read_source(input_file, elements, offset=0):

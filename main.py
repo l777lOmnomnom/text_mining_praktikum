@@ -54,29 +54,28 @@ def __update_config(conf_dict, values):
 
     return conf_dict
 
-# command line argument parser
+
 parser = argparse.ArgumentParser()
 
 parser.add_argument("-c", "--config", help="path of the config file (default: conf/example.conf)")
-parser.add_argument("-m", "--mode", help="Choose between following modes: {}".format(MODES))
-parser.add_argument("-i", "--input", help="path of an archive")
-parser.add_argument("-o", "--output", help="path of the destination")
-parser.add_argument("-db", "--database", help="path of the database (jaccard simularity)")
+parser.add_argument("-s", "--source", help="path of an .source file")
+parser.add_argument("-a", "--archive", help="path of the archive")
+parser.add_argument("-db", "--database", help="path of the database directory")
 
 args = parser.parse_args()
 
 
 if __name__ == "__main__":  # This is True is main.py was called from a command line
 
-    if args.config:
-        config = __load_conf(args.config)
-    else:
-        config = __load_conf()
+    #if args.config:
+    #    config = __load_conf(args.config)
+    #else:
+    config = __load_conf()
 
     # If you add command line parameters add an entry here with "parameter_name": args.parameter_name
-    updates = {"input": args.input, "output": args.output, "mode": args.mode, "database": args.database}
+    #updates = {"source": args.input, "archive": args.output, "database": args.database}
 
-    config = __update_config(config, updates)  # Updates the config with cmd parameters
+    #config = __update_config(config, updates)  # Updates the config with cmd parameters
 
     # Finally add your class in the dictonary at the top (MODES) and add the key as mode
     MODES.get(config.get("mode"))(config).main()
