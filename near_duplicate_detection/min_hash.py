@@ -3,7 +3,6 @@ import sys
 
 sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
 
-from datasketch import MinHash
 from lib import data_handler
 
 
@@ -12,9 +11,8 @@ class Minhash:
         self.data_handler = data_handler.DataHandlerMinHash()
 
         self.__input = config.get("archive")
-        print(self.input)
         self.__database = config.get("database")
-        self.__elements = config.get("elements", 25)
+        self.__elements = config.get("elements", 1000)
         self.__offset = config.get("offset", 0)
         self.__all = config.get("all", False)
 
@@ -46,46 +44,42 @@ class Minhash:
     def database(self, __d):
         self.__database = __d
 
-    def main(self):
-        """
+    def update_hash_db(self):
+        """ This updates the hash data base with new min hash sets
 
         :return:
         """
-        jaccard_dict = dict()
         hash_db = self.data_handler.get_hash_list(self.input, self.elements)
-        i = 0
-        for offset1, hash1 in hash_db.items():
-            i += 1
-            j = 0
-            for offset2, hash2 in hash_db.items():
-                j += 1
-                if j > i:
-                    jaccard_sim = self.estimate_jaccard_sim(hash1, hash2)
-
-                    tmp_list = jaccard_dict.get(jaccard_sim, list())
-                    tmp_list.append("{}#{}".format(hash1, hash2))
-                    jaccard_dict[jaccard_sim] = tmp_list
-
-        print(jaccard_dict)
+        self.data_handler.update_database(hash_db, "min_hash")
 
         return
 
-    # TODO: Have one dedicated simhash create func and one for the estimation to measure time more accurate
-    @staticmethod
-    def estimate_jaccard_sim(minhash1, minhash2):
-        """
+    def estimate_jaccard_sim(self, data):
+        """ This estimates the jaccard similarity between all entries in a set of min hashes. The results are stored
+            in a special database.
 
         :return:
         """
-        return minhash1.jaccard(minhash2)
+        est_dict = dict()
+        i = 0
+        for offset1, hash1 in data.items():
+            i += 1
+            j = 0
+            for offset2, hash2 in data.items():
+                j += 1
+                if j > i:
+                    est_dict.update({"{}#{}".format(offset1, offset2): self.__estimate_jaccard_sim(hash1, hash2)})
+
+        return
 
     @staticmethod
-    def __estimate_jaccard_sim(body_tuple):
+    def __estimate_jaccard_sim(minhash1, minhash2):
         """
 
         :param body_tuple:
         :return:
         """
+        return minhash1.jaccard(minhash2)
 
     @staticmethod
     def __init_dataset(dataset):

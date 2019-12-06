@@ -1,9 +1,6 @@
-import re
 import os
-import json
 import subprocess
-import time
-#import pandas as pd
+
 from warcio import ArchiveIterator
 import simhash
 import re
@@ -13,10 +10,6 @@ import time
 from bs4 import BeautifulSoup
 from datasketch import MinHash
 import jsonpickle
-
-
-# import warcio
-# import argparse
 
 
 class DataHandlerException(Exception):
@@ -34,6 +27,9 @@ class DataHandlerException(Exception):
 
 
 class __DataHandler:
+    def __init__(self):
+        self.mode = None
+
     @property
     def utf_8(self):
         return ['text/html; charset=UTF-8',
@@ -44,8 +40,7 @@ class __DataHandler:
                 'text/html; Charset=utf-8;charset=UTF-8',
                 'text/html; charset=utf8']
 
-    @staticmethod
-    def update_database(new_data, mode, database=os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data", "hash_db")):  # noqa
+    def update_database(self, new_data, mode, database=os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data", "hash_db")):  # noqa
         """
 
         :param new_data:
@@ -55,16 +50,22 @@ class __DataHandler:
         try:
             with open(database, "r") as db:
                 data = json.load(db)
-
+                print(type(data))
         except Exception:
             data = dict()
 
         for offset, _hash in new_data.items():
-            old_entry = data.get(offset, dict())
-            new_hash = {"{}_hash".format(mode): jsonpickle.encode(_hash)}
-            new_entry = old_entry.update(new_hash)
+            if data.get(str(offset)):
+                entry = data.get(str(offset))
+            else:
+                entry = dict()
 
-            data.update({offset: new_entry})
+            if mode == "min_hash":
+                _hash = jsonpickle.encode(_hash.hashvalues)
+            new_hash = {"{}".format(mode): _hash}
+
+            entry.update(new_hash)
+            data.update({str(offset): entry})
 
         with open(database, "w") as db:
             json.dump(data, db)
@@ -78,7 +79,7 @@ class __DataHandler:
         hash_list = []
         hash_db = dict()
 
-        with open("/home/omnomnom/git/text_mining/examples/de_web_2019.01000.warc.gz", 'rb') as stream:
+        with open("/home/omnomnom/git/text_mining/data/archives/de_web_2019.01000.warc.gz", 'rb') as stream:
             archive_stream = ArchiveIterator(stream)
             for record in archive_stream:
                 if record.rec_type == 'response' and record.http_headers.get_header('Content-Type') in self.utf_8:
@@ -104,14 +105,13 @@ class __DataHandler:
 
                         hash_list.append(_hash)
                         hash_db.update({offset: _hash})
-                        print(hash_db)
-                        print("{} / {} hashes created".format(i, elements))
 
-                        self.update_database(hash_db, self.mode)
+                        os.system("clear")
+                        print("{} / {} {} sets created".format(i, elements, self.mode))
 
                 # TODO: Implement an offset counter
                 # Stop if max elements is reached
-                if i > elements:
+                if i >= elements:
                     archive_stream.close()
                     break
 
@@ -122,15 +122,16 @@ class __DataHandler:
 
 
 class DataHandlerSimHash(__DataHandler):
-    def __init__(self):
+    def __init__(self, shingle_size):
         super(DataHandlerSimHash, self).__init__()
         self.mode = "simhash"
+        self.shingle_size = shingle_size
 
     def get_hash_list(self, input_file, elements=1000, offset=0):
-        super().get_hash_list(input_file, elements, offset)
+        return super().get_hash_list(input_file, elements, offset)
 
     def hash(self, text):
-        shingles = (' '.join(tokens) for tokens in simhash.shingle(self.tokenize(text), 3))
+        shingles = (' '.join(tokens) for tokens in simhash.shingle(self.tokenize(text), self.shingle_size))
 
         return simhash.compute([ctypes.c_ulong(hash(shingle)).value for shingle in shingles])
 
