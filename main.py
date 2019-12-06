@@ -36,12 +36,6 @@ if __name__ == "__main__":  # This is True if main.py was called from a command 
     else:
         config = __load_conf()
 
-    # TO BE IMPLEMENTED
-    # If you add command line parameters add an entry here with "parameter_name": args.parameter_name
-    # This will then be added to the config
-    # updates = {"database": args.database}
-    # config = __update_config(config, updates)  # Updates the config with cmd parameters
-
     # This is the part where you start your script. Add a new elif clause with your mode name (choose one) and call your
     # script in the body of your clause.
     if not config.get('mode'):

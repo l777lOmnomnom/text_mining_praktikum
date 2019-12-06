@@ -6,7 +6,6 @@ import simhash
 import re
 import ctypes
 import json
-import time
 from bs4 import BeautifulSoup
 from datasketch import MinHash
 import jsonpickle
@@ -32,6 +31,10 @@ class __DataHandler:
 
     @property
     def utf_8(self):
+        """
+        This is the utf_8 encoding the DataHandler uses.
+        :return:
+        """
         return ['text/html; charset=UTF-8',
                 'text/html; charset=utf-8',
                 'text/html;charset=UTF-8',
@@ -42,8 +45,11 @@ class __DataHandler:
 
     def update_database(self, new_data, mode, database=os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data", "hash_db")):  # noqa
         """
+        This updates the hash data base with {offset: {"min_hash": {minhash, "sim_hash": simhash}}.
+        It will jsonpickle the whole entry to also be able to save custom classes (for the hashes).
 
         :param new_data:
+        :param mode:
         :param database:
         :return:
         """
@@ -70,10 +76,17 @@ class __DataHandler:
         with open(database, "w") as db:
             json.dump(data, db)
 
+        return
+
     def get_hash_list(self, input_file, elements=1000, offset=0):
         """
+        This calculates the hashes for a given archive. The parent class gives the used hash function.
 
-        :return:
+        :param input_file: the input archive
+        :param elements: the amount of elements retrieved at once
+        :param offset: the offset which determines from which starting element and amount of elements is retrieved
+
+        :return: hash data base as {offset: {"min_hash": {minhash, "sim_hash": simhash}}
         """
         i = 0
         hash_list = []
@@ -82,6 +95,7 @@ class __DataHandler:
         with open("/home/omnomnom/git/text_mining/data/archives/de_web_2019.01000.warc.gz", 'rb') as stream:
             archive_stream = ArchiveIterator(stream)
             for record in archive_stream:
+                # This is some shananigan from alex
                 if record.rec_type == 'response' and record.http_headers.get_header('Content-Type') in self.utf_8:
                     soup = BeautifulSoup(record.content_stream(), 'lxml', from_encoding='utf-8')
                     for script in soup(["script", "style"]):
@@ -99,6 +113,7 @@ class __DataHandler:
                         print('Wrong Encoding at offset ' + str(archive_stream.get_record_offset()))
                     else:
                         i += 1
+                        # The parent class should implement this hash function.
                         _hash = self.hash(text)
 
                         offset = archive_stream.get_record_offset()
@@ -118,6 +133,12 @@ class __DataHandler:
         return hash_db
 
     def hash(self, text):
+        """
+        The base class will not implement a hash function because the hash function derives from the parent class
+
+        :param text:
+        :return:
+        """
         raise ModuleNotFoundError("Dont call the base class ...")
 
 
@@ -152,9 +173,10 @@ class DataHandlerMinHash(__DataHandler):
 
     def hash(self, text):
         """
+        Creates a min-hash for a given text by updating a MinHash with every word contained in the text.
 
-        :param text:
-        :return:
+        :param text: the string which should be hashed
+        :return: MinHash()
         """
         m = None
         for words in text.split("\n"):
@@ -165,6 +187,7 @@ class DataHandlerMinHash(__DataHandler):
 
         return m
 
+    # OUTDATES
     @staticmethod
     def __read_source(input_file, elements, offset=0):
         """
@@ -223,6 +246,7 @@ class DataHandlerMinHash(__DataHandler):
 
         return return_dict, is_finished_flag
 
+    # OUTDATES
     # Somehow there is a problem with pathfinding here
     @staticmethod
     def __extract_archive(input_file, output_file="/tmp/output.source"):
