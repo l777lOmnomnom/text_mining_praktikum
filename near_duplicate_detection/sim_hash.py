@@ -76,7 +76,7 @@ class Simhash:
 
     def update_hash_db(self):
         hash_db = self.data_handler.get_hash_list(self.input, self.elements)
-        self.data_handler.update_database(hash_db, "sim_hash")
+        self.data_handler.update_hash_db(hash_db)
 
     def main(self):
         start_time = time.time()

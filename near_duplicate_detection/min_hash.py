@@ -50,16 +50,18 @@ class Minhash:
         :return:
         """
         hash_db = self.data_handler.get_hash_list(self.input, self.elements)
-        self.data_handler.update_database(hash_db, "min_hash")
+        self.data_handler.update_hash_db(hash_db)
 
         return
 
-    def estimate_jaccard_sim(self, data):
+    def estimate_jaccard_sim(self):
         """ This estimates the jaccard similarity between all entries in a set of min hashes. The results are stored
             in a special database.
 
         :return:
         """
+        import json
+        data = self.data_handler.get_hash_db()
         est_dict = dict()
         i = 0
         for offset1, hash1 in data.items():
@@ -68,9 +70,14 @@ class Minhash:
             for offset2, hash2 in data.items():
                 j += 1
                 if j > i:
-                    est_dict.update({"{}#{}".format(offset1, offset2): self.__estimate_jaccard_sim(hash1, hash2)})
+                    estimated_jaccard_sim = self.__estimate_jaccard_sim(hash1.get("minhash"), hash2.get("minhash"))
+                    est_dict.update({"{}#{}".format(offset1, offset2): estimated_jaccard_sim})
+                    if estimated_jaccard_sim > 0.9:
+                        print("{}#{}".format(offset1, offset2))
 
-        return
+        with open("tmp", "w") as file:
+            json.dump(est_dict, file)
+        return est_dict
 
     @staticmethod
     def __estimate_jaccard_sim(minhash1, minhash2):

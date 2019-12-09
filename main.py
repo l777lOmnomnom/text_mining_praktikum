@@ -1,13 +1,18 @@
 import os
+import sys
 import json
 import argparse
 
 from near_duplicate_detection import min_hash, sim_hash
 
 FILE = os.path.dirname(os.path.abspath(__file__))  # Points to this folder (/home/something/something/text_mining/)
+MODES = {""}
+
+def __show_menu():
+    pass
 
 
-def __load_conf(config=os.path.join(FILE, "conf/example.conf")):
+def __load_conf(_config=os.path.join(FILE, "conf/example.conf")):
     """ This is the first function to be called. It will load all config entries from the config file.
     You can specify a config by calling this script with -c /path/to/conf.file
     All values loaded from the config are stored in a dictionary and are handed to the class you specified in MODES
@@ -15,13 +20,19 @@ def __load_conf(config=os.path.join(FILE, "conf/example.conf")):
     :param config: The path to the config file
     :return:
     """
+    if _config == os.path.join(FILE, "conf/example.conf"):
+        print("Loading the default config from: {}".format(os.path.join(FILE, "conf/example.conf")))
+    else:
+        print("Loading config from: {}".format(_config))
+
     try:
-        with open(config, "r") as conf:
+        with open(_config, "r") as conf:
             conf_dict = json.load(conf)
     except IOError as err:
         print("Failed to load config: {}".format(err))
+        sys.exit(1)
     else:
-        print("Successfuly loaded config from: {}".format(config))
+        print("Successfuly loaded config from!".format(_config))
         return conf_dict
 
 
@@ -36,6 +47,8 @@ if __name__ == "__main__":  # This is True if main.py was called from a command 
     else:
         config = __load_conf()
 
+    #if not config.get("execution_order"):
+
     # This is the part where you start your script. Add a new elif clause with your mode name (choose one) and call your
     # script in the body of your clause.
     if not config.get('mode'):
@@ -45,8 +58,11 @@ if __name__ == "__main__":  # This is True if main.py was called from a command 
         # This will update the hash database with new entries for minhash and simhash
         # Attention: this will always calculate the hashes for all source data and then update the database
         # TODO: Only calculate the hashes of entries not aready collected
+        min_h = min_hash.Minhash(config)
         sim_hash.Simhash(config).update_hash_db()
-        min_hash.Minhash(config).update_hash_db()
+        min_h.update_hash_db()
+        min_h.estimate_jaccard_sim()
+        jac_dict = min_h.estimate_jaccard_sim()
 
     elif config.get("mode") == "update_min_hash_jaccard_matrix":
         pass

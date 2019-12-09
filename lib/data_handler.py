@@ -43,7 +43,25 @@ class __DataHandler:
                 'text/html; Charset=utf-8;charset=UTF-8',
                 'text/html; charset=utf8']
 
-    def update_database(self, new_data, mode, database=os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data", "hash_db")):  # noqa
+    def get_hash_db(self, database=os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data", "hash_db")):
+        """
+
+        :param database:
+        :return:
+        """
+        with open(database, "r") as db:
+            data = json.load(db)
+
+        return_data = dict()
+
+        for offset, hashes in data.items():
+            return_data.update({offset: {"simhash": hashes.get("simhash"),
+                                         "minhash": jsonpickle.decode(hashes.get("minhash"))}})
+            print(return_data.get(offset).get("minhash"))
+
+        return return_data
+
+    def update_hash_db(self, new_data, database=os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data", "hash_db")):  # noqa
         """
         This updates the hash data base with {offset: {"min_hash": {minhash, "sim_hash": simhash}}.
         It will jsonpickle the whole entry to also be able to save custom classes (for the hashes).
@@ -66,9 +84,9 @@ class __DataHandler:
             else:
                 entry = dict()
 
-            if mode == "min_hash":
-                _hash = jsonpickle.encode(_hash.hashvalues)
-            new_hash = {"{}".format(mode): _hash}
+            if self.mode == "minhash":
+                _hash = jsonpickle.encode(_hash)
+            new_hash = {"{}".format(self.mode): _hash}
 
             entry.update(new_hash)
             data.update({str(offset): entry})
@@ -187,6 +205,13 @@ class DataHandlerMinHash(__DataHandler):
 
         return m
 
+    def create_jaccard_distance_matrix(self, jaccard_distance_dict):
+        """
+
+        :param jaccard_distance_dict:
+        :return:
+        """
+        pass
     # OUTDATES
     @staticmethod
     def __read_source(input_file, elements, offset=0):
