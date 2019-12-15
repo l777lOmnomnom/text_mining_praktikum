@@ -1,22 +1,14 @@
-import re
 import os
-import json
 import subprocess
-import time
-#import pandas as pd
+
 from warcio import ArchiveIterator
 import simhash
 import re
 import ctypes
 import json
-import time
 from bs4 import BeautifulSoup
 from datasketch import MinHash
 import jsonpickle
-
-
-# import warcio
-# import argparse
 
 
 class DataHandlerException(Exception):
@@ -34,8 +26,15 @@ class DataHandlerException(Exception):
 
 
 class __DataHandler:
+    def __init__(self):
+        self.mode = None
+
     @property
     def utf_8(self):
+        """
+        This is the utf_8 encoding the DataHandler uses.
+        :return:
+        """
         return ['text/html; charset=UTF-8',
                 'text/html; charset=utf-8',
                 'text/html;charset=UTF-8',
@@ -44,43 +43,77 @@ class __DataHandler:
                 'text/html; Charset=utf-8;charset=UTF-8',
                 'text/html; charset=utf8']
 
-    @staticmethod
-    def update_database(new_data, mode, database=os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data", "hash_db")):  # noqa
+    def get_hash_db(self, database=os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data", "hash_db")):
         """
 
+        :param database:
+        :return:
+        """
+        with open(database, "r") as db:
+            data = json.load(db)
+
+        return_data = dict()
+
+        for offset, hashes in data.items():
+            return_data.update({offset: {"simhash": hashes.get("simhash"),
+                                         "minhash": jsonpickle.decode(hashes.get("minhash"))}})
+            print(return_data.get(offset).get("minhash"))
+
+        return return_data
+
+    def update_hash_db(self, new_data, database=os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data", "hash_db")):  # noqa
+        """
+        This updates the hash data base with {offset: {"min_hash": {minhash, "sim_hash": simhash}}.
+        It will jsonpickle the whole entry to also be able to save custom classes (for the hashes).
+
         :param new_data:
+        :param mode:
         :param database:
         :return:
         """
         try:
             with open(database, "r") as db:
                 data = json.load(db)
-
+                print(type(data))
         except Exception:
             data = dict()
 
         for offset, _hash in new_data.items():
-            old_entry = data.get(offset, dict())
-            new_hash = {"{}_hash".format(mode): jsonpickle.encode(_hash)}
-            new_entry = old_entry.update(new_hash)
+            if data.get(str(offset)):
+                entry = data.get(str(offset))
+            else:
+                entry = dict()
 
-            data.update({offset: new_entry})
+            if self.mode == "minhash":
+                _hash = jsonpickle.encode(_hash)
+            new_hash = {"{}".format(self.mode): _hash}
+
+            entry.update(new_hash)
+            data.update({str(offset): entry})
 
         with open(database, "w") as db:
             json.dump(data, db)
 
+        return
+
     def get_hash_list(self, input_file, elements=1000, offset=0):
         """
+        This calculates the hashes for a given archive. The parent class gives the used hash function.
 
-        :return:
+        :param input_file: the input archive
+        :param elements: the amount of elements retrieved at once
+        :param offset: the offset which determines from which starting element and amount of elements is retrieved
+
+        :return: hash data base as {offset: {"min_hash": {minhash, "sim_hash": simhash}}
         """
         i = 0
         hash_list = []
         hash_db = dict()
 
-        with open("/home/omnomnom/git/text_mining/examples/de_web_2019.01000.warc.gz", 'rb') as stream:
+        with open("/home/omnomnom/git/text_mining/data/archives/de_web_2019.01000.warc.gz", 'rb') as stream:
             archive_stream = ArchiveIterator(stream)
             for record in archive_stream:
+                # This is some shananigan from alex
                 if record.rec_type == 'response' and record.http_headers.get_header('Content-Type') in self.utf_8:
                     soup = BeautifulSoup(record.content_stream(), 'lxml', from_encoding='utf-8')
                     for script in soup(["script", "style"]):
@@ -98,39 +131,46 @@ class __DataHandler:
                         print('Wrong Encoding at offset ' + str(archive_stream.get_record_offset()))
                     else:
                         i += 1
+                        # The parent class should implement this hash function.
                         _hash = self.hash(text)
 
                         offset = archive_stream.get_record_offset()
 
                         hash_list.append(_hash)
                         hash_db.update({offset: _hash})
-                        print(hash_db)
-                        print("{} / {} hashes created".format(i, elements))
 
-                        self.update_database(hash_db, self.mode)
+                        os.system("clear")
+                        print("{} / {} {} sets created".format(i, elements, self.mode))
 
                 # TODO: Implement an offset counter
                 # Stop if max elements is reached
-                if i > elements:
+                if i >= elements:
                     archive_stream.close()
                     break
 
         return hash_db
 
     def hash(self, text):
+        """
+        The base class will not implement a hash function because the hash function derives from the parent class
+
+        :param text:
+        :return:
+        """
         raise ModuleNotFoundError("Dont call the base class ...")
 
 
 class DataHandlerSimHash(__DataHandler):
-    def __init__(self):
+    def __init__(self, shingle_size):
         super(DataHandlerSimHash, self).__init__()
         self.mode = "simhash"
+        self.shingle_size = shingle_size
 
     def get_hash_list(self, input_file, elements=1000, offset=0):
-        super().get_hash_list(input_file, elements, offset)
+        return super().get_hash_list(input_file, elements, offset)
 
     def hash(self, text):
-        shingles = (' '.join(tokens) for tokens in simhash.shingle(self.tokenize(text), 3))
+        shingles = (' '.join(tokens) for tokens in simhash.shingle(self.tokenize(text), self.shingle_size))
 
         return simhash.compute([ctypes.c_ulong(hash(shingle)).value for shingle in shingles])
 
@@ -151,9 +191,10 @@ class DataHandlerMinHash(__DataHandler):
 
     def hash(self, text):
         """
+        Creates a min-hash for a given text by updating a MinHash with every word contained in the text.
 
-        :param text:
-        :return:
+        :param text: the string which should be hashed
+        :return: MinHash()
         """
         m = None
         for words in text.split("\n"):
@@ -164,6 +205,14 @@ class DataHandlerMinHash(__DataHandler):
 
         return m
 
+    def create_jaccard_distance_matrix(self, jaccard_distance_dict):
+        """
+
+        :param jaccard_distance_dict:
+        :return:
+        """
+        pass
+    # OUTDATES
     @staticmethod
     def __read_source(input_file, elements, offset=0):
         """
@@ -222,6 +271,7 @@ class DataHandlerMinHash(__DataHandler):
 
         return return_dict, is_finished_flag
 
+    # OUTDATES
     # Somehow there is a problem with pathfinding here
     @staticmethod
     def __extract_archive(input_file, output_file="/tmp/output.source"):

@@ -18,8 +18,9 @@ class Simhash:
         self.__input = config.get("input")
         self.__output = config.get("output")
         self.__database = config.get("database")
+        self.__shingle_size = config.get("shingle_size", 3)
 
-        self.data_handler = data_handler.DataHandlerSimHash()
+        self.data_handler = data_handler.DataHandlerSimHash(self.__shingle_size)
 
         # Currently limited of a small subset of data
         self.__data = dict()
@@ -72,6 +73,10 @@ class Simhash:
     @database.setter
     def database(self, __d):
         self.__database = __d
+
+    def update_hash_db(self):
+        hash_db = self.data_handler.get_hash_list(self.input, self.elements)
+        self.data_handler.update_hash_db(hash_db)
 
     def main(self):
         start_time = time.time()
