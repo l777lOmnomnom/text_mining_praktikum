@@ -25,12 +25,13 @@ def __load_conf(_config=os.path.join(FILE, "conf/example.conf")):
         print("Failed to load config: {}".format(err))
         sys.exit(1)
     else:
-        print("Successfuly loaded config from {}!".format(_config))
-
         # This makes sure that values that are 'True' in the config are also set to True in the code
         for key, value in conf_dict.items():
+            print("Loaded config entry {} with value {}".format(key, value))
             if BOOL_DICT.get(value):
                 conf_dict[key] = BOOL_DICT[value]
+
+        print("Successfully loaded config from {}!\n ________________________________________\n".format(_config))
 
         return conf_dict
 
@@ -54,24 +55,24 @@ if __name__ == "__main__":  # This is True if main.py was called from a command 
                                         config.get("minhash"),
                                         config.get("elements"))
 
-    time = hasher.Minhash().estimate_jaccard_sim(hash_db)
+    time = hasher.Minhash().estimate_jaccard_sim(hash_db, config.get("minhash_distance"))
 
-    print("Estimating Jaccard Similarieties using Minhash took an additional {} seconds".format(time))
+    print("Estimating Jaccard Similarieties using Minhash took an additional {} seconds\n".format(time))
 
     hash_db = DataHandler().get_hash_db(config.get("source"),
                                         config.get("simhash"),
                                         config.get("minhash"),
                                         100)
 
-    time = hasher.Minhash().estimate_jaccard_sim(hash_db)
+    time = hasher.Minhash().estimate_jaccard_sim(hash_db, config.get("minhash_distance"))
 
-    print("Estimating Jaccard Similarieties using Minhash took an additional {} seconds".format(time))
+    print("Estimating Jaccard Similarieties using Minhash took an additional {} seconds\n".format(time))
 
     hash_db = DataHandler().get_hash_db(config.get("source"),
                                         config.get("simhash"),
                                         config.get("minhash"),
                                         1000)
 
-    print("Estimating Jaccard Similarieties using Minhash took an additional {} seconds".format(time))
+    print("Estimating Jaccard Similarieties using Minhash took an additional {} seconds\n".format(time))
 
-    time = hasher.Minhash().estimate_jaccard_sim(hash_db)
+    time = hasher.Minhash().estimate_jaccard_sim(hash_db, config.get("minhash_distance"))
