@@ -33,8 +33,8 @@ def __load_conf(_config=os.path.join(FILE, "conf/example.conf")):
             if BOOL_DICT.get(value):
                 conf_dict[key] = BOOL_DICT[value]
 
-        print("Successfully loaded config from /home/robby/git/text_mining/conf/example.conf!\n ________________________________________\n".format(_config))
-
+        print("Successfully loaded config from /home/robby/git/text_mining/conf/example.conf!".format(_config))
+        print("\n ________________________________________\n")
         return conf_dict
 
 
@@ -62,6 +62,8 @@ if __name__ == "__main__":  # This is True if main.py was called from a command 
     print("Calculating similarieties using Simhash took an additional {} seconds".format(
         hasher.Simhash().main(hash_db)))
 
+    print("\n ________________________________________\n")
+
     hash_db = DataHandler().get_hash_db(config.get("source"),
                                         config.get("simhash"),
                                         config.get("minhash"),
@@ -71,6 +73,8 @@ if __name__ == "__main__":  # This is True if main.py was called from a command 
         hasher.Minhash().main(hash_db)))
     print("Calculating similarieties using Simhash took an additional {} seconds".format(
         hasher.Simhash().main(hash_db)))
+
+    print("\n ________________________________________\n")
 
     hash_db = DataHandler().get_hash_db(config.get("source"),
                                         config.get("simhash"),
