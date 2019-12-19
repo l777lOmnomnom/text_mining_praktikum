@@ -1,36 +1,28 @@
-#import pandas as pd
-from warcio import ArchiveIterator
 import simhash
-import re
-import ctypes
-import json
 import time
-from bs4 import BeautifulSoup
-from lib import data_handler
-import os
-import time
-import sys
 
 
 class Simhash:
 
-    def main(self):
+    def main(self, hash_db, blocks=8, distance=6):
+
+        hashes = list()
+        for _hash in hash_db.values():
+            hashes.append(_hash.get("simhash"))
+
         start_time = time.time()
+        matches = simhash.find_all(hashes, blocks, distance)
 
-        #print("Calculating the Simhash for {} elements took {} seconds".format(len(data), self.data_handler.time))
+        if len(matches) == 0:
+            print("There were no documents with a bit difference under {} found with simhash!".format(distance))
+        else:
+            print("Found {} document with a bit difference under {}".format(len(matches), distance))
 
-        #matches = simhash.find_all(hashes, 8, 6)
-
-        #print("--- %s seconds --- End of finding similar hashes" % (time.time() - start_time))
-
-        #with open('/tmp/similiar_data.txt', 'w') as file:
-        #        file.write('\n'.join('%s %s' % x for x in matches))
-
-        #print("--- %s seconds ---" % (time.time() - start_time))
+        return time.time() - start_time
 
 
 class Minhash:
-    def estimate_jaccard_sim(self, hash_db, minhash_distance=0.9):
+    def main(self, hash_db, minhash_distance=0.9):
         """ This estimates the jaccard similarity between all entries in a set of min hashes. The results are stored
             in a special database.
 

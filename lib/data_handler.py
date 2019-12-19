@@ -22,8 +22,6 @@ class DataHandlerException(Exception):
 
 
 class DataHandler:
-    def __init__(self):
-        self.mode = None
 
     @property
     def utf_8(self):
