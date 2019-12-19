@@ -104,8 +104,9 @@ class DataHandler:
 
         if _simhash:
             print("Simhashing {} elements took {} seconds".format(elements, simhash_time))
+
         if _minhash:
-            print("Minhashing {} elements took {} seconds".format(elements, minhash_time))
+            print("Minhashing {} elements took {} seconds\n".format(elements, minhash_time))
 
         return hash_db
 
@@ -127,7 +128,7 @@ class DataHandler:
         return m
 
     def simhash(self, text):
-        shingles = (' '.join(tokens) for tokens in simhash.shingle(self.tokenize(text), 6))
+        shingles = (' '.join(tokens) for tokens in simhash.shingle(self.tokenize(text), 3))
         s = simhash.compute([ctypes.c_ulong(hash(shingle)).value for shingle in shingles])
         return s
 

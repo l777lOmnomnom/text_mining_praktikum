@@ -12,7 +12,7 @@ class Simhash:
 
         start_time = time.time()
         matches = simhash.find_all(hashes, blocks, distance)
-        print(matches)
+
         if len(matches) == 0:
             print("\nThere were no documents with a bit difference under {} found with simhash!".format(distance))
         else:
@@ -41,11 +41,11 @@ class Minhash:
                     start = time.time()
                     estimated_jaccard_sim = self.__estimate_jaccard_sim(hash1.get("minhash"), hash2.get("minhash"))
                     _time = float(_time) + time.time() - start
-                    if float(estimated_jaccard_sim) > float(minhash_distance):
+                    if float(estimated_jaccard_sim) >= float(minhash_distance):
                         matches += 1
 
         if matches == 0:
-            print("\nThere were no documents with a similarity over {} found with minhash!".format(minhash_distance))
+            print("There were no documents with a similarity over {} found with minhash!".format(minhash_distance))
         else:
             print("Found {} document with a jaccard similarity of {} or higher\n".format(matches, minhash_distance))
 

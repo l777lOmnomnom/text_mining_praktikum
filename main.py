@@ -30,11 +30,11 @@ def __load_conf(_config=os.path.join(FILE, "conf/example.conf")):
             if key == "source":
                 value = "/home/robby/git/text_mining/data/archives/de_web_2019.01000.warc.gz"
             print("Loaded config entry {} with value {}".format(key, value))
-            if BOOL_DICT.get(value):
+            if value == "true" or value =="False":
                 conf_dict[key] = BOOL_DICT[value]
 
-        print("Successfully loaded config from /home/robby/git/text_mining/conf/example.conf!".format(_config))
-        print("\n ________________________________________\n")
+        print("\nSuccessfully loaded config from /home/robby/git/text_mining/conf/example.conf!".format(_config))
+        print("________________________________________\n")
         return conf_dict
 
 
@@ -62,7 +62,7 @@ if __name__ == "__main__":  # This is True if main.py was called from a command 
     print("Calculating similarieties using Simhash took an additional {} seconds".format(
         hasher.Simhash().main(hash_db)))
 
-    print("\n ________________________________________\n")
+    print("________________________________________\n")
 
     hash_db = DataHandler().get_hash_db(config.get("source"),
                                         config.get("simhash"),
@@ -74,12 +74,24 @@ if __name__ == "__main__":  # This is True if main.py was called from a command 
     print("Calculating similarieties using Simhash took an additional {} seconds".format(
         hasher.Simhash().main(hash_db)))
 
-    print("\n ________________________________________\n")
+    print("________________________________________\n")
 
     hash_db = DataHandler().get_hash_db(config.get("source"),
                                         config.get("simhash"),
                                         config.get("minhash"),
                                         1000)
+
+    print("Calculating similarieties using Minhash took an additional {} seconds".format(
+        hasher.Minhash().main(hash_db)))
+    print("Calculating similarieties using Simhash took an additional {} seconds".format(
+        hasher.Simhash().main(hash_db)))
+
+    print("________________________________________\n")
+
+    hash_db = DataHandler().get_hash_db(config.get("source"),
+                                        config.get("simhash"),
+                                        config.get("minhash"),
+                                        5000)
 
     print("Calculating similarieties using Minhash took an additional {} seconds".format(
         hasher.Minhash().main(hash_db)))
