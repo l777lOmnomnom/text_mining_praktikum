@@ -16,7 +16,7 @@ class Simhash:
         if len(matches) == 0:
             print("\nThere were no documents with a bit difference under {} found with simhash!".format(distance))
         else:
-            print("Found {} document with a bit difference under {}\n".format(len(matches), distance))
+            print("\nFound {} document with a bit difference under {}".format(len(matches), distance))
 
         return time.time() - start_time
 
@@ -47,7 +47,7 @@ class Minhash:
         if matches == 0:
             print("There were no documents with a similarity over {} found with minhash!".format(minhash_distance))
         else:
-            print("Found {} document with a jaccard similarity of {} or higher\n".format(matches, minhash_distance))
+            print("Found {} document with a jaccard similarity of {} or higher".format(matches, minhash_distance))
 
         return _time
 
