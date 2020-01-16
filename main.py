@@ -59,12 +59,10 @@ if __name__ == "__main__":  # This is True if main.py was called from a command 
     source = config.pop("source")
 
     # Init the DataHandler
-    print("Reading in the data source ...")
+    #print("Reading in the data source ...")
     #data = DataHandler(source)
     #offset_text_dict = data.text_dict
-    with open("data/text_entries", "r") as file:
-        offset_text_dict = json.load(file)
-    print("Finished reading {} records!\n".format(len(offset_text_dict)))
+    #print("Finished reading {} records!\n".format(len(offset_text_dict)))
 
     for run, values in config.items():
         hash_list = list()
@@ -79,8 +77,11 @@ if __name__ == "__main__":  # This is True if main.py was called from a command 
 
         print("Calculating hashes ...")
 
+        #Create new and take your time
         #for offset, text in offset_text_dict.items():
         #    hash_offset_dict.update({hasher.hash(text): offset})
+
+        # Fastpath load from existing run
         with open("data/simhash_hashes.json", "r") as file:
             offset_hash_dict = json.load(file)
             for key, value in offset_hash_dict.items():
@@ -91,6 +92,7 @@ if __name__ == "__main__":  # This is True if main.py was called from a command 
         matches = hasher.evaluate(hash_offset_dict.keys())
         print("Found {} matches!\n\n".format(len(matches)))
 
+        #Store results
         #i = 0
         #for match in matches:
         #    i += 1

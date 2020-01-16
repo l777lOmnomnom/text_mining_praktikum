@@ -1,0 +1,505 @@
+Browserdoktor
+Erste Hilfe bei Problemen mit dem Browser
+Browser-Hijacker
+Browser Einstellungen
+Mozilla Firefox
+Google Chrome
+Internet Explorer
+Sicherheit
+Wiki
+Rogueware
+Home   Sicherheit
+AdwCleaner (Adware Cleaner)
+AdwCleaner
+Kostenfreies Programm zum Aufspüren und Entfernen von Browser-Viren
+Die Anti-Adware-Software AdwCleaner sucht, findet und entfernt Adware, Spyware, Browser-Toolbars sowie Browser-Hijacker und andere unerwünschte Programme (PUP), sogenannte  Malware , vom Computer und aus den Browsern. Da AdwCleaner keine Installation auf dem zu untersuchenden Rechner voraussetzt, lässt sich die Anwendung auch von einem USB-Stick oder von einer Live-CD aus starten und auf diesem Weg eine Überprüfung durchführen.
+Die Software wird von  Xplode  entwickelt und ist kostenfrei. Die Freeware ist mehrsprachig, unter anderem auch auf deutsch. Sie läuft unter Windows XP, Vista, 7 und 8 und ist gerade mal gut ein Megabyte groß. Die üblichen Download-Seiten bieten den AdwCleaner zum Herunterladen an. Eine einfache Suche bei Google liefert unter anderem die folgenden vertrauensvollen Software-Quellen:
+Sichere Download-Quellen für AdwCleaner von Xplode
+Dirketlink zum Download der Anwendung  auf toolslib.net
+im Software-Verzeichnis bei  Heise Online
+auf den Download-Seiten bei  Filepony
+im Download-Bereich von  Bleeping Computer
+Empfohlener AdwCleaner Download bei Toolslib.net
+Vorsicht vor Trittbrettfahrern
+Nicht jede Webseite für einen Download von Adw Cleaner ( siehe Infos zum Thema ), die bei Google ganz oben steht, enthält zu 100% die erwartete Software. Der Download bei  Fileparade  brachte unter anderem die  Conduit-Toolbar  mit, sodass unbedingt darauf geachtet werden muss, von wo die Anti-Adware Software herunter geladen wird!
+Vorsicht! Bei unseriösen Download-Quellen wartet bereits die nächste Malware
+AdwCleaner Anleitung – Kostenlos und sicher Schadsoftware entfernen
+Nach dem Download alle offenen Anwendungen auf dem System schließen (Browser, E-Mail-Programm und so weiter), in das Download-Verzeichnis wechseln und das Programm  adwcleaner.exe  als Administrator ausführen. Im Fenster mit der Windows-Benutzerkontensteuerung die Frage „Möchten sie zulassen, dass durch das folgende Programm Änderungen an diesem Computer vorgenommen werden?“ mit „Ja“ bestätigen.
+Rechtsklick mit der Maus und Adw Cleaner als Administrator ausführen
+Die Oberfläche des Tools ist überschaubar und selbsterklärend. Ein Klick auf den Butten „Suchen“ startet den Suchlauf nach Ad- und Spyware auf dem Rechner. Ein Fortschrittsbalken zeigt dabei fortlaufend die Entwicklung. Je nach Größe der Festplatten und der Anzahl der darauf befindlichen Installationen, kann diese Untersuchung des Computers mehrere Minuten beanspruchen.
+Nach dem Scan zeigt das Tool die Fundstellen bei den Diensten, innerhalb von Ordnern, bei Dateien und Verknüpfungen, in der Registrierungsdatenbank (Registry) sowie in den Browsern. In meisten Fällen dürfte es eine gute Idee sein, alle Funde ausgewählt und somit für das Entfernen markiert zu lassen und schließlich zu löschen.
+Adw Cleaner Adware und Spyware in der Registry gefunden
+Nach einem Neustart des Rechners zeigt das Programm das Protokoll dieser Aktion und bezüglich Adware sollte der Computer jetzt einen sauberen Zustand versetzt wurden sein. Die von der Software entfernten Daten sind übrigens nicht wirklich eliminiert, sondern liegen in einem Quarantäne-Verzeichnis und ließen sich über  Tools  >  Quarantänemanager  innerhalb von AdwCleaner wieder herstellen.
+AdwCleaner – Windows Neustart
+Oft gestellte Fragen zu AdwCleaner
+Eine Zusammenfassung  häufig gestellter Fragen zum AdwCleaner  finden Sie ebenfalls hier auf Browserdoktor. Sollte Ihr Anliegen noch nicht im FAQ-Bereich behandelt wurden sein, dann können Sie gern die Kommentarfunktion nutzen, um Ihre Fragen  bzw.  Hinweise dazu mir mitzuteilen.
+Ist der Computer nun wieder sicher?
+Diese Frage lässt sich nicht ohne weiteres mit „Ja“ beantworten! Nach Problemen mit irgendeiner Adware, einem Browser-Hijacker oder einer ungewollt installierten Toolbar, würde ich auf jeden Fall eine zusätzliche Überprüfung des Rechners auf eventuell verborgene Malware (Viren und Trojaner) empfehlen.
+Ein ebenfalls in einer kostenfreien Version erhältliches Programm namens  Malwarebytes  leistet hierbei sehr gute Dienste und spürt oftmals weitere, bislang unentdeckte Schadsoftware auf dem Computer auf.
+Hinweis Sollten Sie zu diesem Artikel über eine der Anleitungen zum Entfernen von Schadsoftware hier auf Browserdoktor gelangt sein, dann nicht vergessen zu dieser zurückzukehren und die weiteren, dort beschriebenen Punkte zu beachten.
+Wer neben einem existierenden Antiviren-Programm, das im Hintergrund den PC überwacht  bzw.  vor Gefahren beim Surfen im Internet warnt, regelmäßig eine Überprüfung auf „eingefangene“ Adware und Spyware vornimmt, ist auf einer recht sicheren Seite mit seinem PC. Auf der linken Seite finden Sie Empfehlungen für professionelle Sicherheitssoftware, die ich selbst im Einsatz habe und für unverzichtbar halte. Nutzen Sie die kostenfreien Testzeiträume, um sich einen Eindruck von  ESET Smart Security  oder  Avira Internet Security  zu verschaffen.
+Hat der Adware Cleaner geholfen? Welche Probleme mit Malware gab / gibt es bei Ihnen?
+Bitte hinterlassen Sie einen Kommentar. Verbreiten Sie diesen Artikel in den sozialen Netzen, verweisen von Ihrer Webseite oder in einem Foren-Beitrag auf die hier veröffentlichten Informationen. Somit kann auch anderen Nutzern mit ähnlichen Problemen geholfen werden.
+Hat Ihnen diese Anleitung zu  AdwCleaner (Adware Cleaner)  geholfen?
+Bewertung für  AdwCleaner (Adware Cleaner) :
+4,62  von
+5
+1  bei bislang
+472  abgegebenen Stimmen.
+Über den Autor
+Daniel
+Mit bürgerlichem Namen Daniel Weihmann und wohnhaft in Köthen. Fachinformatiker für Systemintegration. Von 2004 - 2014 angestellt als Systemadministrator und seit 2014 selbstständig im Online-Marketing. Außerdem Mensch hinter dem Browserdoktor-Webprojekt.
+Ähnliche Artikel
+Browser-Hijacker
+Yessearches entfernen
+Browser-Hijacker
+Surf Canyon entfernen
+Browser-Hijacker
+Browser-Hijacker auf dem Mac entfernen
+Browser-Hijacker
+AdwCleaner 4.0 von Xplode veröffentlicht
+34 Kommentare   zu "AdwCleaner (Adware Cleaner)"
+Jürgen Schnoor  |
+17. Dezember 2013 um 17:52  |
+Antworten
+Das erste Programm das ohne viel „hier und da noch machen“ erfolgreich war.
+Christine Todter  |
+11. Juni 2014 um 20:14  |
+Antworten
+Vielen Dank! Ich bin Ihrer Anleitung Schritt für Schritt gefolgt (nachdem ich vorher schon alles Überflüssige deinstalliert und Diverses andere versucht hatte) und: Tataa!!!!!
+Mein Computer funktioniert wieder, ohne dass sich bei jedem Click idiotische Fenster öffnen oder meine Oberfläche ganz anders ausschaut!
+Michal  |
+18. Dezember 2013 um 15:47  |
+Antworten
+Einfach nur TOP !!!
+Michael G.  |
+19. Dezember 2013 um 23:00  |
+Antworten
+DANKE! DANKE! DANKE!
+Nation Zoom erfolgreich mit dem adwcleaner entfernt! Mit Malwarebytes noch 33 schädliche Objekte entdeckt und gelöscht.
+Ich dachte immer mir passiert so was nicht, da ich eigentlich softwaremäßig immer auf dem neuesten Stand bin was Updates und Virenprogramm angeht.
+Also wirklich Hut ab! Klasse wie die Vorgehensweise beschrieben wurde und wie mit relativ wenig Aufwand die Probleme gelöst.werden konnten.
+Daniel F.  |
+23. Dezember 2013 um 0:11  |
+Antworten
+Du bist Spitze,
+seit zwei Tagen bzw. halbe Nächte google ich wegen diesem Nation Zoom – alles Blödsinn was ich zu lesen und probieren bekam. Dann kam ich auf diesen Artikel. Lud mir AdwCleaner, kurzer Systemcheck und schon ist das Problem behoben.
+Ein voller Erfolg
+Vielen Dank und schöne Weihnachten
+Silke  |
+23. Dezember 2013 um 9:51  |
+Antworten
+alles mögliche versucht um Nation zoom weg zu bekommen, nur adw-cleaner hat geholfen. Prima und danke!
+Stefan  |
+24. Dezember 2013 um 11:30  |
+Antworten
+Schnell und unkomliziert. So muss ein Hilfsprogramm laufen. Danke
+Ellen  |
+27. Dezember 2013 um 13:26  |
+Antworten
+Einfach Klasse – hat wunderbar funktioniert. Verständlich geschrieben, auch für einen Laien. DANKE!
+Gernot Thölke  |
+28. Dezember 2013 um 20:00  |
+Antworten
+Vielen Dank!
+Habe lange versucht, selbst damit klar zu kommen. Nichts hat geholfen bis ich Ihre Seite gefunden habe. Ihre Beschreibung war sehr gut verständlich. Alle installierten Browser sind wieder frei von Nation zoom. Hat prima und schnell geklappt.
+Vielen Dank für ihre Hilfe!
+rudolf siebelt  |
+30. Dezember 2013 um 9:35  |
+Antworten
+unter  anleitung nation zoom entfernt . danke.
+eingefangen bei einem fake download von java 7.21 in spanien
+hatte hinterher erst gesehn dass ich ja bereits java 7.25 am rechner habe
+Matthias  |
+2. Januar 2014 um 22:29  |
+Antworten
+Diesen Dreck Nationzoom damit erfolgreich bekämpft. Vielen Dank für dieses ausgezeichnete Tool. Kommt gleich auf meine Standardtoolliste.
+Daniel Weihmann  |
+2. Januar 2014 um 22:37  |
+Antworten
+Ja, AdwCleaner kann man ruhig immer mal starten … dauert ja nicht lange.
+Christoph  |
+4. Januar 2014 um 15:49  |
+Antworten
+sauber! schnell und einfach sowie zuverlässig! kurz und bündig die Beschreibung, so wünscht man sich professionelle Hilfe.
+Danke!
+Maren  |
+5. Januar 2014 um 10:14  |
+Antworten
+Vielen, vielen Dank. Mir ging es genauso wie R. Siebelt. Habe bei Ebay ständig die Java Aktualisierungsaufforderung gesehen. Konnte gar keine Produkte mehr ansehen. Irgendwann war ich genervt und habe das JaVa Update versucht zu deinstallieren. Es kann nur diese Software gewesen sein, weil ich keine andere installiert hatte.
+Der AdwCleaner ist super. Sehr schnell und keine Installation von neuer Software auf dem PC. Danke!!!
+Anna  |
+6. Januar 2014 um 16:40  |
+Antworten
+Wow, hab’s grad ausprobiert und nationzoom und andere sachen, die ich erst bei google suchen musste um herauszufinden, dass sie schädlich sind, sind endlich weg!
+hat mir sehr weiter geholfen.
+Und ging sehr schnell!
+Danke sehr!
+Daniel Weihmann  |
+6. Januar 2014 um 18:30  |
+Antworten
+Unbedingt einen aktiven Schutz einrichten (ein Free Antiviren-Programm ist das absolute Minimum).
+Anita  |
+6. Januar 2014 um 18:46  |
+Antworten
+Hmmm Viertel Balken ist blau und seit ne Stunde gehts nicht weiter…. Wenn er die nächste Stunde nichts macht deinstalier ich das wieder und geh zum PC Doktor oder lass zoom drauf. Er ist zwar langsam was nervt aber sonst geht ja alles….
+Daniel Weihmann  |
+6. Januar 2014 um 19:01  |
+Antworten
+Bei AdwCleaner oder bei Malwarebytes? AdwCleaner dauert in der Regel nur 1-2 Minuten. Malwarebytes kann auch mal mehrere Stunden benötigen – einfach laufen lassen.
+Anita  |
+6. Januar 2014 um 19:11  |
+Adw Cleaner von Chip runter geladen so wie  das Bild was da zu sehen ist. Auf löschen gegangen und seit dem am Laufen seit einer Stunde :/
+Daniel Weihmann  |
+7. Januar 2014 um 20:38  |
+Kann mir nur vorstellen, dass es an fehlenden Administrator-Rechten fehlt. Bitte mal  diesen Kommentar  dazu ansehen.
+Reiner Langenbach-Zidar  |
+9. Januar 2014 um 15:03  |
+Antworten
+Der ADW Cleaner hat mich vor dem PC-und Herzinfarkt gerettet. Innerhalb von Minuten war der Mist „NATIONzoom“ und „DESK 365“ eliminiert. Seit Weihnachten 13 arbeitete ich mit Windows 8 (o weh o weh…) und habe mir den Kram beim Herunterladen von AVIRA über CHIP eingefangen.
+Alle tage-und nächtelang gegoogelten User-Ratschläge brachten nichts, außer  ständig neuen „kostenlosen Scan-Installationen“ wo dann zum tatsächlichen Entfernen im Hintertürchen die Kostenfalle lauerte. Oder es kamen so tolle Ratschläge, wo man erst zehn Semester Informatik studieren müsste um ihnen zu folgen. (Für einen 70jährigen AUTOR ein zu großes Zeitfenster.)
+Der Mist ist weg, beste Empfehlung also !!!!!
+Daniel Weihmann  |
+9. Januar 2014 um 20:09  |
+Antworten
+Das waren dann diese großen Download-Button, welche auf Webseiten mit nicht der besten deutschen Grammatik zu finden waren!?
+Andre  |
+12. Januar 2014 um 0:39  |
+Antworten
+Wirklich 1a, hat geholfen und wahrscheinlich sogar noch mehr Schädlinge entfernt als ich dachte.
+Vielen Vielen Dank dafür!!!!!
+PETRA  |
+15. Januar 2014 um 21:02  |
+Antworten
+Hab heute mit dem AdwCleaner 22find. com entfernt. Klappte auch, aber auf dem Desk funktionierten kein einziges Icon mehr. Nur im Startprogramm und in der Schnellleiste. Fehler gemacht?
+Daniel Weihmann  |
+15. Januar 2014 um 21:39  |
+Antworten
+Was passiert, wenn du einen Doppelklick auf ein Desktop-Icon machst?
+Eventuell noch weitere Schadsoftware auf dem Rechner? Hast du Malewarebytes das System prüfen lassen?
+Peter  |
+16. Januar 2014 um 12:32  |
+Antworten
+Perfektes Programm, einfach Top.
+Nation Zoom endlich eliminiert.
+Norbert  |
+16. Januar 2014 um 18:13  |
+Antworten
+Vielen Dank, endlich mal eine Hilfe ohne viel Aufwand. Sehr zu empfehlen.
+Vera  |
+18. Januar 2014 um 14:13  |
+Antworten
+Geht superschnell und ist genial. Kann ich nur empfehlen.
+Peter  |
+20. Januar 2014 um 12:45  |
+Antworten
+Einfach klasse das Programm. War zunächst skeptisch, ob ich mir wirklich so viel Adware „zugelegt“ hatte. Kurz per google die Ergebnisse gecheckt und wirklich alles bekannte Adware, wisesearch bis simpletech. Deshalb alles angeklickt und gelöscht und alles läuft bestens.
+Vielen Dank für die Bereitstellung dieses Adware-Erkennungsprogramms.
+Iris  |
+30. Januar 2014 um 10:27  |
+Antworten
+Danke für die Tipps und Programme…sehr hilfreich.  Das sweet….im Browser war echt nervig
+René  |
+2. Februar 2014 um 10:44  |
+Antworten
+AdwCleaner hat SweetPage bei ersten Durchlauf schnell und sicher entfernt.
+Top Programm!!
+Matthias Brunner  |
+3. Februar 2014 um 13:27  |
+Antworten
+Danke Herr Doktor !
+Dank Ihrer Anleitung, welche mir ein Freund mailte, konnte ich endlich diese lästige Sweet Page
+rausputzen, uff!
+Mit der DEINSTALL -Anleitung  unter der Sweet Page war nichts zu machen
+beste Grüsse aus der Schweiz!
+M.Brunner
+podii  |
+6. Februar 2014 um 15:46  |
+Antworten
+adwcleaner installiert, durchsucht und gelöscht. neu gestartet.
+firefox geöffnet awesomehp ist nicht mehr als starseite da aber bei
+neuem tap ist er wieder da.
+mehrmals durchführt, wieder das selbe :(((
+bei eigenschaften von firefox den pfad auch kontrolliert.
+Daniel Weihmann  |
+6. Februar 2014 um 16:24  |
+Antworten
+In die Browser-Adressleiste  about:config  eingeben. Nach  browser.newtab.url  suchen und mit einem Rechtsklick  bearbeiten  wählen. Als Wert „about:newtab“ eintragen für die Firefox-Standard-Ansicht oder ohne Inhalt für einen leeren Tab. Mit OK bestätigen und Firefox neu starten.
+Siehe:  https://www.browserdoktor.de/firefox-neuer-tab-seite/
+1
+2
+3
+…
+5
+»
+Schreibe einen Kommentar zu  hexe   Antworten abbrechen
+E-Mail Adresse wird nicht veröffentlicht. Kommentar Name
+E-Mail
+Webseite
+Meinen Namen, E-Mail und Website in diesem Browser speichern, bis ich wieder kommentiere.
+Suche nach:
+Neu auf der Browserdoktor Webseite
+SM.de entfernen
+Google Kalender Spam – You Have Won …
+DPD Sendungsverfolgung
+Computersicherheit für Unternehmer
+Ecosia als Standard-Suchmaschine einrichten
+DuckDuckGo als Standard­suchmaschine festlegen
+Impressum
+Datenschutzerklärung
+Sitemap
+Unterstützer
+Browserdoktor
+#####
+Browserdoktor
+Erste Hilfe bei Problemen mit dem Browser
+Browser-Hijacker
+Browser Einstellungen
+Mozilla Firefox
+Google Chrome
+Internet Explorer
+Sicherheit
+Wiki
+Rogueware
+Home   Sicherheit
+AdwCleaner (Adware Cleaner)
+AdwCleaner
+Kostenfreies Programm zum Aufspüren und Entfernen von Browser-Viren
+Die Anti-Adware-Software AdwCleaner sucht, findet und entfernt Adware, Spyware, Browser-Toolbars sowie Browser-Hijacker und andere unerwünschte Programme (PUP), sogenannte  Malware , vom Computer und aus den Browsern. Da AdwCleaner keine Installation auf dem zu untersuchenden Rechner voraussetzt, lässt sich die Anwendung auch von einem USB-Stick oder von einer Live-CD aus starten und auf diesem Weg eine Überprüfung durchführen.
+Die Software wird von  Xplode  entwickelt und ist kostenfrei. Die Freeware ist mehrsprachig, unter anderem auch auf deutsch. Sie läuft unter Windows XP, Vista, 7 und 8 und ist gerade mal gut ein Megabyte groß. Die üblichen Download-Seiten bieten den AdwCleaner zum Herunterladen an. Eine einfache Suche bei Google liefert unter anderem die folgenden vertrauensvollen Software-Quellen:
+Sichere Download-Quellen für AdwCleaner von Xplode
+Dirketlink zum Download der Anwendung  auf toolslib.net
+im Software-Verzeichnis bei  Heise Online
+auf den Download-Seiten bei  Filepony
+im Download-Bereich von  Bleeping Computer
+Empfohlener AdwCleaner Download bei Toolslib.net
+Vorsicht vor Trittbrettfahrern
+Nicht jede Webseite für einen Download von Adw Cleaner ( siehe Infos zum Thema ), die bei Google ganz oben steht, enthält zu 100% die erwartete Software. Der Download bei  Fileparade  brachte unter anderem die  Conduit-Toolbar  mit, sodass unbedingt darauf geachtet werden muss, von wo die Anti-Adware Software herunter geladen wird!
+Vorsicht! Bei unseriösen Download-Quellen wartet bereits die nächste Malware
+AdwCleaner Anleitung – Kostenlos und sicher Schadsoftware entfernen
+Nach dem Download alle offenen Anwendungen auf dem System schließen (Browser, E-Mail-Programm und so weiter), in das Download-Verzeichnis wechseln und das Programm  adwcleaner.exe  als Administrator ausführen. Im Fenster mit der Windows-Benutzerkontensteuerung die Frage „Möchten sie zulassen, dass durch das folgende Programm Änderungen an diesem Computer vorgenommen werden?“ mit „Ja“ bestätigen.
+Rechtsklick mit der Maus und Adw Cleaner als Administrator ausführen
+Die Oberfläche des Tools ist überschaubar und selbsterklärend. Ein Klick auf den Butten „Suchen“ startet den Suchlauf nach Ad- und Spyware auf dem Rechner. Ein Fortschrittsbalken zeigt dabei fortlaufend die Entwicklung. Je nach Größe der Festplatten und der Anzahl der darauf befindlichen Installationen, kann diese Untersuchung des Computers mehrere Minuten beanspruchen.
+Nach dem Scan zeigt das Tool die Fundstellen bei den Diensten, innerhalb von Ordnern, bei Dateien und Verknüpfungen, in der Registrierungsdatenbank (Registry) sowie in den Browsern. In meisten Fällen dürfte es eine gute Idee sein, alle Funde ausgewählt und somit für das Entfernen markiert zu lassen und schließlich zu löschen.
+Adw Cleaner Adware und Spyware in der Registry gefunden
+Nach einem Neustart des Rechners zeigt das Programm das Protokoll dieser Aktion und bezüglich Adware sollte der Computer jetzt einen sauberen Zustand versetzt wurden sein. Die von der Software entfernten Daten sind übrigens nicht wirklich eliminiert, sondern liegen in einem Quarantäne-Verzeichnis und ließen sich über  Tools  >  Quarantänemanager  innerhalb von AdwCleaner wieder herstellen.
+AdwCleaner – Windows Neustart
+Oft gestellte Fragen zu AdwCleaner
+Eine Zusammenfassung  häufig gestellter Fragen zum AdwCleaner  finden Sie ebenfalls hier auf Browserdoktor. Sollte Ihr Anliegen noch nicht im FAQ-Bereich behandelt wurden sein, dann können Sie gern die Kommentarfunktion nutzen, um Ihre Fragen  bzw.  Hinweise dazu mir mitzuteilen.
+Ist der Computer nun wieder sicher?
+Diese Frage lässt sich nicht ohne weiteres mit „Ja“ beantworten! Nach Problemen mit irgendeiner Adware, einem Browser-Hijacker oder einer ungewollt installierten Toolbar, würde ich auf jeden Fall eine zusätzliche Überprüfung des Rechners auf eventuell verborgene Malware (Viren und Trojaner) empfehlen.
+Ein ebenfalls in einer kostenfreien Version erhältliches Programm namens  Malwarebytes  leistet hierbei sehr gute Dienste und spürt oftmals weitere, bislang unentdeckte Schadsoftware auf dem Computer auf.
+Hinweis Sollten Sie zu diesem Artikel über eine der Anleitungen zum Entfernen von Schadsoftware hier auf Browserdoktor gelangt sein, dann nicht vergessen zu dieser zurückzukehren und die weiteren, dort beschriebenen Punkte zu beachten.
+Wer neben einem existierenden Antiviren-Programm, das im Hintergrund den PC überwacht  bzw.  vor Gefahren beim Surfen im Internet warnt, regelmäßig eine Überprüfung auf „eingefangene“ Adware und Spyware vornimmt, ist auf einer recht sicheren Seite mit seinem PC. Auf der linken Seite finden Sie Empfehlungen für professionelle Sicherheitssoftware, die ich selbst im Einsatz habe und für unverzichtbar halte. Nutzen Sie die kostenfreien Testzeiträume, um sich einen Eindruck von  ESET Smart Security  oder  Avira Internet Security  zu verschaffen.
+Hat der Adware Cleaner geholfen? Welche Probleme mit Malware gab / gibt es bei Ihnen?
+Bitte hinterlassen Sie einen Kommentar. Verbreiten Sie diesen Artikel in den sozialen Netzen, verweisen von Ihrer Webseite oder in einem Foren-Beitrag auf die hier veröffentlichten Informationen. Somit kann auch anderen Nutzern mit ähnlichen Problemen geholfen werden.
+Hat Ihnen diese Anleitung zu  AdwCleaner (Adware Cleaner)  geholfen?
+Bewertung für  AdwCleaner (Adware Cleaner) :
+4,62  von
+5
+1  bei bislang
+472  abgegebenen Stimmen.
+Über den Autor
+Daniel
+Mit bürgerlichem Namen Daniel Weihmann und wohnhaft in Köthen. Fachinformatiker für Systemintegration. Von 2004 - 2014 angestellt als Systemadministrator und seit 2014 selbstständig im Online-Marketing. Außerdem Mensch hinter dem Browserdoktor-Webprojekt.
+Ähnliche Artikel
+Browser-Hijacker
+Airzip Inspsearch entfernen
+Browser-Hijacker
+Yessearches entfernen
+Browser-Hijacker
+Nuesearch entfernen
+Browser-Hijacker
+Superfish Visual Discovery entfernen
+34 Kommentare   zu "AdwCleaner (Adware Cleaner)"
+Jürgen Schnoor  |
+17. Dezember 2013 um 17:52  |
+Antworten
+Das erste Programm das ohne viel „hier und da noch machen“ erfolgreich war.
+Christine Todter  |
+11. Juni 2014 um 20:14  |
+Antworten
+Vielen Dank! Ich bin Ihrer Anleitung Schritt für Schritt gefolgt (nachdem ich vorher schon alles Überflüssige deinstalliert und Diverses andere versucht hatte) und: Tataa!!!!!
+Mein Computer funktioniert wieder, ohne dass sich bei jedem Click idiotische Fenster öffnen oder meine Oberfläche ganz anders ausschaut!
+Michal  |
+18. Dezember 2013 um 15:47  |
+Antworten
+Einfach nur TOP !!!
+Michael G.  |
+19. Dezember 2013 um 23:00  |
+Antworten
+DANKE! DANKE! DANKE!
+Nation Zoom erfolgreich mit dem adwcleaner entfernt! Mit Malwarebytes noch 33 schädliche Objekte entdeckt und gelöscht.
+Ich dachte immer mir passiert so was nicht, da ich eigentlich softwaremäßig immer auf dem neuesten Stand bin was Updates und Virenprogramm angeht.
+Also wirklich Hut ab! Klasse wie die Vorgehensweise beschrieben wurde und wie mit relativ wenig Aufwand die Probleme gelöst.werden konnten.
+Daniel F.  |
+23. Dezember 2013 um 0:11  |
+Antworten
+Du bist Spitze,
+seit zwei Tagen bzw. halbe Nächte google ich wegen diesem Nation Zoom – alles Blödsinn was ich zu lesen und probieren bekam. Dann kam ich auf diesen Artikel. Lud mir AdwCleaner, kurzer Systemcheck und schon ist das Problem behoben.
+Ein voller Erfolg
+Vielen Dank und schöne Weihnachten
+Silke  |
+23. Dezember 2013 um 9:51  |
+Antworten
+alles mögliche versucht um Nation zoom weg zu bekommen, nur adw-cleaner hat geholfen. Prima und danke!
+Stefan  |
+24. Dezember 2013 um 11:30  |
+Antworten
+Schnell und unkomliziert. So muss ein Hilfsprogramm laufen. Danke
+Ellen  |
+27. Dezember 2013 um 13:26  |
+Antworten
+Einfach Klasse – hat wunderbar funktioniert. Verständlich geschrieben, auch für einen Laien. DANKE!
+Gernot Thölke  |
+28. Dezember 2013 um 20:00  |
+Antworten
+Vielen Dank!
+Habe lange versucht, selbst damit klar zu kommen. Nichts hat geholfen bis ich Ihre Seite gefunden habe. Ihre Beschreibung war sehr gut verständlich. Alle installierten Browser sind wieder frei von Nation zoom. Hat prima und schnell geklappt.
+Vielen Dank für ihre Hilfe!
+rudolf siebelt  |
+30. Dezember 2013 um 9:35  |
+Antworten
+unter  anleitung nation zoom entfernt . danke.
+eingefangen bei einem fake download von java 7.21 in spanien
+hatte hinterher erst gesehn dass ich ja bereits java 7.25 am rechner habe
+Matthias  |
+2. Januar 2014 um 22:29  |
+Antworten
+Diesen Dreck Nationzoom damit erfolgreich bekämpft. Vielen Dank für dieses ausgezeichnete Tool. Kommt gleich auf meine Standardtoolliste.
+Daniel Weihmann  |
+2. Januar 2014 um 22:37  |
+Antworten
+Ja, AdwCleaner kann man ruhig immer mal starten … dauert ja nicht lange.
+Christoph  |
+4. Januar 2014 um 15:49  |
+Antworten
+sauber! schnell und einfach sowie zuverlässig! kurz und bündig die Beschreibung, so wünscht man sich professionelle Hilfe.
+Danke!
+Maren  |
+5. Januar 2014 um 10:14  |
+Antworten
+Vielen, vielen Dank. Mir ging es genauso wie R. Siebelt. Habe bei Ebay ständig die Java Aktualisierungsaufforderung gesehen. Konnte gar keine Produkte mehr ansehen. Irgendwann war ich genervt und habe das JaVa Update versucht zu deinstallieren. Es kann nur diese Software gewesen sein, weil ich keine andere installiert hatte.
+Der AdwCleaner ist super. Sehr schnell und keine Installation von neuer Software auf dem PC. Danke!!!
+Anna  |
+6. Januar 2014 um 16:40  |
+Antworten
+Wow, hab’s grad ausprobiert und nationzoom und andere sachen, die ich erst bei google suchen musste um herauszufinden, dass sie schädlich sind, sind endlich weg!
+hat mir sehr weiter geholfen.
+Und ging sehr schnell!
+Danke sehr!
+Daniel Weihmann  |
+6. Januar 2014 um 18:30  |
+Antworten
+Unbedingt einen aktiven Schutz einrichten (ein Free Antiviren-Programm ist das absolute Minimum).
+Anita  |
+6. Januar 2014 um 18:46  |
+Antworten
+Hmmm Viertel Balken ist blau und seit ne Stunde gehts nicht weiter…. Wenn er die nächste Stunde nichts macht deinstalier ich das wieder und geh zum PC Doktor oder lass zoom drauf. Er ist zwar langsam was nervt aber sonst geht ja alles….
+Daniel Weihmann  |
+6. Januar 2014 um 19:01  |
+Antworten
+Bei AdwCleaner oder bei Malwarebytes? AdwCleaner dauert in der Regel nur 1-2 Minuten. Malwarebytes kann auch mal mehrere Stunden benötigen – einfach laufen lassen.
+Anita  |
+6. Januar 2014 um 19:11  |
+Adw Cleaner von Chip runter geladen so wie  das Bild was da zu sehen ist. Auf löschen gegangen und seit dem am Laufen seit einer Stunde :/
+Daniel Weihmann  |
+7. Januar 2014 um 20:38  |
+Kann mir nur vorstellen, dass es an fehlenden Administrator-Rechten fehlt. Bitte mal  diesen Kommentar  dazu ansehen.
+Reiner Langenbach-Zidar  |
+9. Januar 2014 um 15:03  |
+Antworten
+Der ADW Cleaner hat mich vor dem PC-und Herzinfarkt gerettet. Innerhalb von Minuten war der Mist „NATIONzoom“ und „DESK 365“ eliminiert. Seit Weihnachten 13 arbeitete ich mit Windows 8 (o weh o weh…) und habe mir den Kram beim Herunterladen von AVIRA über CHIP eingefangen.
+Alle tage-und nächtelang gegoogelten User-Ratschläge brachten nichts, außer  ständig neuen „kostenlosen Scan-Installationen“ wo dann zum tatsächlichen Entfernen im Hintertürchen die Kostenfalle lauerte. Oder es kamen so tolle Ratschläge, wo man erst zehn Semester Informatik studieren müsste um ihnen zu folgen. (Für einen 70jährigen AUTOR ein zu großes Zeitfenster.)
+Der Mist ist weg, beste Empfehlung also !!!!!
+Daniel Weihmann  |
+9. Januar 2014 um 20:09  |
+Antworten
+Das waren dann diese großen Download-Button, welche auf Webseiten mit nicht der besten deutschen Grammatik zu finden waren!?
+Andre  |
+12. Januar 2014 um 0:39  |
+Antworten
+Wirklich 1a, hat geholfen und wahrscheinlich sogar noch mehr Schädlinge entfernt als ich dachte.
+Vielen Vielen Dank dafür!!!!!
+PETRA  |
+15. Januar 2014 um 21:02  |
+Antworten
+Hab heute mit dem AdwCleaner 22find. com entfernt. Klappte auch, aber auf dem Desk funktionierten kein einziges Icon mehr. Nur im Startprogramm und in der Schnellleiste. Fehler gemacht?
+Daniel Weihmann  |
+15. Januar 2014 um 21:39  |
+Antworten
+Was passiert, wenn du einen Doppelklick auf ein Desktop-Icon machst?
+Eventuell noch weitere Schadsoftware auf dem Rechner? Hast du Malewarebytes das System prüfen lassen?
+Peter  |
+16. Januar 2014 um 12:32  |
+Antworten
+Perfektes Programm, einfach Top.
+Nation Zoom endlich eliminiert.
+Norbert  |
+16. Januar 2014 um 18:13  |
+Antworten
+Vielen Dank, endlich mal eine Hilfe ohne viel Aufwand. Sehr zu empfehlen.
+Vera  |
+18. Januar 2014 um 14:13  |
+Antworten
+Geht superschnell und ist genial. Kann ich nur empfehlen.
+Peter  |
+20. Januar 2014 um 12:45  |
+Antworten
+Einfach klasse das Programm. War zunächst skeptisch, ob ich mir wirklich so viel Adware „zugelegt“ hatte. Kurz per google die Ergebnisse gecheckt und wirklich alles bekannte Adware, wisesearch bis simpletech. Deshalb alles angeklickt und gelöscht und alles läuft bestens.
+Vielen Dank für die Bereitstellung dieses Adware-Erkennungsprogramms.
+Iris  |
+30. Januar 2014 um 10:27  |
+Antworten
+Danke für die Tipps und Programme…sehr hilfreich.  Das sweet….im Browser war echt nervig
+René  |
+2. Februar 2014 um 10:44  |
+Antworten
+AdwCleaner hat SweetPage bei ersten Durchlauf schnell und sicher entfernt.
+Top Programm!!
+Matthias Brunner  |
+3. Februar 2014 um 13:27  |
+Antworten
+Danke Herr Doktor !
+Dank Ihrer Anleitung, welche mir ein Freund mailte, konnte ich endlich diese lästige Sweet Page
+rausputzen, uff!
+Mit der DEINSTALL -Anleitung  unter der Sweet Page war nichts zu machen
+beste Grüsse aus der Schweiz!
+M.Brunner
+podii  |
+6. Februar 2014 um 15:46  |
+Antworten
+adwcleaner installiert, durchsucht und gelöscht. neu gestartet.
+firefox geöffnet awesomehp ist nicht mehr als starseite da aber bei
+neuem tap ist er wieder da.
+mehrmals durchführt, wieder das selbe :(((
+bei eigenschaften von firefox den pfad auch kontrolliert.
+Daniel Weihmann  |
+6. Februar 2014 um 16:24  |
+Antworten
+In die Browser-Adressleiste  about:config  eingeben. Nach  browser.newtab.url  suchen und mit einem Rechtsklick  bearbeiten  wählen. Als Wert „about:newtab“ eintragen für die Firefox-Standard-Ansicht oder ohne Inhalt für einen leeren Tab. Mit OK bestätigen und Firefox neu starten.
+Siehe:  https://www.browserdoktor.de/firefox-neuer-tab-seite/
+1
+2
+3
+…
+5
+»
+Schreibe einen Kommentar zu  Browserdoktor   Antworten abbrechen
+E-Mail Adresse wird nicht veröffentlicht. Kommentar Name
+E-Mail
+Webseite
+Meinen Namen, E-Mail und Website in diesem Browser speichern, bis ich wieder kommentiere.
+Suche nach:
+Neu auf der Browserdoktor Webseite
+SM.de entfernen
+Google Kalender Spam – You Have Won …
+DPD Sendungsverfolgung
+Computersicherheit für Unternehmer
+Ecosia als Standard-Suchmaschine einrichten
+DuckDuckGo als Standard­suchmaschine festlegen
+Impressum
+Datenschutzerklärung
+Sitemap
+Unterstützer
+Browserdoktor
