@@ -70,9 +70,7 @@ class DataHandler:
         text_dict = None
 
         if "text_entries.json" in self.source:
-            print("A")
             if os.path.isfile(self.source):
-                print("b")
                 print("Found a json file with text entries. Trying to load it now:")
                 try:
                     with open(self.source, "r") as file:
@@ -82,12 +80,10 @@ class DataHandler:
                 else:
                     print("Success")
         else:
-            print("c")
             alternative_file = "{}_text_entries.json".format(self.source.split(".")[0])
             if os.path.isfile(alternative_file):
-                print("A")
                 print("It looks like there is already an extracted warc archive in {}".format(alternative_file))
-                _ = input("If you want to use the original archive press y/Y")
+                _ = input("If you want to use the original archive enter y/Y: ")
                 if str(_).lower() == "y":
                     try:
                         text_dict = self.__read_in(self.source)

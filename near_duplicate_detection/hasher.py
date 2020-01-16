@@ -34,16 +34,25 @@ class HashInterface:
         :return: you can return something or write your results directly to disk
         """
 
+
 class Simhash:
-    #def main(self, hash_db, blocks=8, distance=6):
+    def __init__(self, args):
+        self.shingle_size = 9
+        self.blocks = 8
+        self.distance = 4
+
+        for attr, value in args.items():
+            if hasattr(self, attr):
+                setattr(self, attr, value)
+
     def hash(self, text):
-        return self.__hash(self.__shingle(self.__tokenize(text)))
+        return self.__hash(self.__shingle(self.__tokenize(text), self.shingle_size))
 
-    def evaluate(self, hashes, blocks, distance):
-        matches = simhash.find_all(hashes, blocks, distance)
+    def evaluate(self, hashes):
+        #print("Finding matches with block size of {} and distance of {}".format(self.blocks, self.distance))
+        matches = self.__find_matches(hashes, self.blocks, self.distance)
 
-        print("\nThere were no documents with a bit difference under {} found with simhash!".format(distance))
-        print("\nFound {} document with a bit difference under {}".format(len(matches), distance))
+        return matches
 
     @staticmethod
     def __hash(shingles):
@@ -55,8 +64,12 @@ class Simhash:
         return tokens
 
     @staticmethod
-    def __shingle(token):
-        return (' '.join(tokens) for tokens in simhash.shingle(token, 3))
+    def __shingle(token, shingle_size):
+        return (' '.join(tokens) for tokens in simhash.shingle(token, shingle_size))
+
+    @staticmethod
+    def __find_matches(hashes, blocks, distance):
+        return simhash.find_all(hashes, blocks, distance)
 
 
 class Minhash:

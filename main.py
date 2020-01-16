@@ -2,10 +2,10 @@ import os
 import sys
 import json
 import argparse
+import time
 
-from near_duplicate_detection import hasher
 from lib.data_handler import DataHandler
-from near_duplicate_detection.hasher import Simhash
+from near_duplicate_detection.hasher import Simhash, Minhash
 
 FILE = os.path.dirname(os.path.abspath(__file__))  # Points to this folder (/home/something/something/text_mining/)
 BOOL_DICT = {"True": True, "False": False}
@@ -26,9 +26,9 @@ def __load_conf(_config=os.path.join(FILE, "conf/example.conf")):
         print("Failed to load config: {}".format(err))
         sys.exit(1)
     else:
-
+        print("Config:")
         for key, value in conf_dict.items():
-            print("Loaded config entry {} with value {}".format(key, value))
+            print("    {}: {}".format(key, value))
 
             # This makes sure that values that are 'True' in the config are also set to True in the code
             if value == "true" or value =="False":
@@ -36,8 +36,8 @@ def __load_conf(_config=os.path.join(FILE, "conf/example.conf")):
             else:
                 conf_dict[key] = value
 
-        print("\nSuccessfully loaded config from /home/robby/git/text_mining/conf/example.conf!".format(_config))
-        print("________________________________________\n")
+        print("Successfully loaded config from /home/robby/git/text_mining/conf/example.conf!\n".format(_config))
+
         return conf_dict
 
 
@@ -53,12 +53,55 @@ if __name__ == "__main__":  # This is True if main.py was called from a command 
     else:
         config = __load_conf()
 
+    if not config.get("source"):
+        raise FileNotFoundError("Ńo source file in config found!")
+
+    source = config.pop("source")
+
     # Init the DataHandler
-    data = DataHandler(config.get("source"))
+    print("Reading in the data source ...")
+    #data = DataHandler(source)
+    #offset_text_dict = data.text_dict
+    with open("data/text_entries", "r") as file:
+        offset_text_dict = json.load(file)
+    print("Finished reading {} records!\n".format(len(offset_text_dict)))
 
-    simhash_dict = dict()
-    for offset, text in data.text_dict.items():
-        simhash_dict.update({offset: Simhash().hash(text)})
+    for run, values in config.items():
+        hash_list = list()
+        hash_offset_dict = dict()
 
-    with open("data/simhash_hashes.json", "w") as file:
-        json.dump(simhash_dict, file)
+        print("Starting run {} with following values:\n{}".format(run, values))
+
+        if not values.get("mode"):
+            raise ModuleNotFoundError("Entry mode was not found in the config file!")
+        elif values.get("mode") == "simhash":
+            hasher = Simhash(values.get("additional_parameter"))
+
+        print("Calculating hashes ...")
+
+        #for offset, text in offset_text_dict.items():
+        #    hash_offset_dict.update({hasher.hash(text): offset})
+        with open("data/simhash_hashes.json", "r") as file:
+            offset_hash_dict = json.load(file)
+            for key, value in offset_hash_dict.items():
+                hash_offset_dict.update({value: key})
+
+        print("Finding matching pairs ...")
+
+        matches = hasher.evaluate(hash_offset_dict.keys())
+        print("Found {} matches!\n\n".format(len(matches)))
+
+        #i = 0
+        #for match in matches:
+        #    i += 1
+        #    offset_1 = hash_offset_dict.get(match[0])
+        #    offset_2 = hash_offset_dict.get(match[1])
+
+        #    with open("data/{}_{}".format(offset_1, offset_2), "w") as file:
+        #        file.write("{}\n#####\n{}".format(offset_text_dict.get(offset_1), offset_text_dict.get(offset_2)))
+
+        #    if i == 100:
+        #        break
+
+
+
