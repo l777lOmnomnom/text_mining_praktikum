@@ -52,36 +52,4 @@ if __name__ == "__main__":  # This is True if main.py was called from a command 
         config = __load_conf()
 
     # Example Calls
-    hash_db = DataHandler().get_hash_db(config.get("source"),
-                                        config.get("simhash"),
-                                        config.get("minhash"),
-                                        100)
-
-    print("Calculating similarieties using Minhash took an additional {} seconds".format(
-        hasher.Minhash().main(hash_db)))
-    print("Calculating similarieties using Simhash took an additional {} seconds".format(
-        hasher.Simhash().main(hash_db)))
-
-    print("________________________________________\n")
-
-    hash_db = DataHandler().get_hash_db(config.get("source"),
-                                        config.get("simhash"),
-                                        config.get("minhash"),
-                                        1000)
-
-    print("Calculating similarieties using Minhash took an additional {} seconds".format(
-        hasher.Minhash().main(hash_db)))
-    print("Calculating similarieties using Simhash took an additional {} seconds".format(
-        hasher.Simhash().main(hash_db)))
-
-    print("________________________________________\n")
-
-    hash_db = DataHandler().get_hash_db(config.get("source"),
-                                        config.get("simhash"),
-                                        config.get("minhash"),
-                                        5000)
-
-    print("Calculating similarieties using Minhash took an additional {} seconds".format(
-        hasher.Minhash().main(hash_db)))
-    print("Calculating similarieties using Simhash took an additional {} seconds".format(
-        hasher.Simhash().main(hash_db)))
+    DataHandler(config.get("source"))

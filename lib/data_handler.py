@@ -1,4 +1,8 @@
 import time
+import os
+import re
+import sys
+import json
 from warcio import ArchiveIterator
 import simhash
 import re
@@ -22,6 +26,14 @@ class DataHandlerException(Exception):
 
 
 class DataHandler:
+    def __init__(self, source, chunk_size=10000):
+        self.offset = 0
+        self.record = self.__read_in(source, chunk_size)
+        #with open("/home/omnomnom/git/text_mining/data/text_entries", "r") as file:
+        #    self.record = file.readlines()
+        #    print(self.record)
+
+
 
     @property
     def utf_8(self):
@@ -36,6 +48,39 @@ class DataHandler:
                 'text/html; Charset=UTF-8',
                 'text/html; Charset=utf-8;charset=UTF-8',
                 'text/html; charset=utf8']
+
+    def __read_in(self, source, chunk_size):
+        i = 0
+        s = time.time()
+        if not os.path.isfile(source):
+            raise DataHandlerException("Source {} is not a valid file!".format(source))
+
+        with open(source, 'rb') as stream:
+
+            archive_stream = ArchiveIterator(stream)
+
+            entries = dict()
+
+            for record in archive_stream:
+                i += 1
+                if record.rec_type == 'response' and record.http_headers.get_header('Content-Type') in self.utf_8:
+                    soup = BeautifulSoup(record.content_stream(), 'lxml', from_encoding='utf-8')
+                    for script in soup(["script", "style"]):
+                        script.extract()
+
+                    try:
+                        text = soup.body.get_text(separator=' ')
+                        text = "\n".join([line.strip() for line in text.split("\n") if line.strip() != ""])
+                        entries.update({archive_stream.get_record_offset(): text})
+                    except AttributeError as err:
+                        print('Wrong Encoding at offset ' + str(archive_stream.get_record_offset()))
+
+        with open("/home/omnomnom/git/text_mining/data/text_entries", "w") as out:
+            json.dump(entries, out)
+
+        #print("time: {}".format(time.time()-s))
+        print(sys.getsizeof(entries))
+        return entries
 
     def get_hash_db(self, input_file, _simhash, _minhash, elements=1000):
         """
