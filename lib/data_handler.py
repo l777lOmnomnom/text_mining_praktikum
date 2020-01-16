@@ -1,14 +1,9 @@
 import time
 import os
-import re
-import sys
 import json
+
 from warcio import ArchiveIterator
-import simhash
-import re
-import ctypes
 from bs4 import BeautifulSoup
-from datasketch import MinHash
 
 
 class DataHandlerException(Exception):
@@ -28,18 +23,31 @@ class DataHandlerException(Exception):
 class DataHandler:
     def __init__(self, source, chunk_size=10000):
         self.offset = 0
-        self.record = self.__read_in(source, chunk_size)
-        #with open("/home/omnomnom/git/text_mining/data/text_entries", "r") as file:
-        #    self.record = file.readlines()
-        #    print(self.record)
 
+        self.__source = source
+        self.__text_dict = self.__check_source()
 
+        if not self.text_dict:
+            raise DataHandlerException("There was an unknown error.\nsource: {}".format(source))
+
+    @property
+    def text_dict(self):
+        return self.__text_dict
+
+    @property
+    def source(self):
+        return self.__source
+
+    @source.setter
+    def source(self, new_source):
+        self.__source = new_source
 
     @property
     def utf_8(self):
         """
         This is the utf_8 encoding the DataHandler uses.
-        :return:
+
+        :return: a list of utf8 encodings
         """
         return ['text/html; charset=UTF-8',
                 'text/html; charset=utf-8',
@@ -49,7 +57,61 @@ class DataHandler:
                 'text/html; Charset=utf-8;charset=UTF-8',
                 'text/html; charset=utf8']
 
-    def __read_in(self, source, chunk_size):
+    def __check_source(self):
+        """
+        Checks the provides source
+            *   if it is a text_entries.json file it will be json encoded and returned as text_dict.
+            *   if the source is a warc.gz archive but there exists a text_entries.json with the same name ask for
+                a decision if text entries or archive should be used.
+                * if text entries call __check_source again with new source (old_source_text_entries.json)
+                * else read the archive in and return a text_dict
+        :return:  text_dict
+        """
+        text_dict = None
+
+        if "text_entries.json" in self.source:
+            print("A")
+            if os.path.isfile(self.source):
+                print("b")
+                print("Found a json file with text entries. Trying to load it now:")
+                try:
+                    with open(self.source, "r") as file:
+                        text_dict = json.load(file)
+                except json.JSONDecodeError as err:
+                    print("Failed: {}".format(err))
+                else:
+                    print("Success")
+        else:
+            print("c")
+            alternative_file = "{}_text_entries.json".format(self.source.split(".")[0])
+            if os.path.isfile(alternative_file):
+                print("A")
+                print("It looks like there is already an extracted warc archive in {}".format(alternative_file))
+                _ = input("If you want to use the original archive press y/Y")
+                if str(_).lower() == "y":
+                    try:
+                        text_dict = self.__read_in(self.source)
+                    except DataHandlerException as err:
+                        print("Failed: {}".format(err))
+                    else:
+                        print("Success")
+                else:
+                    self.source = alternative_file
+                    text_dict = self.__check_source()
+            else:
+                text_dict = self.__read_in(self.source)
+
+        return text_dict
+
+    def __read_in(self, source, chunk_size=10000):
+        """
+        If the source is a warc.gz archives it will be extracted, stripped from whitelines and put into a dict with its
+        offset as key and the text as string of lines as value.
+
+        :param source: source warc.gz archive
+        :param chunk_size: NotImplemented
+        :return: text_dict
+        """
         i = 0
         s = time.time()
         if not os.path.isfile(source):
@@ -59,7 +121,7 @@ class DataHandler:
 
             archive_stream = ArchiveIterator(stream)
 
-            entries = dict()
+            text_dict = dict()
 
             for record in archive_stream:
                 i += 1
@@ -71,114 +133,16 @@ class DataHandler:
                     try:
                         text = soup.body.get_text(separator=' ')
                         text = "\n".join([line.strip() for line in text.split("\n") if line.strip() != ""])
-                        entries.update({archive_stream.get_record_offset(): text})
+                        text_dict.update({archive_stream.get_record_offset(): text})
                     except AttributeError as err:
                         print('Wrong Encoding at offset ' + str(archive_stream.get_record_offset()))
 
-        with open("/home/omnomnom/git/text_mining/data/text_entries", "w") as out:
-            json.dump(entries, out)
-
-        #print("time: {}".format(time.time()-s))
-        print(sys.getsizeof(entries))
-        return entries
-
-    def get_hash_db(self, input_file, _simhash, _minhash, elements=1000):
-        """
-        This calculates the hashes for a given archive.
-
-        :param input_file: the input archive
-        :param _simhash: Marks if simhashes should be calculated
-        :param _minhash: Marks if minhashes should be calculated
-        :param elements: the amount of elements retrieved at once
-
-        :return: hash data base as {offset: {"min_hash": {minhash, "sim_hash": simhash}}
-        """
-        if not _simhash and not _minhash:
-            raise DataHandlerException("No mode")
-
-        i = 0
-        hash_db = dict()
-
-        minhash_time = 0
-        simhash_time = 0
-
-        with open(input_file, 'rb') as stream:
-            archive_stream = ArchiveIterator(stream)
-            for record in archive_stream:
-                # This is some shananigan from alex
-                if record.rec_type == 'response' and record.http_headers.get_header('Content-Type') in self.utf_8:
-                    soup = BeautifulSoup(record.content_stream(), 'lxml', from_encoding='utf-8')
-                    for script in soup(["script", "style"]):
-                        script.extract()
-
-                    try:
-                        text = soup.body.get_text(separator=' ')
-                        lines = (line.strip() for line in text.splitlines())
-                        # break multi-headlines into a line each
-                        chunks = (phrase.strip() for line in lines for phrase in line.split("  "))
-                        # drop blank lines
-                        text = '\n'.join(chunk for chunk in chunks if chunk)
-
-                    except AttributeError as err:
-                        print('Wrong Encoding at offset ' + str(archive_stream.get_record_offset()))
-
-                    else:
-                        i += 1
-                        offset = archive_stream.get_record_offset()
-
-                        hashes = dict()
-                        if _simhash:
-                            start = time.time()
-                            _hash = self.simhash(text)
-                            simhash_time = simhash_time + time.time() - start
-                            hashes.update({"simhash": _hash})
-
-                        if _minhash:
-                            start = time.time()
-                            _hash = self.minhash(text)
-                            hashes.update({"minhash": _hash})
-                            minhash_time = minhash_time + time.time() - start
-
-                        hash_db.update({offset: hashes})
-
-                # TODO: Implement an offset counter
-                # Stop if max elements is reached
-                if i >= elements:
-                    archive_stream.close()
+                if i == 500000:
                     break
 
-        if _simhash:
-            print("Simhashing {} elements took {} seconds".format(elements, simhash_time))
+        with open("{}_text_entries.json".format(source.split(".")[0]), "w") as out:
+            json.dump(text_dict, out)
 
-        if _minhash:
-            print("Minhashing {} elements took {} seconds\n".format(elements, minhash_time))
+        #archive_stream.close()
 
-        return hash_db
-
-    def minhash(self, text):
-        """
-        Creates a min-hash for a given text by updating a MinHash with every word contained in the text.
-
-        :param text: the string which should be hashed
-        :return: MinHash()
-        """
-        m = None
-
-        for words in text.split("\n"):
-            m = MinHash()
-
-            for word in words:
-                m.update(word.encode('utf8'))
-
-        return m
-
-    def simhash(self, text):
-        shingles = (' '.join(tokens) for tokens in simhash.shingle(self.tokenize(text), 3))
-        s = simhash.compute([ctypes.c_ulong(hash(shingle)).value for shingle in shingles])
-        return s
-
-    @staticmethod
-    def tokenize(text):
-        tokens = re.split("\s+", re.sub(r'[^\w\s]', '', text.lower()))
-        # print(tokens)
-        return tokens
+        return text_dict

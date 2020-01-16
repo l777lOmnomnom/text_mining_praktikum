@@ -1,28 +1,80 @@
 import simhash
+from datasketch import MinHash
 import time
+import ctypes
+import re
+import abc
 
+
+class HashInterface:
+    """
+    This is the explanation class. All classes should inhert from it. All abc.abstractmethods need to be implemented in
+    your child class. This ensures that all classes can reuse the input provides by the data_handler
+    """
+    @abc.abstractmethod
+    def hash(self, text):
+        """
+        This is the hash function which is called from the main function. Put all hashing logic in here.
+        If you want measurments seperate the parts you want to measure in sindle functions so that they are tracked by
+        cprofile (which tracks the time for all function calls)
+
+        :param text: the input from the data handlers text_dict
+        :return: return the hash or the object on which you want to do the evaluation on
+        """
+        return
+
+    @abc.abstractmethod
+    def evaluate(self, args):
+        """
+        This is the evaluation method which takes whatever parameter you want as input and should yield a certain
+        output about the similarities of different html documents.
+        If the evaluation should be measured to use the same approach as above.
+
+        :param args:
+        :return: you can return something or write your results directly to disk
+        """
 
 class Simhash:
+    #def main(self, hash_db, blocks=8, distance=6):
+    def hash(self, text):
+        return self.__hash(self.__shingle(self.__tokenize(text)))
 
-    def main(self, hash_db, blocks=8, distance=6):
-
-        hashes = list()
-        for _hash in hash_db.values():
-            hashes.append(_hash.get("simhash"))
-
-        start_time = time.time()
+    def evaluate(self, hashes, blocks, distance):
         matches = simhash.find_all(hashes, blocks, distance)
 
-        if len(matches) == 0:
-            print("\nThere were no documents with a bit difference under {} found with simhash!".format(distance))
-        else:
-            print("\nFound {} document with a bit difference under {}".format(len(matches), distance))
+        print("\nThere were no documents with a bit difference under {} found with simhash!".format(distance))
+        print("\nFound {} document with a bit difference under {}".format(len(matches), distance))
 
-        return time.time() - start_time
+    @staticmethod
+    def __hash(shingles):
+        return simhash.compute([ctypes.c_ulong(hash(shingle)).value for shingle in shingles])
+
+    @staticmethod
+    def __tokenize(text):
+        tokens = re.split("\s+", re.sub(r'[^\w\s]', '', text.lower()))
+        return tokens
+
+    @staticmethod
+    def __shingle(token):
+        return (' '.join(tokens) for tokens in simhash.shingle(token, 3))
 
 
 class Minhash:
-    def main(self, hash_db, minhash_distance=0.9):
+    def hash(self, text):
+        """
+        Creates a min-hash for a given text by updating a MinHash with every word contained in the text.
+
+        :param text: the string which should be hashed
+        :return: MinHash()
+        """
+        m = MinHash()
+
+        for line in text.split("\n"):
+            m = self.__hash(m, line)
+
+        return m
+
+    def evaulate(self, text_dict, minhash_distance=0.9):
         """ This estimates the jaccard similarity between all entries in a set of min hashes. The results are stored
             in a special database.
 
@@ -32,10 +84,10 @@ class Minhash:
         _time = 0
         matches = 0
 
-        for offset1, hash1 in hash_db.items():
+        for offset1, hash1 in text_dict.items():
             i += 1
             j = 0
-            for offset2, hash2 in hash_db.items():
+            for offset2, hash2 in text_dict.items():
                 j += 1
                 if j > i:
                     start = time.time()
@@ -50,6 +102,10 @@ class Minhash:
             print("Found {} document with a jaccard similarity of {} or higher".format(matches, minhash_distance))
 
         return _time
+
+    @staticmethod
+    def __hash(m, line):
+        return m.update(line)
 
     @staticmethod
     def __estimate_jaccard_sim(minhash1, minhash2):
