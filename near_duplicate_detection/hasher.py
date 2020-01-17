@@ -190,7 +190,7 @@ class Justushash:
                     h = (64 - len(h)) * '0' + h
                     # print(h)
 
-            h = int(h, 2)
+            h = str(h)
 
             # sim = split(sim)
 
@@ -209,7 +209,6 @@ class Justushash:
                 if h[i] == "0":
                     # print("simdiv")
                     # print(sim[i])
-                    sim[i] += 1
                     sim.insert(i, str(int(sim[i]) - 1))
                     sim.pop(i + 1)
                     # sim = sim[i-abs(i-1):i+1] + str(int(sim[i]) - 1) + sim[i+1:]

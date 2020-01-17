@@ -5,7 +5,7 @@ import argparse
 import time
 
 from lib.data_handler import DataHandler
-from near_duplicate_detection.hasher import Simhash, Minhash
+from near_duplicate_detection.hasher import Simhash, Minhash, Justushash
 
 FILE = os.path.dirname(os.path.abspath(__file__))  # Points to this folder (/home/something/something/text_mining/)
 BOOL_DICT = {"True": True, "False": False}
@@ -59,10 +59,10 @@ if __name__ == "__main__":  # This is True if main.py was called from a command 
     source = config.pop("source")
 
     # Init the DataHandler
-    #print("Reading in the data source ...")
-    #data = DataHandler(source)
-    #offset_text_dict = data.text_dict
-    #print("Finished reading {} records!\n".format(len(offset_text_dict)))
+    print("Reading in the data source ...")
+    data = DataHandler(source, config.get("max_elements"))
+    offset_text_dict = data.text_dict
+    print("Finished reading {} records!\n".format(len(offset_text_dict)))
 
     for run, values in config.items():
         hash_list = list()
@@ -70,26 +70,30 @@ if __name__ == "__main__":  # This is True if main.py was called from a command 
 
         print("Starting run {} with following values:\n{}".format(run, values))
 
-        if not values.get("mode"):
-            raise ModuleNotFoundError("Entry mode was not found in the config file!")
-        elif values.get("mode") == "simhash":
+        if values.get("mode") == "simhash":
             hasher = Simhash(values.get("additional_parameter"))
+        elif values.get("mode") == "justushash":
+            hasher = Justushash(values.get("additional_parameter"))
+        else:
+            raise ModuleNotFoundError("Entry mode was not found in the config file!")
 
         print("Calculating hashes ...")
-
-        #Create new and take your time
-        #for offset, text in offset_text_dict.items():
-        #    hash_offset_dict.update({hasher.hash(text): offset})
-
+        i = 0
+        for offset, text in offset_text_dict.items():
+            hash_offset_dict.update({hasher.hash(text): offset})
+            i += 1
+            if i == 1000:
+                break
         # Fastpath load from existing run
-        with open("data/simhash_hashes.json", "r") as file:
-            offset_hash_dict = json.load(file)
-            for key, value in offset_hash_dict.items():
-                hash_offset_dict.update({value: key})
+        # with open("data/simhash_hashes.json", "r") as file:
+        #    offset_hash_dict = json.load(file)
+        #    for key, value in offset_hash_dict.items():
+        #        hash_offset_dict.update({value: key})
 
         print("Finding matching pairs ...")
+        print(len(hash_offset_dict))
+        matches = hasher.evaluate(list(hash_offset_dict.keys()))
 
-        matches = hasher.evaluate(hash_offset_dict.keys())
         print("Found {} matches!\n\n".format(len(matches)))
 
         #Store results
