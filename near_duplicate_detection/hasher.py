@@ -128,3 +128,133 @@ class Minhash:
         :return:
         """
         return minhash1.jaccard(minhash2)
+
+
+class Justushash:
+    def __init__(self, args):
+        self.shingle_size = 9
+        self.blocks = 8
+        self.distance = 4
+
+        for attr, value in args.items():
+            if hasattr(self, attr):
+                setattr(self, attr, value)
+
+    def hash(self, text):
+        shingles = self.__shingle(text, self.shingle_size)
+        hash = self.__hash(shingles)
+
+        return self.__bitShift(hash)
+
+    def evaluate(self, hashes):
+        matches = list()
+        sorted_hashes = self.__sort(hashes)
+        # print(similarity)
+        for i in range(0, len(sorted_hashes)):
+            for j in range(1, len(sorted_hashes)):
+                if self.__hamming(sorted_hashes[i], sorted_hashes[j]) <= self.distance:
+                    matches.append((sorted_hashes[i], sorted_hashes[j]))
+                else:
+                    break
+
+        return matches
+
+    @staticmethod
+    def __shingle(text, shingle_size):
+        shingles = list()
+        for i in range(0, len(text)):
+            shingles.append(text[i:i+shingle_size])
+        return shingles
+
+    @staticmethod
+    def __hash(shingles):
+        sim = [0 for _ in range(64)]
+
+        i = 0
+        for sh in shingles:
+            # print(sh)
+            h = bin(hash(sh))
+            # print(h)
+
+            if h.startswith("0"):
+                # print("-------------------------------------------")
+                h = h[2:len(h)]
+                if len(h) < 64:
+                    h = (64 - len(h)) * '0' + h
+                    # print(h)
+
+            if h.startswith("-"):
+                # print("-------------------------------------------")
+                h = h[3:len(h)]
+                if len(h) < 64:
+                    h = (64 - len(h)) * '0' + h
+                    # print(h)
+
+            h = int(h, 2)
+
+            # sim = split(sim)
+
+            # print("sim:")
+            # print(sim)
+
+            for i in range(0, len(h)):
+                # print("i " + str(i))
+                if h[i] == "1":
+                    # print("simadd")
+                    # print(sim[i])
+                    sim.insert(i, str(int(sim[i]) + 1))
+                    sim.pop(i + 1)
+                    # sim = sim[i-abs(i-1):i+1] + str(int(sim[i]) + 1) + sim[i+1:]
+
+                if h[i] == "0":
+                    # print("simdiv")
+                    # print(sim[i])
+                    sim[i] += 1
+                    sim.insert(i, str(int(sim[i]) - 1))
+                    sim.pop(i + 1)
+                    # sim = sim[i-abs(i-1):i+1] + str(int(sim[i]) - 1) + sim[i+1:]
+
+
+                    # print(sim)
+
+        for i in range(0, len(sim)):
+            if int(sim[i]) <= 0:
+                sim.insert(i, "0")
+                sim.pop(i + 1)
+
+            if int(sim[i]) > 0:
+                sim.insert(i, "1")
+                sim.pop(i + 1)
+
+        h = ""
+        for c in sim:
+            h += c
+        # print(h)
+
+        del shingles[:]
+
+        return h
+
+    @staticmethod
+    def __bitShift(h):
+        simH = h[0:4]
+        sim = h[4:] + simH
+        return sim
+
+    @staticmethod
+    def __sort(hashes):
+        for i in range(0, len(hashes)):
+            for j in range(1, len(hashes)):
+                if hashes[j] < hashes[i]:
+                    hashes[j], hashes[i] = hashes[i], hashes[j]
+
+        return hashes
+
+    @staticmethod
+    def __hamming(bin1, bin2):
+        ham = 0
+        # print(bin1 + "---" + bin2)
+        for i in range(0, len(bin1)):
+            if bin1[i] != bin2[i]:
+                ham += 1
+        return ham

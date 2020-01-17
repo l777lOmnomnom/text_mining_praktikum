@@ -21,11 +21,13 @@ class DataHandlerException(Exception):
 
 
 class DataHandler:
-    def __init__(self, source, chunk_size=10000):
-        self.offset = 0
+    def __init__(self, source, max_elements=5000):
+        self.max_elements = max_elements
 
         self.__source = source
         self.__text_dict = self.__check_source()
+
+        print("{} elements loaded ...".format(len(self.text_dict)))
 
         if not self.text_dict:
             raise DataHandlerException("There was an unknown error.\nsource: {}".format(source))
@@ -120,7 +122,6 @@ class DataHandler:
             text_dict = dict()
 
             for record in archive_stream:
-                i += 1
                 if record.rec_type == 'response' and record.http_headers.get_header('Content-Type') in self.utf_8:
                     soup = BeautifulSoup(record.content_stream(), 'lxml', from_encoding='utf-8')
                     for script in soup(["script", "style"]):
@@ -130,11 +131,12 @@ class DataHandler:
                         text = soup.body.get_text(separator=' ')
                         text = "\n".join([line.strip() for line in text.split("\n") if line.strip() != ""])
                         text_dict.update({archive_stream.get_record_offset(): text})
+                        i += 1
                     except AttributeError as err:
                         print('Wrong Encoding at offset ' + str(archive_stream.get_record_offset()))
-
-                if i == 500000:
-                    break
+            print(i)
+                #if i == 10000:
+                #    break
 
         with open("{}_text_entries.json".format(source.split(".")[0]), "w") as out:
             json.dump(text_dict, out)
