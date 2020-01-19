@@ -49,7 +49,6 @@ class Simhash:
         return self.__hash(self.__shingle(self.__tokenize(text), self.shingle_size))
 
     def evaluate(self, hashes):
-        #print("Finding matches with block size of {} and distance of {}".format(self.blocks, self.distance))
         matches = self.__find_matches(hashes, self.blocks, self.distance)
 
         return matches

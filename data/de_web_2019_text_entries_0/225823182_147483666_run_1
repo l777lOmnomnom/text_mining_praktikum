@@ -1,0 +1,1053 @@
+Navigation
+BlenderHilfe.de
+deutschsprachige Tutorials für Blender 3D
+Home
+Warenkorb
+7,025.00€   55 Produkte
+Menu1 Home
+freie Tutorials
+Blender 3D – Serien
+Einsteiger Guide
+Erste Hilfe Videos
+Tipp Videos
+Feature Videos
+Game Design
+Pinball Game Design Tutorials
+Visual Effects & Film
+Physics & Destruction
+An der Burg
+Am Pool
+Blender 3D – Themen
+modelling
+sculpting
+character creation
+haare / fell
+shading & texturen
+material
+texturen
+animation
+simulationen
+smokesimulation
+destruction
+partikel
+cloth simulation
+haare / fell
+rendering
+cycles render
+blender render
+compositing
+visual effects / filmmaking
+camera tracking
+spezialeffekte
+nachbearbeitungseffekte
+game engine (bge)
+modifier
+userinterface (ui)
+Cycles Renderer
+Gimp Bildbearbeitung
+MakeHuman 3D Characters
+Vertonung & Audio Produktion
+Coaching und Aufträge
+Ressourcen
+Tutorial-DVDs & Downloads
+Texturen, Materialien
+Soundeffekte
+Freies HD Filmmaterial
+Infos
+freie Software
+News Videos
+Blender Community
+Projekte
+Über mich
+3D-Animationen
+3D-Pics
+Musik
+IT-Kenntnisse
+Impressum
+Datenschutzerklärung
+Kontakt
+schreib mir
+kostenlose Hilfe
+Support & Training
+Soziale Netzwerke
+Facebook
+Google+
+Twitter
+SHOP
+DEIN WARENKORB
+zur Produktübersicht
+>> Tutorial-Serien (DVD/DL)
+>> Texturen Pack
+>> Soundeffekte & Vertonung
+>> Bundles und Angebote
+Support und Training
+alle Kundeninformationen
+Datenschutzerklärung
+AGBs
+Zurück zum Inhalt
+Du bist hier:   Home   >   Blender Tutorial – Animierte Feuerschrift
+Blender Tutorial – Animierte Feuerschrift
+Blender Tutorial – Dynamic Paint
+VideoNewsletter #2
+Erstelle eine brennende Schrift mit Curves, Dynamic Paint und dem überarbeiteten Smoke-Simulator.
+Themen:
+- Curve-Modellierung und Animation
+- Dynamic Paint nutzen
+- Feuer mit dem verbesserten Smoke Simulator (Feuer, Adaptive Domain)
+falls du mehr zu dem Thema Cell Fracture, Physic und Physics Constraints wissen willst…
+hier gehts zur kompletten  Destruction & Physics Serie
+Der neue Smokesimulator
+Mit dem überarbeiteten Smokesimulator gibts jetzt direkt die Möglichkeit Feuer zu erstellen. Früher ging das schon auch, allerdings war das aufsetzen – sagen wir mal – nicht ganz einfach.
+Es wurde aber nicht nur die Darstellung des Feuers mit einem Klick ermöglicht, sondern es gibt auch einen neuen Algorithmus der die Feuersimulation anders berechnet. Es wird also jetzt Feuer und Smoke mit einem anderen Model berechnet. Feuer kann auch Smoke ausstossen, was schnelle und realistische Ergebnisse ermöglicht.
+Wo ich gerade bei Schnelligkeit bin, durch das “Adaptive Domain” Feature, passt sich die Domain jetzt der Smoke simulation an !
+Und die Domain kann jetzt auch bewegt (animiert) werden.
+Das ist der Wahnsinn!!! Jetzt kann man Smoke viel besser einsetzen.
+Soooo… aber jetzt wünsch ich der viel Spass mit dem Tutorial
+Tutorial-Video:
+WICHIGE INFO:
+FRIED CHICKEN BRANCH WIRD  NICHT  MEHR BENÖTIGT !
+Das Feature ist jetzt fester Bestandteil von Blender
+Fragen oder Ideen? schreib einen Kommentar (klicke hier)
+Viel Spass und lass es brennen!
+Tobi
+gepostet von Tobi am 6.09.2012 in  Alle Tutorials ,  Blender 3D ,  Tutorial Serie - Physics & Destruction ,  Visual Effects (Filmmaking) .
+Über Tobi
+leidenschaftlicher 3D-Artist, Musiker, Computertechniker, Trainer und
+hauptberuflich Blender Helfer und Tutorialmacher :D
+hier gibts mehr Infos zu mir  oder  schreib mir hier
+Blender Tutorial – Dynamic Paint
+VideoNewsletter #2
+Hinterlasse einen Kommentar zu  Tobi   Antworten abbrechen
+Deine E-Mail-Adresse wird nicht veröffentlicht. Erforderliche Felder sind markiert  *   Name  *
+E-Mail  *
+Website
+berechne folgendes (SPAMSCHUTZ)  *
+6 +   = 12   Kommentar     Du kannst folgende  HTML -Tags benutzen:   <a href="" title=""> <abbr title=""> <acronym title=""> <b> <blockquote cite=""> <cite> <code> <del datetime=""> <em> <i> <q cite=""> <strike> <strong>
+> Newsletter abonnieren (Jederzeit wieder abbestellbar)
+35 Antworten zu “Blender Tutorial – Animierte Feuerschrift”
+TomPK
+März 4, 2014 at 12:07
+#
+Klappt das ganze auch in der Game Engine ?
+Antworten
+Tobi
+März 26, 2014 at 21:31
+#
+Hi
+ja indirekt geht das!
+das zeige ich auf meiner nächsten Game Making DVD
+Viele Grüsse
+Antworten
+Cininger
+Januar 1, 2014 at 16:56
+#
+Hallo Tobi,
+super Tutorial. Ich bin deinen Anweisungen gefolgt und es klappt soweit. Ich lasse die Animation laufen und sehe die Schrift als Feuer. Wenn ich nun noch kleine Anpassungen machen will, wie z.B. an den Filtern oder im Hintergrund noch ein Text mit Spots anbringe, dann verschwindet (mir aus unerklärlichen Dingen) die Feuerschrift. Ich sehe dann nur noch den Path aber dieser “entzündet” nicht mehr. Dann kann ich alles rückgängig machen aber es funktioniert einfach nicht mehr.
+Mach ich was falsch? Liegts an der Hardware (wobei mein Rechner nicht an Altersschwäche leidet)?
+Hast du einen Tipp für mich?
+Danke vorab!
+Antworten
+Tobi
+Januar 9, 2014 at 12:54
+#
+Hi,
+du musst die Feuersimulation “baken” wie gezeigt – dann bleibt sie
+oder sie von ganz vorne starten damit sie neue brechnet werden kann.
+Grüsse
+Tobi
+Antworten
+John
+Oktober 1, 2013 at 19:03
+#
+Bei mir klappt alles super, aber die Schrift an sich wird sehr eckig bzw. pixelig  dargestellt.
+Wäre toll wenn mir wer dabei helfen könnte.
+Antworten
+Tobi
+Oktober 3, 2013 at 16:03
+#
+Hi, das wird an der RESOLUTION (Divisions) der Simulation liegen.
+Die würde ich höher machen, und die Divisions unter SMOKE HIGH RESOLUTION würde ich auch höher stellen – so auf 2 oder 3
+Grüsse
+Tobi
+Antworten
+Patrick
+Juli 2, 2013 at 19:53
+#
+Hallo Tobi,
+bei mir lässt sich das Feuer zwar erstellen wird aber bei cycles im render nicht angezeigt. Was läuft da falsch?
+Antworten
+Tobi
+Juli 3, 2013 at 12:58
+#
+Hi Patrick,
+Cycles rendert noch keine Volumetrics.
+Bis Cycles komplett nutzbar ist mit allen Features, das dauert sicher noch bis Ende des Jahres oder länger.
+Man kann die 2 Renderengines aber gleichzeitig nutzen, da hab ich aber leider kein Tuto zu.
+Viele Grüsse
+Tobi
+Antworten
+Patrick
+Juli 3, 2013 at 15:20
+#
+Danke Tobi.
+Das mit den zwei Renderengines zusammen habe ich, wenn ich mich richtig erinnere, auch schonmal im Zusammenhang mit einer anderen noch nicht in Cycles vorhandenen Funktion gehört. Wenn ich richtig gelesen habe, Volumetrics Bestandteil der nächsten Version sein.
+Adrian
+April 26, 2013 at 17:40
+#
+Ich habe die Animation nachgemacht, nur ist sie zu schnell…
+Wie kann ich die Geschwindigkeit verkleinern?
+Den Keyframe auf der Curve kann ich irgendwie nicht versetzen…
+Danke für die Hilfe + die guten Tutorials
+Antworten
+Tobi
+April 27, 2013 at 11:37
+#
+Hi,
+um die Keys zu versetzen kannst du sie im DopeSheet oder GraphEditor verschieben.
+oder du löscht sie (alt+i) und machst sie neu
+Viele Grüsse
+Tobi
+Antworten
+Adrian
+April 28, 2013 at 18:29
+#
+Geht leider auch nicht…
+Ich kann sie markieren, aber nicht löschen oder verschieben
+Adrian
+April 28, 2013 at 18:31
+#
+Ach ja, die rote Linie im GraphEditor ist gestrichelt.
+Tobi
+Mai 1, 2013 at 11:24
+#
+Hallo
+ich schreib dir ne mail – und du solltest mir einen Screenshot zurückschicken schicken – oder das blend
+Suno
+März 28, 2013 at 17:29
+#
+sagt ma weiss einer wo ich die shortcuts für den MAc finde? weil die tastenkürzeln für windows hier auf meinem Imac nicht funzen.danke euch schonmal im vorraus
+Antworten
+Tobi
+März 30, 2013 at 02:21
+#
+Beim Mac ist die tastenbelegung genauso wie beim PC
+Nur das die ALT Taste da Apple Taste heisst.
+Bei den ganz neuen Macs haben sie aber sogar ALT draufstehen hab ich gehört
+LG, Tobi
+Antworten
+Veith
+Januar 21, 2013 at 18:35
+#
+Hey,
+bei mir funktioniert das malen nicht.
+Ich habe jetzt 3 mal bis zur 14 Minutenmarke mitgemacht, alles genau wie du, aber er mal einfach nicht auf die Canvas.
+Dann habe ich ein bisschen rumgespielt, und festgestellt, dass es nur im Modus “Mesh Volume” nicht geht. Wenn ich auf Proximity umstelle läufts wunderbar. Aber der Object Center Modus geht auch nicht.
+Außerdem wird die Farbe wenn ich neu abspiele immer nur gelöscht, wenn ich in den funktionierenden Modi bin, d.h. wenn ich etwas in Proximity zeichne und dann auf Mesh Volume umstelle und abspiele, ist einfach nur die alte Farbe immer da. Auch mit Erase Paint funktionieren nur die beiden Modi mit Proximity.
+Ich habe das ganze dann noch in einem anderen Projekt mit einem Cube und Suzi ausprobiert, da ging alles wunderbar auch mit Mesh Volume.
+Welche Einstellung habe ich übersehen?
+Antworten
+Tobi
+Februar 13, 2013 at 21:53
+#
+Ouh, das ist jetzt schwer zu sagen was das sein könnte.
+Da muss ich mal sagen: keine Ahnung
+Wenn du willst schick mir die blend per Mail dann kuck ich mal rein.
+Viele Grüsse, Tobi
+Antworten
+Patrick Züfle
+Dezember 19, 2012 at 18:33
+#
+Hallo Tobi
+Mit meinem Computer geht Smok nicht.
+Ich habe ein Dell
+siehe hier die Daten;
+http://www.kieselsteine.ch/Herz/fff.jpg
+Betriebssystem Vista 64
+Ich hatte wochenlang versucht das Tornado Tutorial auf Blendercookies nach zu bauen. Dort war das genau gleiche. Um so höher ich die Resolution stelle, um so schlechter das Resultat.
+Am Schluss hatte ich ziemlich entnervt seine Datei herunter geladen bei mir gebacken und das Resultat war ebenfalls zum fort werfen. Obwohl es seine Original Datei war mit den Haar genau gleichen Einstellungen.
+Ich hatte dort versucht zu fragen an was das liegen könnte. Er hat alles versucht und fand keine Lösung. Seither weiss ich mein Computer kann kein Blenderrauch herstellen.
+Nun hatte ich gehoft, dass die neue Smoksimulation das endlich auch für mich möglich macht. Leider nein.
+Hier mein Resultat;
+http://www.kieselsteine.ch/Herz/ff.jpg
+Ich habe alles so gemacht wie Du…
+Könntest Du dieses Problem einmal den Blenderentwickler schildern?
+Auf Blendercookie Tornado Tutorial haben sich nämlich einige gemeldet, bei denen es genau so nicht geht wie bei mir.
+Ich wäre auch bereit meinen Computer HeiTschecken zu lassen, von so einem Entwickler, damit er sich die Sachlage einmal vor Ort anschauen kann.
+Ps;
+Ich habe es mit Installiertem und nicht installiertem Blender versucht.
+Kein Unterschied.
+liebe Grüsse
+patrick
+Das Tutorial ist wie immer super und gut verständlich
+Danke
+Antworten
+Tobi
+Dezember 30, 2012 at 15:45
+#
+Hi Patrick !
+Das Ergebnis sieht eigentlich gut aus, evtl die Density Scale erhöhen…
+Mit höherer Resolution verändert sich die Simulation teilweise drastisch – das ist normal
+evtl eher Smoke Subdivisions nutzen (auf 2 oder 3) und die Resolution bei 64 – 96 oder 128 max
+Ich mache bald ein ausführliches Tut über den neuen Smokesim…
+LG
+Tobi
+Antworten
+Patrick Züfle
+Dezember 31, 2012 at 16:07
+#
+Hallo Tobi
+danke für die Antwort.
+Ich denke leider wirklich, dass mein Computer das nicht kann.
+Siehst Du das Körnige?
+Das schlimme daran ist, dass es stationär bleibt.
+Es sieht aus wie durch eine schmutzige Scheibe.
+Alles bewegt sich, nur die Körner bleiben stur am gleichen Ort.
+Vielleicht liegt es an Vista
+oder an irgend einem Hardwareteil
+Aber davon geht ja die Welt auch nicht unter.
+Ich bin sicher, wenn ich Deine Datei rendern würde,
+wärst Du arg enttäuscht.
+Mit Rauch oder Feuer hat das so gut wie gar nichts gemeinsam.
+Ich sollte sowieso schon lange auf Ubuntu umsteigen.
+Microsoft wird von Version zu Version unbrauchbarer.
+Das ist was für Händi Freaks, aber nichts für Anwender.
+Dir einen guten Rutsch
+Und grosse Gratulation für Dein mutigen Schritt in die Selbstständigkeit
+liebe Grüsse
+patrick
+Tobi
+Januar 6, 2013 at 17:42
+#
+Hey Patrick,
+vielen Dank!
+Ist ein dubioser Fehler
+Vielleicht wegen Vista irgendwas – kann sein das Vista nicht mehr unterstützt wird – hab ich glaub letztens irgendwo was drüber gelesen.
+win7 64 bit wär definitiv besser…
+Hast du es schon mit BLENDER 2.65a versucht ???
+frohes Neues dir!
+LG, Tobi
+KamikazenTV
+Januar 7, 2013 at 20:39
+#
+Hallo Tobi
+Du hast geschrieben das man Fried Chicken branch nicht mehr braucht, da dieses Tool oder etwas Ähnliches nun in Blender integriert ist.
+Hast du ein neues Video gemacht wie das geht?
+lg Kami
+Antworten
+Tobi
+Februar 4, 2013 at 19:25
+#
+im neuen Blender ist das jetzt eingebaut – so wie man es in diesem Video hier sieht.
+Es wird bald ein neues Tutorial über Feuer und Explosionen geben.
+LG, Tobi
+Julius
+Dezember 16, 2012 at 22:57
+#
+wie derbe ich beim vorspulen abgelacht habe XD
+gutes tut, danke
+Antworten
+Tobi
+Dezember 17, 2012 at 11:15
+#
+Antworten
+Felix
+Oktober 15, 2012 at 20:29
+#
+Super Tutorial!
+ich habe jetzt die 2.64 version. Brauche ich dann trotzdem noch den fried chicken branch ?
+Antworten
+toby
+Oktober 7, 2012 at 16:07
+#
+danke tobi endlich hat es geklappt ^^
+und ein dickes lob an deine tollen tutorials und die mühe die du die mühe die du da reinsteckst bist echt ne große hilfe
+lg toby
+Antworten
+Andreas
+September 16, 2012 at 19:10
+#
+Hallo Tobi, das Tutorial ist echt super.
+Habe nur ein Problem, bei mir ist der SmokeCache ausgegraut.
+Kann ihn auch nicht aktivieren.
+Egal was ich tue, ich kann Bake nicht ausführen…
+Was mache ich falsch??????????
+Antworten
+Andreas
+September 16, 2012 at 19:22
+#
+Ok, mein Fehler…
+Habe vergessen zu speichern. Erst als ich das Projekt gespeichert hatte, kann ich den SmokeCache benutzen…
+Sorry für den Post…
+Antworten
+Tobi
+September 18, 2012 at 12:16
+#
+rüschtüsch
+Tobi
+September 18, 2012 at 12:16
+#
+ich schätze du hast die Datei nicht gespeichert….
+Antworten
+:)
+September 8, 2012 at 09:57
+#
+Jo, vielen Dank Tobi    Sieht super aus! Soll jetzt wirklich keine Kritik sein, aber ich hätte vielleicht ‘ne Textur benutzt anstatt einer Vertex Group, einfach nur dass es schöner und weicher aussieht. Denoch super    Weißt du eigentlich schon, wann Blender 2.64 endlich rauskommt?
+Antworten
+Tobi
+September 8, 2012 at 20:24
+#
+Danke dir!
+und stimmt – mit ner Textur sieht es möglicherweise besser aus als mit ner Vertexgroup
+Wer wissen will wie man DynamicPaint mit Texturen benutzt und was man damit noch so anstellen kann, sollte sich auch noch
+mein spezielles  Dynamic-Paint Tutorial  ansehen, um zu sehen was DP so kann
+Ist ein mächtiges Tool !
+LG!
+Tobi
+Antworten
+Frank H
+September 6, 2012 at 16:49
+#
+Wie immer super Tutorial Video, mach weiter so Tobi.
+Antworten
+Hinterlasse einen Kommentar zu  Tobi   Antworten abbrechen
+Deine E-Mail-Adresse wird nicht veröffentlicht. Erforderliche Felder sind markiert  *   Name  *
+E-Mail  *
+Website
+berechne folgendes (SPAMSCHUTZ)  *
+3 + 2 =     Kommentar     Du kannst folgende  HTML -Tags benutzen:   <a href="" title=""> <abbr title=""> <acronym title=""> <b> <blockquote cite=""> <cite> <code> <del datetime=""> <em> <i> <q cite=""> <strike> <strong>
+> Newsletter abonnieren (Jederzeit wieder abbestellbar)
+Tutorial suchen:
+Suche nach:
+Für Einsteiger:
+Neue Blog Beiträge
+Liebe Blender-Freunde,
+lasst uns mithelfen...
+In dieser Videoserie werden Probleme und...
+In dieser Videoserie werden Probleme und...
+Manuel Bastioni Lab ist jetzt wieder...
+Newsletter + freies eBook!
+Blender Tastenkombos
+trag dich jetzt in meinen Newsletter ein und lade dir das Ebook mit allen Blender Tastenkombinationen kostenlos herunter.
+E-Mail*
+kostenlos anfordern
+www.CleverReach.de
+Blender DVDs & Downloads
+aktuelle Produktion   Doppel-DVD vorbestellen
+alle freien Tutorials anzeigen
+alle Produkte anzeigen
+Newsletter abonnieren
+E-Mail*
+Anmelden
+www.CleverReach.de
+follow! like! share!
+wähle ein Thema 3d
+animation
+audio
+blender
+blender addons
+blender development
+blender game engine
+blenderhilfe talk
+blender modifier
+blender render
+blender userinterface UI
+camera tracking
+cell fracture
+character creation
+cloth simulation
+compositing
+cycles render
+destruction
+dynamic paint
+einsteiger
+erstehilfe
+filmmaking
+filmmaterial
+fracture
+gamedesign
+gimp
+haare / fell
+makehuman
+material
+mb-lab
+modelling
+motion tracking
+nachbearbeitungseffekte
+news
+opensource
+partikel
+rendering
+shading
+simulation
+smokesimulation
+spezialeffekte
+texturen
+tutorial
+visual effects
+volumetric
+Web Links    Blender Homepage
+das BlendPolis Forum
+deutsches Blender Handbuch
+Blender Builds graphicall.org
+Ein riesiger Dank  an dieser Stelle an die Blender Foundation, an alle Blender-Entwickler und die grossartige User-Community die hinter Blender steht, dem besten freien Opensource Kreativ-Tool der Welt !
+über Blender
+Blender Bugs melden (Programmfehler)
+3 Monate
+Alle Tutorials ,  Blender 3D
+Blender ErsteHilfe Video #6
+7 Monate
+Alle Tutorials ,  Blender 3D ,  Erste Hilfe
+Blender ErsteHilfe Video #5
+8 Monate
+Alle Tutorials ,  Blender 3D ,  Erste Hilfe
+Manuel Bastioni Lab – Update 1.65b
+9 Monate
+Alle Tutorials ,  Blender 3D
+Produktempfehlungen
+Blender 3D Einsteiger Training
+39.00€ – 49.00€   35.00€ – 45.00€
+blenderHilfe Textures Vol. 1
+79.00€ – 89.00€   69.00€ – 79.00€
+Visual Effects mit Blender
+39.00€ – 49.00€   29.00€ – 39.00€
+Produktkategorien Tutorials   (8)
+Texturen   (1)
+Sound Effekte   (17)
+Game Design Tutorials   (3)
+Bundles und Angebote   (6)
+Blender Tastenkombos
+trag dich jetzt in meinen Newsletter ein und lade dir das Ebook mit allen Blender Tastenkombinationen kostenlos herunter.
+E-Mail*
+kostenlos anfordern
+www.CleverReach.de
+Wichtige blenderHilfe Links   Datenschutzerklärung
+Impressum
+Allgemeine Geschäftsbedingungen
+© 2019. All Rights Reserved.
+#########################
+Navigation
+BlenderHilfe.de
+deutschsprachige Tutorials für Blender 3D
+Home
+Warenkorb
+7,025.00€   55 Produkte
+Menu1 Home
+freie Tutorials
+Blender 3D – Serien
+Einsteiger Guide
+Erste Hilfe Videos
+Tipp Videos
+Feature Videos
+Game Design
+Pinball Game Design Tutorials
+Visual Effects & Film
+Physics & Destruction
+An der Burg
+Am Pool
+Blender 3D – Themen
+modelling
+sculpting
+character creation
+haare / fell
+shading & texturen
+material
+texturen
+animation
+simulationen
+smokesimulation
+destruction
+partikel
+cloth simulation
+haare / fell
+rendering
+cycles render
+blender render
+compositing
+visual effects / filmmaking
+camera tracking
+spezialeffekte
+nachbearbeitungseffekte
+game engine (bge)
+modifier
+userinterface (ui)
+Cycles Renderer
+Gimp Bildbearbeitung
+MakeHuman 3D Characters
+Vertonung & Audio Produktion
+Coaching und Aufträge
+Ressourcen
+Tutorial-DVDs & Downloads
+Texturen, Materialien
+Soundeffekte
+Freies HD Filmmaterial
+Infos
+freie Software
+News Videos
+Blender Community
+Projekte
+Über mich
+3D-Animationen
+3D-Pics
+Musik
+IT-Kenntnisse
+Impressum
+Datenschutzerklärung
+Kontakt
+schreib mir
+kostenlose Hilfe
+Support & Training
+Soziale Netzwerke
+Facebook
+Google+
+Twitter
+SHOP
+DEIN WARENKORB
+zur Produktübersicht
+>> Tutorial-Serien (DVD/DL)
+>> Texturen Pack
+>> Soundeffekte & Vertonung
+>> Bundles und Angebote
+Support und Training
+alle Kundeninformationen
+Datenschutzerklärung
+AGBs
+Zurück zum Inhalt
+Du bist hier:   Home   >   Blender Tutorial – Animierte Feuerschrift
+Blender Tutorial – Animierte Feuerschrift
+Blender Tutorial – Dynamic Paint
+VideoNewsletter #2
+Erstelle eine brennende Schrift mit Curves, Dynamic Paint und dem überarbeiteten Smoke-Simulator.
+Themen:
+- Curve-Modellierung und Animation
+- Dynamic Paint nutzen
+- Feuer mit dem verbesserten Smoke Simulator (Feuer, Adaptive Domain)
+falls du mehr zu dem Thema Cell Fracture, Physic und Physics Constraints wissen willst…
+hier gehts zur kompletten  Destruction & Physics Serie
+Der neue Smokesimulator
+Mit dem überarbeiteten Smokesimulator gibts jetzt direkt die Möglichkeit Feuer zu erstellen. Früher ging das schon auch, allerdings war das aufsetzen – sagen wir mal – nicht ganz einfach.
+Es wurde aber nicht nur die Darstellung des Feuers mit einem Klick ermöglicht, sondern es gibt auch einen neuen Algorithmus der die Feuersimulation anders berechnet. Es wird also jetzt Feuer und Smoke mit einem anderen Model berechnet. Feuer kann auch Smoke ausstossen, was schnelle und realistische Ergebnisse ermöglicht.
+Wo ich gerade bei Schnelligkeit bin, durch das “Adaptive Domain” Feature, passt sich die Domain jetzt der Smoke simulation an !
+Und die Domain kann jetzt auch bewegt (animiert) werden.
+Das ist der Wahnsinn!!! Jetzt kann man Smoke viel besser einsetzen.
+Soooo… aber jetzt wünsch ich der viel Spass mit dem Tutorial
+Tutorial-Video:
+WICHIGE INFO:
+FRIED CHICKEN BRANCH WIRD  NICHT  MEHR BENÖTIGT !
+Das Feature ist jetzt fester Bestandteil von Blender
+Fragen oder Ideen? schreib einen Kommentar (klicke hier)
+Viel Spass und lass es brennen!
+Tobi
+gepostet von Tobi am 6.09.2012 in  Alle Tutorials ,  Blender 3D ,  Tutorial Serie - Physics & Destruction ,  Visual Effects (Filmmaking) .
+Über Tobi
+leidenschaftlicher 3D-Artist, Musiker, Computertechniker, Trainer und
+hauptberuflich Blender Helfer und Tutorialmacher :D
+hier gibts mehr Infos zu mir  oder  schreib mir hier
+Blender Tutorial – Dynamic Paint
+VideoNewsletter #2
+Hinterlasse einen Kommentar zu  Tobi   Antworten abbrechen
+Deine E-Mail-Adresse wird nicht veröffentlicht. Erforderliche Felder sind markiert  *   Name  *
+E-Mail  *
+Website
+berechne folgendes (SPAMSCHUTZ)  *
+6 +   = 14   Kommentar     Du kannst folgende  HTML -Tags benutzen:   <a href="" title=""> <abbr title=""> <acronym title=""> <b> <blockquote cite=""> <cite> <code> <del datetime=""> <em> <i> <q cite=""> <strike> <strong>
+> Newsletter abonnieren (Jederzeit wieder abbestellbar)
+35 Antworten zu “Blender Tutorial – Animierte Feuerschrift”
+TomPK
+März 4, 2014 at 12:07
+#
+Klappt das ganze auch in der Game Engine ?
+Antworten
+Tobi
+März 26, 2014 at 21:31
+#
+Hi
+ja indirekt geht das!
+das zeige ich auf meiner nächsten Game Making DVD
+Viele Grüsse
+Antworten
+Cininger
+Januar 1, 2014 at 16:56
+#
+Hallo Tobi,
+super Tutorial. Ich bin deinen Anweisungen gefolgt und es klappt soweit. Ich lasse die Animation laufen und sehe die Schrift als Feuer. Wenn ich nun noch kleine Anpassungen machen will, wie z.B. an den Filtern oder im Hintergrund noch ein Text mit Spots anbringe, dann verschwindet (mir aus unerklärlichen Dingen) die Feuerschrift. Ich sehe dann nur noch den Path aber dieser “entzündet” nicht mehr. Dann kann ich alles rückgängig machen aber es funktioniert einfach nicht mehr.
+Mach ich was falsch? Liegts an der Hardware (wobei mein Rechner nicht an Altersschwäche leidet)?
+Hast du einen Tipp für mich?
+Danke vorab!
+Antworten
+Tobi
+Januar 9, 2014 at 12:54
+#
+Hi,
+du musst die Feuersimulation “baken” wie gezeigt – dann bleibt sie
+oder sie von ganz vorne starten damit sie neue brechnet werden kann.
+Grüsse
+Tobi
+Antworten
+John
+Oktober 1, 2013 at 19:03
+#
+Bei mir klappt alles super, aber die Schrift an sich wird sehr eckig bzw. pixelig  dargestellt.
+Wäre toll wenn mir wer dabei helfen könnte.
+Antworten
+Tobi
+Oktober 3, 2013 at 16:03
+#
+Hi, das wird an der RESOLUTION (Divisions) der Simulation liegen.
+Die würde ich höher machen, und die Divisions unter SMOKE HIGH RESOLUTION würde ich auch höher stellen – so auf 2 oder 3
+Grüsse
+Tobi
+Antworten
+Patrick
+Juli 2, 2013 at 19:53
+#
+Hallo Tobi,
+bei mir lässt sich das Feuer zwar erstellen wird aber bei cycles im render nicht angezeigt. Was läuft da falsch?
+Antworten
+Tobi
+Juli 3, 2013 at 12:58
+#
+Hi Patrick,
+Cycles rendert noch keine Volumetrics.
+Bis Cycles komplett nutzbar ist mit allen Features, das dauert sicher noch bis Ende des Jahres oder länger.
+Man kann die 2 Renderengines aber gleichzeitig nutzen, da hab ich aber leider kein Tuto zu.
+Viele Grüsse
+Tobi
+Antworten
+Patrick
+Juli 3, 2013 at 15:20
+#
+Danke Tobi.
+Das mit den zwei Renderengines zusammen habe ich, wenn ich mich richtig erinnere, auch schonmal im Zusammenhang mit einer anderen noch nicht in Cycles vorhandenen Funktion gehört. Wenn ich richtig gelesen habe, Volumetrics Bestandteil der nächsten Version sein.
+Adrian
+April 26, 2013 at 17:40
+#
+Ich habe die Animation nachgemacht, nur ist sie zu schnell…
+Wie kann ich die Geschwindigkeit verkleinern?
+Den Keyframe auf der Curve kann ich irgendwie nicht versetzen…
+Danke für die Hilfe + die guten Tutorials
+Antworten
+Tobi
+April 27, 2013 at 11:37
+#
+Hi,
+um die Keys zu versetzen kannst du sie im DopeSheet oder GraphEditor verschieben.
+oder du löscht sie (alt+i) und machst sie neu
+Viele Grüsse
+Tobi
+Antworten
+Adrian
+April 28, 2013 at 18:29
+#
+Geht leider auch nicht…
+Ich kann sie markieren, aber nicht löschen oder verschieben
+Adrian
+April 28, 2013 at 18:31
+#
+Ach ja, die rote Linie im GraphEditor ist gestrichelt.
+Tobi
+Mai 1, 2013 at 11:24
+#
+Hallo
+ich schreib dir ne mail – und du solltest mir einen Screenshot zurückschicken schicken – oder das blend
+Suno
+März 28, 2013 at 17:29
+#
+sagt ma weiss einer wo ich die shortcuts für den MAc finde? weil die tastenkürzeln für windows hier auf meinem Imac nicht funzen.danke euch schonmal im vorraus
+Antworten
+Tobi
+März 30, 2013 at 02:21
+#
+Beim Mac ist die tastenbelegung genauso wie beim PC
+Nur das die ALT Taste da Apple Taste heisst.
+Bei den ganz neuen Macs haben sie aber sogar ALT draufstehen hab ich gehört
+LG, Tobi
+Antworten
+Veith
+Januar 21, 2013 at 18:35
+#
+Hey,
+bei mir funktioniert das malen nicht.
+Ich habe jetzt 3 mal bis zur 14 Minutenmarke mitgemacht, alles genau wie du, aber er mal einfach nicht auf die Canvas.
+Dann habe ich ein bisschen rumgespielt, und festgestellt, dass es nur im Modus “Mesh Volume” nicht geht. Wenn ich auf Proximity umstelle läufts wunderbar. Aber der Object Center Modus geht auch nicht.
+Außerdem wird die Farbe wenn ich neu abspiele immer nur gelöscht, wenn ich in den funktionierenden Modi bin, d.h. wenn ich etwas in Proximity zeichne und dann auf Mesh Volume umstelle und abspiele, ist einfach nur die alte Farbe immer da. Auch mit Erase Paint funktionieren nur die beiden Modi mit Proximity.
+Ich habe das ganze dann noch in einem anderen Projekt mit einem Cube und Suzi ausprobiert, da ging alles wunderbar auch mit Mesh Volume.
+Welche Einstellung habe ich übersehen?
+Antworten
+Tobi
+Februar 13, 2013 at 21:53
+#
+Ouh, das ist jetzt schwer zu sagen was das sein könnte.
+Da muss ich mal sagen: keine Ahnung
+Wenn du willst schick mir die blend per Mail dann kuck ich mal rein.
+Viele Grüsse, Tobi
+Antworten
+Patrick Züfle
+Dezember 19, 2012 at 18:33
+#
+Hallo Tobi
+Mit meinem Computer geht Smok nicht.
+Ich habe ein Dell
+siehe hier die Daten;
+http://www.kieselsteine.ch/Herz/fff.jpg
+Betriebssystem Vista 64
+Ich hatte wochenlang versucht das Tornado Tutorial auf Blendercookies nach zu bauen. Dort war das genau gleiche. Um so höher ich die Resolution stelle, um so schlechter das Resultat.
+Am Schluss hatte ich ziemlich entnervt seine Datei herunter geladen bei mir gebacken und das Resultat war ebenfalls zum fort werfen. Obwohl es seine Original Datei war mit den Haar genau gleichen Einstellungen.
+Ich hatte dort versucht zu fragen an was das liegen könnte. Er hat alles versucht und fand keine Lösung. Seither weiss ich mein Computer kann kein Blenderrauch herstellen.
+Nun hatte ich gehoft, dass die neue Smoksimulation das endlich auch für mich möglich macht. Leider nein.
+Hier mein Resultat;
+http://www.kieselsteine.ch/Herz/ff.jpg
+Ich habe alles so gemacht wie Du…
+Könntest Du dieses Problem einmal den Blenderentwickler schildern?
+Auf Blendercookie Tornado Tutorial haben sich nämlich einige gemeldet, bei denen es genau so nicht geht wie bei mir.
+Ich wäre auch bereit meinen Computer HeiTschecken zu lassen, von so einem Entwickler, damit er sich die Sachlage einmal vor Ort anschauen kann.
+Ps;
+Ich habe es mit Installiertem und nicht installiertem Blender versucht.
+Kein Unterschied.
+liebe Grüsse
+patrick
+Das Tutorial ist wie immer super und gut verständlich
+Danke
+Antworten
+Tobi
+Dezember 30, 2012 at 15:45
+#
+Hi Patrick !
+Das Ergebnis sieht eigentlich gut aus, evtl die Density Scale erhöhen…
+Mit höherer Resolution verändert sich die Simulation teilweise drastisch – das ist normal
+evtl eher Smoke Subdivisions nutzen (auf 2 oder 3) und die Resolution bei 64 – 96 oder 128 max
+Ich mache bald ein ausführliches Tut über den neuen Smokesim…
+LG
+Tobi
+Antworten
+Patrick Züfle
+Dezember 31, 2012 at 16:07
+#
+Hallo Tobi
+danke für die Antwort.
+Ich denke leider wirklich, dass mein Computer das nicht kann.
+Siehst Du das Körnige?
+Das schlimme daran ist, dass es stationär bleibt.
+Es sieht aus wie durch eine schmutzige Scheibe.
+Alles bewegt sich, nur die Körner bleiben stur am gleichen Ort.
+Vielleicht liegt es an Vista
+oder an irgend einem Hardwareteil
+Aber davon geht ja die Welt auch nicht unter.
+Ich bin sicher, wenn ich Deine Datei rendern würde,
+wärst Du arg enttäuscht.
+Mit Rauch oder Feuer hat das so gut wie gar nichts gemeinsam.
+Ich sollte sowieso schon lange auf Ubuntu umsteigen.
+Microsoft wird von Version zu Version unbrauchbarer.
+Das ist was für Händi Freaks, aber nichts für Anwender.
+Dir einen guten Rutsch
+Und grosse Gratulation für Dein mutigen Schritt in die Selbstständigkeit
+liebe Grüsse
+patrick
+Tobi
+Januar 6, 2013 at 17:42
+#
+Hey Patrick,
+vielen Dank!
+Ist ein dubioser Fehler
+Vielleicht wegen Vista irgendwas – kann sein das Vista nicht mehr unterstützt wird – hab ich glaub letztens irgendwo was drüber gelesen.
+win7 64 bit wär definitiv besser…
+Hast du es schon mit BLENDER 2.65a versucht ???
+frohes Neues dir!
+LG, Tobi
+KamikazenTV
+Januar 7, 2013 at 20:39
+#
+Hallo Tobi
+Du hast geschrieben das man Fried Chicken branch nicht mehr braucht, da dieses Tool oder etwas Ähnliches nun in Blender integriert ist.
+Hast du ein neues Video gemacht wie das geht?
+lg Kami
+Antworten
+Tobi
+Februar 4, 2013 at 19:25
+#
+im neuen Blender ist das jetzt eingebaut – so wie man es in diesem Video hier sieht.
+Es wird bald ein neues Tutorial über Feuer und Explosionen geben.
+LG, Tobi
+Julius
+Dezember 16, 2012 at 22:57
+#
+wie derbe ich beim vorspulen abgelacht habe XD
+gutes tut, danke
+Antworten
+Tobi
+Dezember 17, 2012 at 11:15
+#
+Antworten
+Felix
+Oktober 15, 2012 at 20:29
+#
+Super Tutorial!
+ich habe jetzt die 2.64 version. Brauche ich dann trotzdem noch den fried chicken branch ?
+Antworten
+toby
+Oktober 7, 2012 at 16:07
+#
+danke tobi endlich hat es geklappt ^^
+und ein dickes lob an deine tollen tutorials und die mühe die du die mühe die du da reinsteckst bist echt ne große hilfe
+lg toby
+Antworten
+Andreas
+September 16, 2012 at 19:10
+#
+Hallo Tobi, das Tutorial ist echt super.
+Habe nur ein Problem, bei mir ist der SmokeCache ausgegraut.
+Kann ihn auch nicht aktivieren.
+Egal was ich tue, ich kann Bake nicht ausführen…
+Was mache ich falsch??????????
+Antworten
+Andreas
+September 16, 2012 at 19:22
+#
+Ok, mein Fehler…
+Habe vergessen zu speichern. Erst als ich das Projekt gespeichert hatte, kann ich den SmokeCache benutzen…
+Sorry für den Post…
+Antworten
+Tobi
+September 18, 2012 at 12:16
+#
+rüschtüsch
+Tobi
+September 18, 2012 at 12:16
+#
+ich schätze du hast die Datei nicht gespeichert….
+Antworten
+:)
+September 8, 2012 at 09:57
+#
+Jo, vielen Dank Tobi    Sieht super aus! Soll jetzt wirklich keine Kritik sein, aber ich hätte vielleicht ‘ne Textur benutzt anstatt einer Vertex Group, einfach nur dass es schöner und weicher aussieht. Denoch super    Weißt du eigentlich schon, wann Blender 2.64 endlich rauskommt?
+Antworten
+Tobi
+September 8, 2012 at 20:24
+#
+Danke dir!
+und stimmt – mit ner Textur sieht es möglicherweise besser aus als mit ner Vertexgroup
+Wer wissen will wie man DynamicPaint mit Texturen benutzt und was man damit noch so anstellen kann, sollte sich auch noch
+mein spezielles  Dynamic-Paint Tutorial  ansehen, um zu sehen was DP so kann
+Ist ein mächtiges Tool !
+LG!
+Tobi
+Antworten
+Frank H
+September 6, 2012 at 16:49
+#
+Wie immer super Tutorial Video, mach weiter so Tobi.
+Antworten
+Hinterlasse einen Kommentar zu  Tobi   Antworten abbrechen
+Deine E-Mail-Adresse wird nicht veröffentlicht. Erforderliche Felder sind markiert  *   Name  *
+E-Mail  *
+Website
+berechne folgendes (SPAMSCHUTZ)  *
++ 8 = 17   Kommentar     Du kannst folgende  HTML -Tags benutzen:   <a href="" title=""> <abbr title=""> <acronym title=""> <b> <blockquote cite=""> <cite> <code> <del datetime=""> <em> <i> <q cite=""> <strike> <strong>
+> Newsletter abonnieren (Jederzeit wieder abbestellbar)
+Tutorial suchen:
+Suche nach:
+Für Einsteiger:
+Neue Blog Beiträge
+Liebe Blender-Freunde,
+lasst uns mithelfen...
+In dieser Videoserie werden Probleme und...
+In dieser Videoserie werden Probleme und...
+Manuel Bastioni Lab ist jetzt wieder...
+Newsletter + freies eBook!
+Blender Tastenkombos
+trag dich jetzt in meinen Newsletter ein und lade dir das Ebook mit allen Blender Tastenkombinationen kostenlos herunter.
+E-Mail*
+kostenlos anfordern
+www.CleverReach.de
+Blender DVDs & Downloads
+aktuelle Produktion   Doppel-DVD vorbestellen
+alle freien Tutorials anzeigen
+alle Produkte anzeigen
+Newsletter abonnieren
+E-Mail*
+Anmelden
+www.CleverReach.de
+follow! like! share!
+wähle ein Thema 3d
+animation
+audio
+blender
+blender addons
+blender development
+blender game engine
+blenderhilfe talk
+blender modifier
+blender render
+blender userinterface UI
+camera tracking
+cell fracture
+character creation
+cloth simulation
+compositing
+cycles render
+destruction
+dynamic paint
+einsteiger
+erstehilfe
+filmmaking
+filmmaterial
+fracture
+gamedesign
+gimp
+haare / fell
+makehuman
+material
+mb-lab
+modelling
+motion tracking
+nachbearbeitungseffekte
+news
+opensource
+partikel
+rendering
+shading
+simulation
+smokesimulation
+spezialeffekte
+texturen
+tutorial
+visual effects
+volumetric
+Web Links    Blender Homepage
+das BlendPolis Forum
+deutsches Blender Handbuch
+Blender Builds graphicall.org
+Ein riesiger Dank  an dieser Stelle an die Blender Foundation, an alle Blender-Entwickler und die grossartige User-Community die hinter Blender steht, dem besten freien Opensource Kreativ-Tool der Welt !
+über Blender
+Blender Bugs melden (Programmfehler)
+3 Monate
+Alle Tutorials ,  Blender 3D
+Blender ErsteHilfe Video #6
+7 Monate
+Alle Tutorials ,  Blender 3D ,  Erste Hilfe
+Blender ErsteHilfe Video #5
+8 Monate
+Alle Tutorials ,  Blender 3D ,  Erste Hilfe
+Manuel Bastioni Lab – Update 1.65b
+9 Monate
+Alle Tutorials ,  Blender 3D
+Produktempfehlungen
+Blender 3D Einsteiger Training
+39.00€ – 49.00€   35.00€ – 45.00€
+blenderHilfe Textures Vol. 1
+79.00€ – 89.00€   69.00€ – 79.00€
+Visual Effects mit Blender
+39.00€ – 49.00€   29.00€ – 39.00€
+Produktkategorien Tutorials   (8)
+Texturen   (1)
+Sound Effekte   (17)
+Game Design Tutorials   (3)
+Bundles und Angebote   (6)
+Blender Tastenkombos
+trag dich jetzt in meinen Newsletter ein und lade dir das Ebook mit allen Blender Tastenkombinationen kostenlos herunter.
+E-Mail*
+kostenlos anfordern
+www.CleverReach.de
+Wichtige blenderHilfe Links   Datenschutzerklärung
+Impressum
+Allgemeine Geschäftsbedingungen
+© 2019. All Rights Reserved.

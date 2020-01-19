@@ -71,33 +71,16 @@ class DataHandler:
         """
         text_dict = None
 
-        if "text_entries.json" in self.source:
+        if "text_entries" in self.source:
             if os.path.isfile(self.source):
-                print("Found a json file with text entries. Trying to load it now:")
                 try:
                     with open(self.source, "r") as file:
                         text_dict = json.load(file)
                 except json.JSONDecodeError as err:
                     print("Failed: {}".format(err))
-                else:
-                    print("Success")
+
         else:
-            alternative_file = "{}_text_entries.json".format(self.source.split(".")[0])
-            if os.path.isfile(alternative_file):
-                print("It looks like there is already an extracted warc archive in {}".format(alternative_file))
-                _ = input("If you want to use the original archive enter y/Y: ")
-                if str(_).lower() == "y":
-                    try:
-                        text_dict = self.__read_in(self.source)
-                    except DataHandlerException as err:
-                        print("Failed: {}".format(err))
-                    else:
-                        print("Success")
-                else:
-                    self.source = alternative_file
-                    text_dict = self.__check_source()
-            else:
-                text_dict = self.__read_in(self.source)
+            text_dict = self.__read_in(self.source)
 
         return text_dict
 
@@ -111,7 +94,6 @@ class DataHandler:
         :return: text_dict
         """
         i = 0
-        s = time.time()
         if not os.path.isfile(source):
             raise DataHandlerException("Source {} is not a valid file!".format(source))
 
@@ -134,13 +116,10 @@ class DataHandler:
                         i += 1
                     except AttributeError as err:
                         print('Wrong Encoding at offset ' + str(archive_stream.get_record_offset()))
-            print(i)
-                #if i == 10000:
-                #    break
+
+        archive_stream.close()
 
         with open("{}_text_entries.json".format(source.split(".")[0]), "w") as out:
             json.dump(text_dict, out)
-
-        #archive_stream.close()
 
         return text_dict

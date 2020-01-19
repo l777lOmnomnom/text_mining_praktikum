@@ -2,13 +2,26 @@ import os
 import sys
 import json
 import argparse
-import time
+import subprocess
 
 from lib.data_handler import DataHandler
 from near_duplicate_detection.hasher import Simhash, Minhash, Justushash
 
 FILE = os.path.dirname(os.path.abspath(__file__))  # Points to this folder (/home/something/something/text_mining/)
 BOOL_DICT = {"True": True, "False": False}
+
+
+def __store_diff(output_path, _offset_text_dict, offset_a, offset_b):
+    with open(os.path.join(output_path, "a"), "w") as a:
+        a.write(_offset_text_dict.get(str(offset_a)))
+
+    with open(os.path.join(output_path, "b"), "w") as b:
+        b.write(_offset_text_dict.get(str(offset_b)))
+
+    diff = os.system("diff {} {}".format(os.path.join(FILE, output_path, "a"),
+                                         os.path.join(FILE, output_path, "b")))
+
+    return diff
 
 
 def __load_conf(_config=os.path.join(FILE, "conf/example.conf")):
@@ -26,7 +39,7 @@ def __load_conf(_config=os.path.join(FILE, "conf/example.conf")):
         print("Failed to load config: {}".format(err))
         sys.exit(1)
     else:
-        print("Config:")
+        print("Config:\n")
         for key, value in conf_dict.items():
             print("    {}: {}".format(key, value))
 
@@ -36,15 +49,13 @@ def __load_conf(_config=os.path.join(FILE, "conf/example.conf")):
             else:
                 conf_dict[key] = value
 
-        print("Successfully loaded config from /home/robby/git/text_mining/conf/example.conf!\n".format(_config))
+        print("\nSuccessfully loaded config from /home/robby/git/text_mining/conf/example.conf!\n".format(_config))
 
         return conf_dict
 
 
 parser = argparse.ArgumentParser()  # This is the cmd-line parser
-
 parser.add_argument("-c", "--config", help="path of the config file (default: conf/example.conf)")
-
 args = parser.parse_args()
 
 if __name__ == "__main__":  # This is True if main.py was called from a command line
@@ -62,13 +73,12 @@ if __name__ == "__main__":  # This is True if main.py was called from a command 
     print("Reading in the data source ...")
     data = DataHandler(source, config.get("max_elements"))
     offset_text_dict = data.text_dict
-    print("Finished reading {} records!\n".format(len(offset_text_dict)))
 
     for run, values in config.items():
-        hash_list = list()
-        hash_offset_dict = dict()
+        hash_list = list()  # Hash list for use in the evaluate function
+        hash_offset_dict = dict()  # A dict containing hash: offset
 
-        print("Starting run {} with following values:\n{}".format(run, values))
+        print("\nStarting run {} with following values:\n{}".format(run, values))
 
         if values.get("mode") == "simhash":
             hasher = Simhash(values.get("additional_parameter"))
@@ -77,37 +87,41 @@ if __name__ == "__main__":  # This is True if main.py was called from a command 
         else:
             raise ModuleNotFoundError("Entry mode was not found in the config file!")
 
-        print("Calculating hashes ...")
-        i = 0
+        print("\nCalculating hashes ...".format(len(offset_text_dict)))
         for offset, text in offset_text_dict.items():
             hash_offset_dict.update({hasher.hash(text): offset})
-            i += 1
-            if i == 1000:
-                break
+
         # Fastpath load from existing run
         # with open("data/simhash_hashes.json", "r") as file:
         #    offset_hash_dict = json.load(file)
         #    for key, value in offset_hash_dict.items():
         #        hash_offset_dict.update({value: key})
 
-        print("Finding matching pairs ...")
-        print(len(hash_offset_dict))
+        print("Searching matches ...")
         matches = hasher.evaluate(list(hash_offset_dict.keys()))
 
         print("Found {} matches!\n\n".format(len(matches)))
 
-        #Store results
-        #i = 0
-        #for match in matches:
-        #    i += 1
-        #    offset_1 = hash_offset_dict.get(match[0])
-        #    offset_2 = hash_offset_dict.get(match[1])
+        output = source.split(".")[0]
+        print("Creating a results folder in {} and storing all results there.".format(output))
 
-        #    with open("data/{}_{}".format(offset_1, offset_2), "w") as file:
-        #        file.write("{}\n#####\n{}".format(offset_text_dict.get(offset_1), offset_text_dict.get(offset_2)))
+        if not os.path.isdir(output):
+            os.mkdir(output)
+        i = 0
+        for match in matches:
+            i += 1
 
-        #    if i == 100:
-        #        break
+            # This makes evaluation easier as all files are ordered by their smallest offset
+            # if match[0] > match[1]:
+            #    match[0], match[1] = match[1], match[0]
 
+            offset_a, offset_b = hash_offset_dict.get(match[0]), hash_offset_dict.get(match[1])
+            with open(os.path.join(output, "{}_{}_{}".format(offset_a, offset_b, run)), "w") as file:
+                file.write("{}\n{}\n{}".format(offset_text_dict.get(offset_a), "#"*25, offset_text_dict.get(offset_b)))
 
+            # This should save the diff but doesn't work ...
+            # with open(os.path.join(output, "{}_{}_diff".format(offset_a, offset_b)), "w") as file:
+            #    file.write(__store_diff(output, offset_text_dict, offset_a, offset_b))
 
+            if i == 10:
+                sys.exit(0)
