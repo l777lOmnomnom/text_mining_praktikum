@@ -88,25 +88,24 @@ if __name__ == "__main__":  # This is True if main.py was called from a command 
             raise ModuleNotFoundError("Entry mode was not found in the config file!")
 
         print("\nCalculating hashes ...".format(len(offset_text_dict)))
-        for offset, text in offset_text_dict.items():
-            hash_offset_dict.update({hasher.hash(text): offset})
-
-        # Fastpath load from existing run
-        # with open("data/simhash_hashes.json", "r") as file:
-        #    offset_hash_dict = json.load(file)
-        #    for key, value in offset_hash_dict.items():
-        #        hash_offset_dict.update({value: key})
+        if os.path.isfile("{}_hashes.json".format(source.split(".")[0])):
+            with open("{}_hashes.json".format(source.split(".")[0]), "r") as file:
+                hash_offset_dict = json.load(file)
+        else:
+            for offset, text in offset_text_dict.items():
+                hash_offset_dict.update({hasher.hash(text): offset})
+            with open("{}_hashes.json".format(source.split(".")[0]), "w") as file:
+                json.dump(hash_offset_dict, file)
 
         print("Searching matches ...")
         matches = hasher.evaluate(list(hash_offset_dict.keys()))
-
         print("Found {} matches!\n\n".format(len(matches)))
 
+        print("Creating a results folder in {} and storing all results there.".format(source.split(".")[0]))
         output = source.split(".")[0]
-        print("Creating a results folder in {} and storing all results there.".format(output))
-
         if not os.path.isdir(output):
             os.mkdir(output)
+
         i = 0
         for match in matches:
             i += 1
@@ -117,11 +116,21 @@ if __name__ == "__main__":  # This is True if main.py was called from a command 
 
             offset_a, offset_b = hash_offset_dict.get(match[0]), hash_offset_dict.get(match[1])
             with open(os.path.join(output, "{}_{}_{}".format(offset_a, offset_b, run)), "w") as file:
-                file.write("{}\n{}\n{}".format(offset_text_dict.get(offset_a), "#"*25, offset_text_dict.get(offset_b)))
+                infos = "Config:\n{}".format(config)
+                text_a = "Offset: {}\nHash: {}\nLength: {}\n\n{}".format(offset_a,
+                                                                         match[0],
+                                                                         len(offset_text_dict.get(offset_a)),
+                                                                         offset_text_dict.get(offset_a))
+                text_b = "Offset: {}\nHash: {}\nLength: {}\n\n{}".format(offset_b,
+                                                                         match[1],
+                                                                         len(offset_text_dict.get(offset_a)),  # noqa
+                                                                         offset_text_dict.get(offset_a))  # noqa
+
+                file.write("{}\n\n{}\n\n{}\n\n{}".format(infos, text_a, "#"*25, text_b))
 
             # This should save the diff but doesn't work ...
             # with open(os.path.join(output, "{}_{}_diff".format(offset_a, offset_b)), "w") as file:
             #    file.write(__store_diff(output, offset_text_dict, offset_a, offset_b))
 
-            if i == 10:
-                sys.exit(0)
+            if i == 3:
+                break
