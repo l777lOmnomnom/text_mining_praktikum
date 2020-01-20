@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="de" dir="ltr">
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>ILIAS der JLU Gießen - Lehre 4.0 | Recht im E-Learning</title>
+	
+	<script type="text/javascript" src="./libs/bower/bower_components/jquery/dist/jquery.js?vers=5-3-17-2019-08-15"></script>
+	
+	<script type="text/javascript" src="./libs/bower/bower_components/jstree/jquery.jstree.js?vers=5-3-17-2019-08-15"></script>
+	
+	<script type="text/javascript" src="./Services/JavaScript/js/Basic.js?vers=5-3-17-2019-08-15"></script>
+	
+	<script type="text/javascript" src="./libs/bower/bower_components/jquery-migrate/jquery-migrate.min.js?vers=5-3-17-2019-08-15"></script>
+	
+	<script type="text/javascript" src="./libs/bower/bower_components/jquery-ui/jquery-ui.js?vers=5-3-17-2019-08-15"></script>
+	
+	<script type="text/javascript" src="./libs/bower/bower_components/bootstrap/dist/js/bootstrap.min.js?vers=5-3-17-2019-08-15"></script>
+	
+	<script type="text/javascript" src="./libs/patched/maphilight_14_03_20/maphilight.js?vers=5-3-17-2019-08-15"></script>
+	
+	<script type="text/javascript" src="./Services/COPage/js/ilCOPagePres.js?vers=5-3-17-2019-08-15"></script>
+	
+	<script type="text/javascript" src="./libs/bower/bower_components/mediaelement/build/mediaelement-and-player.min.js?vers=5-3-17-2019-08-15"></script>
+	
+	<script type="text/javascript" src="./libs/bower/bower_components/yui2/build/yahoo-dom-event/yahoo-dom-event.js?vers=5-3-17-2019-08-15"></script>
+	
+	<script type="text/javascript" src="./libs/bower/bower_components/yui2/build/container/container_core-min.js?vers=5-3-17-2019-08-15"></script>
+	
+	<script type="text/javascript" src="./Services/UIComponent/Overlay/js/ilOverlay.js?vers=5-3-17-2019-08-15"></script>
+	
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML&vers=5-3-17-2019-08-15"></script>
+	
+	<script type="text/javascript" src="./Services/Link/lib/linkify/1_1/jquery.linkify.min.js?vers=5-3-17-2019-08-15"></script>
+	
+	<script type="text/javascript" src="./Services/Link/js/ilExtLink.js?vers=5-3-17-2019-08-15"></script>
+	
+	<script type="text/javascript" src="./Modules/Scorm2004/scripts/questions/pure.js?vers=5-3-17-2019-08-15"></script>
+	
+	<script type="text/javascript" src="./Modules/Scorm2004/scripts/questions/question_handling.js?vers=5-3-17-2019-08-15"></script>
+	
+	<script type="text/javascript" src="Modules/TestQuestionPool/js/ilMatchingQuestion.js?vers=5-3-17-2019-08-15"></script>
+	
+	<script type="text/javascript" src="./Services/COPage/js/ilCOPageQuestionHandler.js?vers=5-3-17-2019-08-15"></script>
+	
+	<script type="text/javascript" src="./Services/Accordion/js/accordion.js?vers=5-3-17-2019-08-15"></script>
+	
+	<script type="text/javascript" src="./libs/bower/bower_components/owl.carousel/dist/owl.carousel.js?vers=5-3-17-2019-08-15"></script>
+	
+	<script type="text/javascript" src="./Services/UIComponent/Explorer2/js/Explorer2.js?vers=5-3-17-2019-08-15"></script>
+	
+	<script type="text/javascript" src="./libs/bower/bower_components/qtip2/dist/jquery.qtip.min.js?vers=5-3-17-2019-08-15"></script>
+	
+	<script type="text/javascript" src="./Services/UIComponent/Tooltip/js/ilTooltip.js?vers=5-3-17-2019-08-15"></script>
+	
+	<script type="text/javascript" src="./Services/Help/js/ilHelp.js?vers=5-3-17-2019-08-15"></script>
+	
+	<script type="text/javascript" src="./libs/bower/bower_components/yui2/build/connection/connection-min.js?vers=5-3-17-2019-08-15"></script>
+	
+	<script type="text/javascript" src="./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/LfMainMenu/js/lfMainMenu.js?vers=5-3-17-2019-08-15"></script>
+	
+	<script type="text/javascript" src="./Services/UIComponent/Modal/js/Modal.js?vers=5-3-17-2019-08-15"></script>
+	
+	<script type="text/javascript" src="./libs/bower/bower_components/yui2/build/container/container-min.js?vers=5-3-17-2019-08-15"></script>
+	
+	<script type="text/javascript" src="./Services/Notes/js/ilNotes.js?vers=5-3-17-2019-08-15"></script>
+	
+	<script type="text/javascript" src="./Services/Tagging/js/ilTagging.js?vers=5-3-17-2019-08-15"></script>
+	
+	<script type="text/javascript" src="./Modules/LearningModule/js/LearningModule.js?vers=5-3-17-2019-08-15"></script>
+	
+	<script type="text/javascript" src="./Services/Navigation/js/ServiceNavigation.js?vers=5-3-17-2019-08-15"></script>
+	
+	
+	<link rel="stylesheet" type="text/css" href="./libs/bower/bower_components/Yamm3/yamm/yamm.css" media="screen" />
+	
+	<link rel="stylesheet" type="text/css" href="./libs/bower/bower_components/mediaelement/build/mediaelementplayer.min.css" media="screen" />
+	
+	<link rel="stylesheet" type="text/css" href="./libs/bower/bower_components/yui2/build/container/assets/skins/sam/container.css" media="screen" />
+	
+	<link rel="stylesheet" type="text/css" href="./Modules/Scorm2004/templates/default/question_handling.css" media="screen" />
+	
+	<link rel="stylesheet" type="text/css" href="Modules/TestQuestionPool/templates/default/test_javascript.css" media="screen" />
+	
+	<link rel="stylesheet" type="text/css" href="./Services/Accordion/css/accordion.css" media="screen" />
+	
+	<link rel="stylesheet" type="text/css" href="./libs/bower/bower_components/owl.carousel/dist/assets/owl.carousel.css" media="screen" />
+	
+	<link rel="stylesheet" type="text/css" href="./libs/bower/bower_components/qtip2/dist/jquery.qtip.min.css" media="screen" />
+	
+	<link rel="stylesheet" type="text/css" href="./Customizing/global/plugins/Services/UIComponent/UserInterfaceHook/LfMainMenu/templates/lfmainmenu.css" media="screen" />
+	
+	<link rel="stylesheet" type="text/css" href="./Services/Calendar/css/panel_min.css" media="screen" />
+	
+	<link rel="stylesheet" type="text/css" href="./Customizing/global/skin/jlu/jlu.css?vers=5-3-17-2019-08-15-0-32" />
+	
+	<link rel="stylesheet" type="text/css" href="./Services/COPage/css/content.css" />
+	
+	
+	<link rel="stylesheet" type="text/css" href="./Services/COPage/css/syntaxhighlight.css" />
+	
+</head>
+<body class="std">
+<div id="drag_zmove"></div>
+	<div id="ilTopBar" class="ilTopBar ilTopFixed hidden-print">
+	<div class="container-fluid ilContainerWidth">
+		<div class="row">
+			
+			<div class="ilTopTitle">ILIAS der Justus-Liebig-Universität Gießen</div>
+			
+			
+			
+			
+			<ul id="ilTopBarNav" class="">					
+				
+				
+				
+				
+				
+				<li class="mm_background_tasks" refresh-uri=""></li>
+				<li><script>
+    $(document).ready(function () {
+        var a = $("#srag-usrto-search");
+        a.click(function (event) {
+            event.preventDefault();
+        });
+        var href = a.attr("href");
+        var input = a.children(".srag-seach-input");
+        var results = $("#srag-usrto-search-results");
+        var takeoverprefix = results.attr("data-srag-usrto-takeover-prefix");
+        var loading_text = results.attr("data-srag-loading-text");
+        var no_results_text = results.attr("data-srag-no-results");
+
+        input.focus(function () {
+            results.slideDown();
+        });
+
+	    /**
+         * @author Jean-Luc Braun <braun@qualitus.de>
+	     */
+	    $("#srag-toggle").click(function(){
+		    $("#srag_container").slideToggle(300);
+		    $(this).toggleClass('active').promise().done(function(){
+			    if ($(this).hasClass("active")) {
+			    	input.focus();
+				    $(document).bind('mouseup', function(e) {
+					    if (!$("#srag-usrto-search input").is(e.target) && !$("#srag-toggle").is(e.target) && $("#srag-toggle").has(e.target).length === 0) {
+						    $("#srag_container").hide();
+						    $("#srag-toggle").removeClass('active');
+						    $(document).unbind('mouseup');
+					    }
+				    });
+			    } else {
+				    $(document).unbind('mouseup');
+			    }
+		    });
+	    });
+
+        var previousRequest = null;
+
+        function handleRequest() {
+            if (previousRequest) {
+                previousRequest.abort();
+            } else {
+                results.prepend("<li>" + loading_text + "<li/>");
+            }
+            var term = input.val();
+            if (term.length < 3) {
+                results.empty();
+                return;
+            }
+            previousRequest = $.ajax({
+                url: href,
+                type: "get",
+                data: {
+                    term: term
+                },
+                success: function (response) {
+                    console.log("BEGIN"+response+"END OF RESPONSE");
+                    response = JSON.parse(response);
+                    results.empty();
+                    for (var i = 0; i < response.length; i++) {
+                        results.prepend("<li><a class='user-takeover-link' href=" + takeoverprefix + response[i].id + ">" + response[i].text + "</a></li>");
+                    }
+                    if (response.length == 0) {
+                        results.prepend("<li>" + no_results_text + "</li>")
+                    }
+                    previousRequest = null;
+                }
+            })
+        }
+        input.on('paste', function () {
+            handleRequest();
+        });
+
+        input.keyup(function (e) {
+            var key = e.which;
+            if(key == 13) {
+                var link = $("a.user-takeover-link").first();
+                var takeoverLink = link.attr("href");
+                //do not redirect if no results where found
+                if(takeoverLink == null) {
+                	return;
+                }
+                link.fadeTo(100, 0.1).fadeTo(500, 1.0);
+                console.log($("a.user-takeover-link").first());
+                window.location.href = takeoverLink;
+                return;
+            }
+            handleRequest();
+        });
+    })
+
+</script>
+
+<!--
+  @author Jean-Luc Braun <braun@qualitus.de>
+-->
+
+<!--  -->
+
+<ul class="dropdown-menu pull-right" id="srag_container" style="display: none; white-space: nowrap; padding: 0px 10px">
+	<li>
+		
+		<a href='' id='srag-usrto-search' class='dropdown-toggle'>
+            
+			
+		</a>
+		
+		<div data-srag-usrto-takeover-prefix="" data-srag-no-results="" data-srag-loading-text="" id="srag-usrto-search-results">
+		</div>
+		
+	</li>
+</ul>
+</li><li id="ilMMSearch" class="dropdown yamm"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-search"></span></a>
+<ul class="dropdown-menu pull-right" role="menu">
+	<li>
+		<form class="" role="search" id="mm_search_form" action="ilias.php?baseClass=ilSearchController&cmd=post&rtoken=&fallbackCmd=remoteSearch" method="post" target="_top">
+		<div class="input-group">
+			<input id="main_menu_search" class="form-control" type="text" name="queryString">
+			<span class="input-group-btn">
+				<input type="submit" class="btn btn-default" type="button" value="Go" />
+			</span>
+		</div>
+			<div class="yui-skin-sam" style="font-size: 75%;" id=""></div>
+			
+			<div id="mm_search_menu_ac"></div>
+			<script type="text/javascript">
+				il.Util.addOnLoad(
+						function()
+						{
+							if (typeof $ != "undefined")
+							{
+								// we must bind the blur event before the autocomplete
+								// item is added
+								$("#main_menu_search").on("blur", function(e) {
+									// prevent that the autocomplete list disappears when blur occurs
+									e.stopImmediatePropagation();
+								});
+
+								$("#main_menu_search").autocomplete({
+									source: "ilias.php?baseClass=ilSearchController&cmd=autoComplete" + "&search_type=4",
+									appendTo: "#mm_search_menu_ac",
+									open: function(event, ui) {
+										$(".ui-autocomplete").position({
+											my: "left top",
+											at: "left top",
+											of: $("#mm_search_menu_ac")
+										})
+									},
+									/*close: function(event, ui) {
+									 alert("close");
+									 console.log(event);
+									 console.log(ui);
+									 return false;
+									 },*/
+									minLength: 3
+								});
+
+
+								$("#ilMMSearchMenu input[type='radio']").change(function(){
+									$("#main_menu_search").focus();
+                                                                        
+                                                                        /* close current search */
+                                                                        $("#main_menu_search").autocomplete("close");
+                                                                        
+                                                                        /* append search type */
+                                                                        
+                                                                        var orig_datasource = "ilias.php?baseClass=ilSearchController&cmd=autoComplete";
+                                                                        var type_val = $('input[name=root_id]:checked','#mm_search_form').val();
+                                                                        
+                                                                        $("#main_menu_search").autocomplete("option",
+                                                                        {
+                                                                            source: orig_datasource + "&search_type=" + type_val
+                                                                        });
+                                                                        
+                                                                        /* start new search */
+                                                                        $("#main_menu_search").autocomplete("search");
+								});
+							}
+						}
+				);
+			</script>
+		</form>
+
+
+
+	<!-- <form class="navbar-form navbar-right" role="search" action="ilias.php?baseClass=ilSearchController&cmd=post&rtoken=&fallbackCmd=remoteSearch" method="post" target="_top">
+	<div class="form-group">
+		<div class="input-group">
+			<input type="text" class="form-control" placeholder="Search" name="queryString">
+			<span class="input-group-btn">
+				<button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+			</span>
+		</div>
+	</div>
+	</form> -->
+</li></ul>
+</li>
+
+				
+				<li id="mm_help" class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">
+					<span class="visible-xs-inline glyphicon glyphicon-question-sign"></span>
+					<span class="hidden-xs">Ayuda <span class="caret"></span></span></a>
+					<ul class="dropdown-menu pull-right" role="menu">
+
+
+
+
+<li class=""><a href="#" target="_top"  onclick="il.Help.listHelp(event, false);"><span>&nbsp;</span> Temas</a></li>
+
+
+
+
+
+<li class=""><a href="#" target="_top"  onclick="return il.Help.switchTooltips(event);"><span id="help_tt_switch_on" class="glyphicon glyphicon-ok"></span> Herramientas de ayuda</a></li>
+
+
+
+
+
+
+
+
+
+
+</ul>
+
+
+				</li>
+				
+				
+				
+				<li class="dropdown"><a id="mm_lang_sel" href="#" class="dropdown-toggle" data-toggle="dropdown">Idioma <span class="caret"></span></a>
+					<ul class="dropdown-menu" role="menu">
+
+
+
+
+<li class=""><a href="ilias.php?ref_id=91312&obj_id=97979&cmd=layout&cmdClass=illmpresentationgui&cmdNode=eq&baseClass=ilLMPresentationGUI&lang=de" target="_top"  >Deutsch</a></li>
+
+
+
+
+
+<li class=""><a href="ilias.php?ref_id=91312&obj_id=97979&cmd=layout&cmdClass=illmpresentationgui&cmdNode=eq&baseClass=ilLMPresentationGUI&lang=en" target="_top"  >English</a></li>
+
+
+
+
+
+<li class=""><a href="ilias.php?ref_id=91312&obj_id=97979&cmd=layout&cmdClass=illmpresentationgui&cmdNode=eq&baseClass=ilLMPresentationGUI&lang=es" target="_top"  >Español</a></li>
+
+
+
+
+
+<li class=""><a href="ilias.php?ref_id=91312&obj_id=97979&cmd=layout&cmdClass=illmpresentationgui&cmdNode=eq&baseClass=ilLMPresentationGUI&lang=fr" target="_top"  >Français</a></li>
+
+
+
+
+
+
+
+
+
+
+</ul>
+
+
+				</li>
+				
+				
+				<li>
+					<a href="login.php?target=pg_98066_91312&client_id=JLUG&cmd=force_login&lang=es" target="_top">Entrar</a>
+					
+				</li>
+				
+
+			</ul>
+			
+		</div>
+	</div>
+</div>
+
+
+<div class="ilMainHeader ilTopFixed hidden-print">
+	<header class="container-fluid ilContainerWidth">
+		<div class="row">
+			<a class="navbar-brand" href="https://ilias.uni-giessen.de/ilias/goto.php?target=root_1&client_id=JLUG" target="_top">
+				<img class="hidden-xs noMirror" alt="Logo" src="./Customizing/global/skin/jlu/images/HeaderIcon.svg" />
+				<img class="visible-xs-inline-block noMirror" alt="Logo" src="./Customizing/global/skin/jlu/images/HeaderIconResponsive.svg">
+			</a>
+		</div>
+	</header>
+</div>
+<div class="ilMainMenu ilTopFixed hidden-print">
+	<div class="container-fluid ilContainerWidth">
+		<div class="row">
+			<nav id="ilTopNav" class="navbar navbar-default" role="navigation">
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse" id="ilMainMenuEntries"><ul class="nav navbar-nav">
+	
+	
+	<li class="dropdown lfCustomDropDown"><a id="cust_tr_25" href="#" class="dropdown-toggle" data-toggle="dropdown">Magazin <span class="caret"></span></a>
+		<ul class="dropdown-menu" role="menu">
+	
+	
+	
+	
+	<li class=""><a href="goto.php?target=root_1&client_id=JLUG" target="_top"  >Magazin &ndash; Einstiegsseite</a></li>
+	
+	
+	
+	
+	
+	
+	<li class="divider"></li>
+	
+	
+	
+	
+	
+	
+	
+	
+	<li class=""><a href="https://ilias.uni-giessen.de/ilias/goto.php?target=cat_38265&client_id=JLUG" target="_top"  >Öffentliche Lernmaterialien</a></li>
+	
+	
+	
+	
+	
+	
+	
+	<li class=""><a href="https://ilias.uni-giessen.de/ilias/goto.php?target=cat_265&client_id=JLUG" target="_top"  >Öffentliche Angebote der Fachbereiche und Zentren</a></li>
+	
+	
+	
+	
+	
+	
+	
+	<li class=""><a href="https://ilias.uni-giessen.de/ilias/goto.php?target=cat_44317&client_id=JLUG" target="_top"  >Online-Vorkurse</a></li>
+	
+	
+	
+	
+	
+	
+	
+	<li class=""><a href="https://ilias.uni-giessen.de/ilias/goto.php?target=cat_49762&client_id=JLUG" target="_top"  >Präsenz-Vorkurse</a></li>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</ul>
+
+	</li>
+	
+	
+	
+	
+	
+	
+	
+	<li class="dropdown lfCustomDropDown"><a id="cust_tr_24" href="#" class="dropdown-toggle" data-toggle="dropdown">Hilfe und Support <span class="caret"></span></a>
+		<ul class="dropdown-menu" role="menu">
+	
+	
+	
+	
+	<li class=""><a href="https://ilias.uni-giessen.de/ilias/goto.php?target=cat_27465&client_id=JLUG" target="_top"  ><b>ILIAS-Hilfe</b>: Werkzeuge und Funktionen</a></li>
+	
+	
+	
+	
+	
+	
+	<li class="divider"></li>
+	
+	
+	
+	
+	
+	
+	
+	
+	<li class=""><a href="https://docu.ilias.de/goto_docu_lm_5233.html" target="_blank"  >&#8618; Benutzerdokumentation (5.2)</a></li>
+	
+	
+	
+	
+	
+	
+	
+	<li class=""><a href="https://docu.ilias.de/goto_docu_lm_6024.html" target="_blank"  >&#8618; Dokumentation für Autoren</a></li>
+	
+	
+	
+	
+	
+	
+	
+	<li class=""><a href="https://docu.ilias.de/goto_docu_lm_6022.html" target="_blank"  >&#8618; Dokumentation für Dozenten</a></li>
+	
+	
+	
+	
+	
+	
+	<li class="divider"></li>
+	
+	
+	
+	
+	
+	
+	
+	
+	<li class=""><a href="https://ilias.uni-giessen.de/ilias/goto.php?target=cat_18426&client_id=JLUG" target="_top"  >E-Learning-Wegweiser</a></li>
+	
+	
+	
+	
+	
+	
+	
+	<li class=""><a href="https://ilias.uni-giessen.de/ilias/goto.php?target=blog_84949&client_id=JLUG" target="_top"  >Blog zum Einsatz digitaler Medien in der Lehre</a></li>
+	
+	
+	
+	
+	
+	
+	
+	<li class=""><a href="https://ilias.uni-giessen.de/ilias/goto.php?target=cat_28731&client_id=JLUG" target="_top"  >Ideenpool Innovative Lehre</a></li>
+	
+	
+	
+	
+	
+	
+	<li class="divider"></li>
+	
+	
+	
+	
+	
+	
+	
+	
+	<li class=""><a href="https://www.uni-giessen.de/fbz/svc/hrz/svc/medien/kontakt" target="_blank"  >&#8618; Beratung und Kontakt</a></li>
+	
+	
+	
+	
+	
+	
+	
+	<li class=""><a href="https://studip.uni-giessen.de/studip/extern.php?page_url=https://www.uni-giessen.de/fbz/svc/hrz/svc/medien/el/schulungen" target="_blank"  >&#8618; Workshops und Schulungen</a></li>
+	
+	
+	
+	
+	
+	
+	<li class="divider"></li>
+	
+	
+	
+	
+	
+	
+	
+	
+	<li class=""><a href="https://ilias.uni-giessen.de/ilias/goto.php?target=cat_5669&client_id=JLUG" target="_top"  >Hochschulrechenzentrum</a></li>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</ul>
+
+	</li>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</ul>
+</div><!-- /.navbar-collapse -->
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#ilMainMenuEntries">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<!-- <a class="navbar-brand" href="#">Brand</a> -->
+				</div>
+			</nav>
+
+			
+			
+		</div>
+	</div>
+</div>
+
+
+
+	
+	
+	
+	<div id="mainspacekeeper" class="container-fluid ilContainerWidth ilFixedTopSpacer">
+		<div class="row" style="position: relative;">
+			
+			
+			<div id="left_nav" class="ilLeftNav"><div id="il_expl2_jstree_cont_out_lm_exp" class="ilNoDisplay">
+	<div id="il_expl2_jstree_cont_lm_exp">
+		
+		<ul>
+		<li rel="disabled" id="exp_node_lm_exp_1" ><a  href="ilias.php?ref_id=91312&amp;obj_id=1&amp;cmd=layout&amp;cmdClass=illmpresentationgui&amp;cmdNode=eq&amp;baseClass=ilLMPresentationGUI"  ><img src="./Customizing/global/skin/jlu/images/icon_lm.svg" border="0"/> <span class="loader"></span><span class="ilExp2NodeContent">Lehre 4.0 | Recht im E-Learning</span></a>
+		
+		<ul>
+		<li rel="disabled" id="exp_node_lm_exp_109823" ><a  href="ilias.php?ref_id=91312&amp;obj_id=109823&amp;cmd=layout&amp;cmdClass=illmpresentationgui&amp;cmdNode=eq&amp;baseClass=ilLMPresentationGUI"  ><img src="./Customizing/global/skin/jlu/images/icon_st.svg" border="0"/> <span class="loader"></span><span class="ilExp2NodeContent">How to switch the language</span></a>
+		</li>
+		<li rel="disabled" id="exp_node_lm_exp_97969" ><a  href="ilias.php?ref_id=91312&amp;obj_id=97969&amp;cmd=layout&amp;cmdClass=illmpresentationgui&amp;cmdNode=eq&amp;baseClass=ilLMPresentationGUI"  ><img src="./Customizing/global/skin/jlu/images/icon_st.svg" border="0"/> <span class="loader"></span><span class="ilExp2NodeContent">Einführung</span></a>
+		
+		<ul>
+		<li rel="disabled" id="exp_node_lm_exp_97973" ><a  href="ilias.php?ref_id=91312&amp;obj_id=97973&amp;cmd=layout&amp;cmdClass=illmpresentationgui&amp;cmdNode=eq&amp;baseClass=ilLMPresentationGUI"  ><img src="./Customizing/global/skin/jlu/images/icon_st.svg" border="0"/> <span class="loader"></span><span class="ilExp2NodeContent">Wieso muss ich mich bei der Anwendung/Verwendung von E-Learning mit Rechtsfragen beschäftigen?</span></a>
+		</li>
+		<li rel="disabled" id="exp_node_lm_exp_97972" ><a  href="ilias.php?ref_id=91312&amp;obj_id=97972&amp;cmd=layout&amp;cmdClass=illmpresentationgui&amp;cmdNode=eq&amp;baseClass=ilLMPresentationGUI"  ><img src="./Customizing/global/skin/jlu/images/icon_st.svg" border="0"/> <span class="loader"></span><span class="ilExp2NodeContent">Bin ich durch die rechtliche Absicherung immer auf der sicheren Seite?</span></a>
+		</li>
+		<li rel="disabled" id="exp_node_lm_exp_97971" ><a  href="ilias.php?ref_id=91312&amp;obj_id=97971&amp;cmd=layout&amp;cmdClass=illmpresentationgui&amp;cmdNode=eq&amp;baseClass=ilLMPresentationGUI"  ><img src="./Customizing/global/skin/jlu/images/icon_st.svg" border="0"/> <span class="loader"></span><span class="ilExp2NodeContent">Was passiert, wenn ich mich  nicht an rechtliche Grundlagen halte?</span></a>
+		</li></ul></li>
+		<li rel="disabled" id="exp_node_lm_exp_97977" ><a  href="ilias.php?ref_id=91312&amp;obj_id=97977&amp;cmd=layout&amp;cmdClass=illmpresentationgui&amp;cmdNode=eq&amp;baseClass=ilLMPresentationGUI"  ><img src="./Customizing/global/skin/jlu/images/icon_st.svg" border="0"/> <span class="loader"></span><span class="ilExp2NodeContent">Urheberrecht</span></a>
+		
+		<ul>
+		<li rel="disabled" id="exp_node_lm_exp_98007" ><a  href="ilias.php?ref_id=91312&amp;obj_id=98007&amp;cmd=layout&amp;cmdClass=illmpresentationgui&amp;cmdNode=eq&amp;baseClass=ilLMPresentationGUI"  ><img src="./Customizing/global/skin/jlu/images/icon_st.svg" border="0"/> <span class="loader"></span><span class="ilExp2NodeContent">Was schützt das Urheberrecht?</span></a>
+		</li>
+		<li rel="disabled" id="exp_node_lm_exp_98008" ><a  href="ilias.php?ref_id=91312&amp;obj_id=98008&amp;cmd=layout&amp;cmdClass=illmpresentationgui&amp;cmdNode=eq&amp;baseClass=ilLMPresentationGUI"  ><img src="./Customizing/global/skin/jlu/images/icon_st.svg" border="0"/> <span class="loader"></span><span class="ilExp2NodeContent">Welche Rechte gewährt das Urheberrecht?</span></a>
+		</li>
+		<li rel="disabled" id="exp_node_lm_exp_98214" ><a  href="ilias.php?ref_id=91312&amp;obj_id=98214&amp;cmd=layout&amp;cmdClass=illmpresentationgui&amp;cmdNode=eq&amp;baseClass=ilLMPresentationGUI"  ><img src="./Customizing/global/skin/jlu/images/icon_st.svg" border="0"/> <span class="loader"></span><span class="ilExp2NodeContent">Urheberrechtlich geschütztes Material auf Lernplattformen (ILIAS & Stud.IP)</span></a>
+		</li>
+		<li rel="disabled" id="exp_node_lm_exp_98009" ><a  href="ilias.php?ref_id=91312&amp;obj_id=98009&amp;cmd=layout&amp;cmdClass=illmpresentationgui&amp;cmdNode=eq&amp;baseClass=ilLMPresentationGUI"  ><img src="./Customizing/global/skin/jlu/images/icon_st.svg" border="0"/> <span class="loader"></span><span class="ilExp2NodeContent">Wem steht das Urheberrecht, wem stehen Nutzungsrechte zu?</span></a>
+		</li>
+		<li rel="disabled" id="exp_node_lm_exp_98002" ><a  href="ilias.php?ref_id=91312&amp;obj_id=98002&amp;cmd=layout&amp;cmdClass=illmpresentationgui&amp;cmdNode=eq&amp;baseClass=ilLMPresentationGUI"  ><img src="./Customizing/global/skin/jlu/images/icon_st.svg" border="0"/> <span class="loader"></span><span class="ilExp2NodeContent">Freie Werke und Open Content</span></a>
+		
+		<ul>
+		<li rel="disabled" id="exp_node_lm_exp_98010" ><a  href="ilias.php?ref_id=91312&amp;obj_id=98010&amp;cmd=layout&amp;cmdClass=illmpresentationgui&amp;cmdNode=eq&amp;baseClass=ilLMPresentationGUI"  ><img src="./Customizing/global/skin/jlu/images/icon_st.svg" border="0"/> <span class="loader"></span><span class="ilExp2NodeContent">Was bedeutet Open Source und Open Content?</span></a>
+		</li>
+		<li rel="disabled" id="exp_node_lm_exp_98011" ><a  href="ilias.php?ref_id=91312&amp;obj_id=98011&amp;cmd=layout&amp;cmdClass=illmpresentationgui&amp;cmdNode=eq&amp;baseClass=ilLMPresentationGUI"  ><img src="./Customizing/global/skin/jlu/images/icon_st.svg" border="0"/> <span class="loader"></span><span class="ilExp2NodeContent">Welche Vorteile bieten Open Source und Open Content?</span></a>
+		</li></ul></li>
+		<li rel="disabled" id="exp_node_lm_exp_109827" ><a  href="ilias.php?ref_id=91312&amp;obj_id=109827&amp;cmd=layout&amp;cmdClass=illmpresentationgui&amp;cmdNode=eq&amp;baseClass=ilLMPresentationGUI"  ><img src="./Customizing/global/skin/jlu/images/icon_st.svg" border="0"/> <span class="loader"></span><span class="ilExp2NodeContent">Fragen aus der Praxis</span></a>
+		</li>
+		<li rel="disabled" id="exp_node_lm_exp_98239" ><a  href="ilias.php?ref_id=91312&amp;obj_id=98239&amp;cmd=layout&amp;cmdClass=illmpresentationgui&amp;cmdNode=eq&amp;baseClass=ilLMPresentationGUI"  ><img src="./Customizing/global/skin/jlu/images/icon_st.svg" border="0"/> <span class="loader"></span><span class="ilExp2NodeContent">Überprüfung</span></a>
+		</li></ul></li>
+		<li rel="disabled" id="exp_node_lm_exp_97984" ><a  href="ilias.php?ref_id=91312&amp;obj_id=97984&amp;cmd=layout&amp;cmdClass=illmpresentationgui&amp;cmdNode=eq&amp;baseClass=ilLMPresentationGUI"  ><img src="./Customizing/global/skin/jlu/images/icon_st.svg" border="0"/> <span class="loader"></span><span class="ilExp2NodeContent">Open Educational Resources (OER) - Was ist das?</span></a>
+		
+		<ul>
+		<li rel="disabled" id="exp_node_lm_exp_98014" ><a  href="ilias.php?ref_id=91312&amp;obj_id=98014&amp;cmd=layout&amp;cmdClass=illmpresentationgui&amp;cmdNode=eq&amp;baseClass=ilLMPresentationGUI"  ><img src="./Customizing/global/skin/jlu/images/icon_st.svg" border="0"/> <span class="loader"></span><span class="ilExp2NodeContent">Rechtliche Funktionsweise von Open-Content-Lizenzen für OER</span></a>
+		</li>
+		<li rel="disabled" id="exp_node_lm_exp_98013" ><a  href="ilias.php?ref_id=91312&amp;obj_id=98013&amp;cmd=layout&amp;cmdClass=illmpresentationgui&amp;cmdNode=eq&amp;baseClass=ilLMPresentationGUI"  ><img src="./Customizing/global/skin/jlu/images/icon_st.svg" border="0"/> <span class="loader"></span><span class="ilExp2NodeContent">Urheber- und lizenzrechtliche Voraussetzungen von OER</span></a>
+		</li>
+		<li rel="disabled" id="exp_node_lm_exp_98241" ><a  href="ilias.php?ref_id=91312&amp;obj_id=98241&amp;cmd=layout&amp;cmdClass=illmpresentationgui&amp;cmdNode=eq&amp;baseClass=ilLMPresentationGUI"  ><img src="./Customizing/global/skin/jlu/images/icon_st.svg" border="0"/> <span class="loader"></span><span class="ilExp2NodeContent">Überprüfung</span></a>
+		</li></ul></li>
+		<li rel="disabled" id="exp_node_lm_exp_97983" ><a  href="ilias.php?ref_id=91312&amp;obj_id=97983&amp;cmd=layout&amp;cmdClass=illmpresentationgui&amp;cmdNode=eq&amp;baseClass=ilLMPresentationGUI"  ><img src="./Customizing/global/skin/jlu/images/icon_st.svg" border="0"/> <span class="loader"></span><span class="ilExp2NodeContent">Gesetzliche Nutzungsfreiheiten: Die Schranken des Urheberrechts</span></a>
+		
+		<ul>
+		<li rel="disabled" id="exp_node_lm_exp_98022" ><a  href="ilias.php?ref_id=91312&amp;obj_id=98022&amp;cmd=layout&amp;cmdClass=illmpresentationgui&amp;cmdNode=eq&amp;baseClass=ilLMPresentationGUI"  ><img src="./Customizing/global/skin/jlu/images/icon_st.svg" border="0"/> <span class="loader"></span><span class="ilExp2NodeContent">Das Zitatrecht (§51 UrhG)</span></a>
+		</li>
+		<li rel="disabled" id="exp_node_lm_exp_98021" ><a  href="ilias.php?ref_id=91312&amp;obj_id=98021&amp;cmd=layout&amp;cmdClass=illmpresentationgui&amp;cmdNode=eq&amp;baseClass=ilLMPresentationGUI"  ><img src="./Customizing/global/skin/jlu/images/icon_st.svg" border="0"/> <span class="loader"></span><span class="ilExp2NodeContent">Unterricht  und Lehre (§60a UrhG)</span></a>
+		</li>
+		<li rel="disabled" id="exp_node_lm_exp_98020" ><a  href="ilias.php?ref_id=91312&amp;obj_id=98020&amp;cmd=layout&amp;cmdClass=illmpresentationgui&amp;cmdNode=eq&amp;baseClass=ilLMPresentationGUI"  ><img src="./Customizing/global/skin/jlu/images/icon_st.svg" border="0"/> <span class="loader"></span><span class="ilExp2NodeContent">Wissenschaftliche Forschung (§60c UrhG)</span></a>
+		</li>
+		<li rel="disabled" id="exp_node_lm_exp_98019" ><a  href="ilias.php?ref_id=91312&amp;obj_id=98019&amp;cmd=layout&amp;cmdClass=illmpresentationgui&amp;cmdNode=eq&amp;baseClass=ilLMPresentationGUI"  ><img src="./Customizing/global/skin/jlu/images/icon_st.svg" border="0"/> <span class="loader"></span><span class="ilExp2NodeContent">Text und Data Mining (§ 60d UrhG)</span></a>
+		</li>
+		<li rel="disabled" id="exp_node_lm_exp_98018" ><a  href="ilias.php?ref_id=91312&amp;obj_id=98018&amp;cmd=layout&amp;cmdClass=illmpresentationgui&amp;cmdNode=eq&amp;baseClass=ilLMPresentationGUI"  ><img src="./Customizing/global/skin/jlu/images/icon_st.svg" border="0"/> <span class="loader"></span><span class="ilExp2NodeContent">Setzen von Links</span></a>
+		</li>
+		<li rel="disabled" id="exp_node_lm_exp_98243" ><a  href="ilias.php?ref_id=91312&amp;obj_id=98243&amp;cmd=layout&amp;cmdClass=illmpresentationgui&amp;cmdNode=eq&amp;baseClass=ilLMPresentationGUI"  ><img src="./Customizing/global/skin/jlu/images/icon_st.svg" border="0"/> <span class="loader"></span><span class="ilExp2NodeContent">Überprüfung</span></a>
+		</li></ul></li>
+		<li rel="disabled" id="exp_node_lm_exp_97982" ><a  href="ilias.php?ref_id=91312&amp;obj_id=97982&amp;cmd=layout&amp;cmdClass=illmpresentationgui&amp;cmdNode=eq&amp;baseClass=ilLMPresentationGUI"  ><img src="./Customizing/global/skin/jlu/images/icon_st.svg" border="0"/> <span class="loader"></span><span class="ilExp2NodeContent">Erwerb von Nutzungsrechten</span></a>
+		
+		<ul>
+		<li rel="disabled" id="exp_node_lm_exp_98246" ><a  href="ilias.php?ref_id=91312&amp;obj_id=98246&amp;cmd=layout&amp;cmdClass=illmpresentationgui&amp;cmdNode=eq&amp;baseClass=ilLMPresentationGUI"  ><img src="./Customizing/global/skin/jlu/images/icon_st.svg" border="0"/> <span class="loader"></span><span class="ilExp2NodeContent">Überprüfung</span></a>
+		</li></ul></li>
+		<li rel="disabled" id="exp_node_lm_exp_97981" ><a  href="ilias.php?ref_id=91312&amp;obj_id=97981&amp;cmd=layout&amp;cmdClass=illmpresentationgui&amp;cmdNode=eq&amp;baseClass=ilLMPresentationGUI"  ><img src="./Customizing/global/skin/jlu/images/icon_st.svg" border="0"/> <span class="loader"></span><span class="ilExp2NodeContent">Weitere für E-Learning relevante Schutzrechte</span></a>
+		
+		<ul>
+		<li rel="disabled" id="exp_node_lm_exp_98050" ><a  href="ilias.php?ref_id=91312&amp;obj_id=98050&amp;cmd=layout&amp;cmdClass=illmpresentationgui&amp;cmdNode=eq&amp;baseClass=ilLMPresentationGUI"  ><img src="./Customizing/global/skin/jlu/images/icon_st.svg" border="0"/> <span class="loader"></span><span class="ilExp2NodeContent">Persönlichkeitsrechte, v.a. Recht am eigenen Bild</span></a>
+		</li>
+		<li rel="disabled" id="exp_node_lm_exp_98053" ><a  href="ilias.php?ref_id=91312&amp;obj_id=98053&amp;cmd=layout&amp;cmdClass=illmpresentationgui&amp;cmdNode=eq&amp;baseClass=ilLMPresentationGUI"  ><img src="./Customizing/global/skin/jlu/images/icon_st.svg" border="0"/> <span class="loader"></span><span class="ilExp2NodeContent">Datenschutz</span></a>
+		
+		<ul>
+		<li rel="disabled" id="exp_node_lm_exp_98055" ><a  href="ilias.php?ref_id=91312&amp;obj_id=98055&amp;cmd=layout&amp;cmdClass=illmpresentationgui&amp;cmdNode=eq&amp;baseClass=ilLMPresentationGUI"  ><img src="./Customizing/global/skin/jlu/images/icon_st.svg" border="0"/> <span class="loader"></span><span class="ilExp2NodeContent">Personenbezogene Daten</span></a>
+		</li>
+		<li rel="disabled" id="exp_node_lm_exp_99249" ><a  href="ilias.php?ref_id=91312&amp;obj_id=99249&amp;cmd=layout&amp;cmdClass=illmpresentationgui&amp;cmdNode=eq&amp;baseClass=ilLMPresentationGUI"  ><img src="./Customizing/global/skin/jlu/images/icon_st.svg" border="0"/> <span class="loader"></span><span class="ilExp2NodeContent">Datenschutz-ABC</span></a>
+		</li></ul></li>
+		<li rel="disabled" id="exp_node_lm_exp_98248" ><a  href="ilias.php?ref_id=91312&amp;obj_id=98248&amp;cmd=layout&amp;cmdClass=illmpresentationgui&amp;cmdNode=eq&amp;baseClass=ilLMPresentationGUI"  ><img src="./Customizing/global/skin/jlu/images/icon_st.svg" border="0"/> <span class="loader"></span><span class="ilExp2NodeContent">Überprüfung</span></a>
+		</li></ul></li>
+		<li rel="disabled" id="exp_node_lm_exp_97980" ><a  href="ilias.php?ref_id=91312&amp;obj_id=97980&amp;cmd=layout&amp;cmdClass=illmpresentationgui&amp;cmdNode=eq&amp;baseClass=ilLMPresentationGUI"  ><img src="./Customizing/global/skin/jlu/images/icon_st.svg" border="0"/> <span class="loader"></span><span class="ilExp2NodeContent">Im Lehrbetrieb</span></a>
+		
+		<ul>
+		<li rel="disabled" id="exp_node_lm_exp_98059" ><a  href="ilias.php?ref_id=91312&amp;obj_id=98059&amp;cmd=layout&amp;cmdClass=illmpresentationgui&amp;cmdNode=eq&amp;baseClass=ilLMPresentationGUI"  ><img src="./Customizing/global/skin/jlu/images/icon_st.svg" border="0"/> <span class="loader"></span><span class="ilExp2NodeContent">Anrechnung von E-Learning auf die Lehrverpflichtung </span></a>
+		</li>
+		<li rel="disabled" id="exp_node_lm_exp_98058" ><a  href="ilias.php?ref_id=91312&amp;obj_id=98058&amp;cmd=layout&amp;cmdClass=illmpresentationgui&amp;cmdNode=eq&amp;baseClass=ilLMPresentationGUI"  ><img src="./Customizing/global/skin/jlu/images/icon_st.svg" border="0"/> <span class="loader"></span><span class="ilExp2NodeContent">Grundlagen der Bewertung von Leistungen, die im E-Learning erbracht werden</span></a>
+		</li>
+		<li rel="disabled" id="exp_node_lm_exp_99261" ><a  href="ilias.php?ref_id=91312&amp;obj_id=99261&amp;cmd=layout&amp;cmdClass=illmpresentationgui&amp;cmdNode=eq&amp;baseClass=ilLMPresentationGUI"  ><img src="./Customizing/global/skin/jlu/images/icon_st.svg" border="0"/> <span class="loader"></span><span class="ilExp2NodeContent">E-Assessment</span></a>
+		</li>
+		<li rel="disabled" id="exp_node_lm_exp_99260" ><a  href="ilias.php?ref_id=91312&amp;obj_id=99260&amp;cmd=layout&amp;cmdClass=illmpresentationgui&amp;cmdNode=eq&amp;baseClass=ilLMPresentationGUI"  ><img src="./Customizing/global/skin/jlu/images/icon_st.svg" border="0"/> <span class="loader"></span><span class="ilExp2NodeContent">E-Vorlesung</span></a>
+		</li>
+		<li rel="disabled" id="exp_node_lm_exp_99268" ><a  href="ilias.php?ref_id=91312&amp;obj_id=99268&amp;cmd=layout&amp;cmdClass=illmpresentationgui&amp;cmdNode=eq&amp;baseClass=ilLMPresentationGUI"  ><img src="./Customizing/global/skin/jlu/images/icon_st.svg" border="0"/> <span class="loader"></span><span class="ilExp2NodeContent">Lernplattformen</span></a>
+		</li>
+		<li rel="disabled" id="exp_node_lm_exp_98250" ><a  href="ilias.php?ref_id=91312&amp;obj_id=98250&amp;cmd=layout&amp;cmdClass=illmpresentationgui&amp;cmdNode=eq&amp;baseClass=ilLMPresentationGUI"  ><img src="./Customizing/global/skin/jlu/images/icon_st.svg" border="0"/> <span class="loader"></span><span class="ilExp2NodeContent">Überprüfung</span></a>
+		</li></ul></li>
+		<li rel="disabled" id="exp_node_lm_exp_97979" ><a  href="ilias.php?ref_id=91312&amp;obj_id=97979&amp;cmd=layout&amp;cmdClass=illmpresentationgui&amp;cmdNode=eq&amp;baseClass=ilLMPresentationGUI"  ><img src="./Customizing/global/skin/jlu/images/icon_st.svg" border="0"/> <span class="loader"></span><span class="ilExp2NodeContent ilHighlighted">Barrierefreiheit</span></a>
+		
+		<ul>
+		<li rel="disabled" id="exp_node_lm_exp_98252" ><a  href="ilias.php?ref_id=91312&amp;obj_id=98252&amp;cmd=layout&amp;cmdClass=illmpresentationgui&amp;cmdNode=eq&amp;baseClass=ilLMPresentationGUI"  ><img src="./Customizing/global/skin/jlu/images/icon_st.svg" border="0"/> <span class="loader"></span><span class="ilExp2NodeContent">Überprüfung</span></a>
+		</li></ul></li>
+		<li rel="disabled" id="exp_node_lm_exp_97978" ><a  href="ilias.php?ref_id=91312&amp;obj_id=97978&amp;cmd=layout&amp;cmdClass=illmpresentationgui&amp;cmdNode=eq&amp;baseClass=ilLMPresentationGUI"  ><img src="./Customizing/global/skin/jlu/images/icon_st.svg" border="0"/> <span class="loader"></span><span class="ilExp2NodeContent">Checklisten: Worauf muss ich bei meinem E-Learning-Angebot unbedingt achten?</span></a>
+		
+		<ul>
+		<li rel="disabled" id="exp_node_lm_exp_98067" ><a  href="ilias.php?ref_id=91312&amp;obj_id=98067&amp;cmd=layout&amp;cmdClass=illmpresentationgui&amp;cmdNode=eq&amp;baseClass=ilLMPresentationGUI"  ><img src="./Customizing/global/skin/jlu/images/icon_st.svg" border="0"/> <span class="loader"></span><span class="ilExp2NodeContent">Erstellung von E-Learning-Materialien</span></a>
+		</li>
+		<li rel="disabled" id="exp_node_lm_exp_98069" ><a  href="ilias.php?ref_id=91312&amp;obj_id=98069&amp;cmd=layout&amp;cmdClass=illmpresentationgui&amp;cmdNode=eq&amp;baseClass=ilLMPresentationGUI"  ><img src="./Customizing/global/skin/jlu/images/icon_st.svg" border="0"/> <span class="loader"></span><span class="ilExp2NodeContent">Während der Durchführung von E-Learning</span></a>
+		</li>
+		<li rel="disabled" id="exp_node_lm_exp_98068" ><a  href="ilias.php?ref_id=91312&amp;obj_id=98068&amp;cmd=layout&amp;cmdClass=illmpresentationgui&amp;cmdNode=eq&amp;baseClass=ilLMPresentationGUI"  ><img src="./Customizing/global/skin/jlu/images/icon_st.svg" border="0"/> <span class="loader"></span><span class="ilExp2NodeContent">Evaluation von E-Learning</span></a>
+		</li></ul></li>
+		<li rel="disabled" id="exp_node_lm_exp_98073" ><a  href="ilias.php?ref_id=91312&amp;obj_id=98073&amp;cmd=layout&amp;cmdClass=illmpresentationgui&amp;cmdNode=eq&amp;baseClass=ilLMPresentationGUI"  ><img src="./Customizing/global/skin/jlu/images/icon_st.svg" border="0"/> <span class="loader"></span><span class="ilExp2NodeContent">Quellen</span></a>
+		</li></ul></li></ul>
+	</div>
+</div>
+</div><!--   -->
+			
+	<div id="fixed_content" class=" ilContentFixed">
+		<div id="mainscrolldiv">
+	
+	
+	<h2 class="ilAccHidden">Navegación migas de pan</h2>
+<ol class="breadcrumb hidden-print">
+	
+	
+	...<li><a href="" ></a></li>
+	
+	
+	
+	
+	<!-- <img src="./Customizing/global/skin/jlu/images/icon_cat.svg" alt="Categoría" border="0" /> --><li><a href="ilias.php?ref_id=6305&amp;cmd=frameset&amp;cmdClass=ilrepositorygui&amp;cmdNode=ub&amp;baseClass=ilrepositorygui"  target="_top" >E-Learning Recht</a></li>
+	
+	
+	
+	
+	<!-- <img src="./Customizing/global/skin/jlu/images/icon_lm.svg" alt="Módulo de aprendizaje" border="0" /> --><li><a href="ilias.php?ref_id=91312&amp;cmd=layout&amp;cmdClass=illmpresentationgui&amp;cmdNode=eq&amp;baseClass=ilLMPresentationGUI" >Lehre 4.0 | Recht im E-Learning</a></li>
+	
+	
+	
+	
+	<li><a href="ilias.php?ref_id=91312&amp;obj_id=97979&amp;obj_type=StructureObject&amp;cmd=layout&amp;cmdClass=illmpresentationgui&amp;cmdNode=eq&amp;baseClass=ilLMPresentationGUI" >Barrierefreiheit</a></li>
+	
+	
+</ol>
+
+	
+
+	<div class="media il_HeaderInner">
+		
+		<div class="ilHeadAction" id="il_head_action">
+			<div id="tttt" style="white-space:nowrap;"> </div>
+
+		</div>
+		
+
+		
+		<img id="headerimage" class="media-object" src="./Customizing/global/skin/jlu/images/icon_lm.svg" alt="" />
+		<h1 class="media-heading ilHeader">
+			<a id="il_mhead_t_focus" class="ilAccAnchor" name="il_mhead_t_focus">Lehre 4.0 | Recht im E-Learning</a>
+		</h1>
+		
+	</div>
+	
+	<div class="ilLMMenu">
+		<h2 class="ilAccHeadingHidden"><a id="after_tabs" name="after_tabs">Subpestañas</a></h2>
+<ul id="ilSubTab" class="ilSubTab nav nav-pills hidden-print">
+	
+	<li id="subtab_content" class="active"><a target="_top" href="ilias.php?ref_id=91312&amp;obj_id=97979&amp;cmd=layout&amp;cmdClass=illmpresentationgui&amp;cmdNode=eq&amp;baseClass=ilLMPresentationGUI">Contenido</a> <span class="ilAccHidden">(Seleccionado)</span></li>
+	
+	<li id="subtab_cont_toc" class=""><a target="_top" href="ilias.php?ref_id=91312&amp;obj_id=97979&amp;cmd=showTableOfContents&amp;cmdClass=illmpresentationgui&amp;cmdNode=eq&amp;baseClass=ilLMPresentationGUI">Tabla de Contenidos</a></li>
+	
+	<li id="subtab_cont_print_view" class=""><a target="_top" href="ilias.php?ref_id=91312&amp;obj_id=97979&amp;cmd=showPrintViewSelection&amp;cmdClass=illmpresentationgui&amp;cmdNode=eq&amp;baseClass=ilLMPresentationGUI">Vista de impresión</a></li>
+	
+	<li id="subtab_info_short" class=""><a target="_top" href="ilias.php?ref_id=91312&amp;obj_id=97979&amp;cmd=showSummary&amp;cmdClass=ilinfoscreengui&amp;cmdNode=eq:cq&amp;baseClass=ilLMPresentationGUI">Info</a></li>
+	
+</ul>
+		<div class="ilClearFloat"></div>
+	</div>
+	
+	<div id="ilLMPageContent" class="ilc_page_frame_PageFrame">
+		
+		
+		
+		<div class="ilc_page_tnav_TopNavigation">
+			
+			<div class="ilc_page_lnav_LeftNavigation">
+				<a accesskey="1" class="ilc_page_lnavlink_LeftNavigationLink" href="ilias.php?ref_id=91312&amp;obj_id=98251&amp;cmd=layout&amp;cmdClass=illmpresentationgui&amp;cmdNode=eq&amp;baseClass=ilLMPresentationGUI" >
+					<img class="ilc_page_lnavimage_LeftNavigationImage" src="./Customizing/global/skin/jlu/images/spacer.png" alt="Anterior" title="Anterior" />Überprüfung&nbsp;</a>
+			</div>
+			
+			
+			<div class="ilc_page_rnav_RightNavigation">
+				<a accesskey="2" class="ilc_page_rnavlink_RightNavigationLink" href="ilias.php?ref_id=91312&amp;obj_id=98253&amp;cmd=layout&amp;cmdClass=illmpresentationgui&amp;cmdNode=eq&amp;baseClass=ilLMPresentationGUI" >&nbsp;
+			Überprüfung
+				<img class="ilc_page_rnavimage_RightNavigationImage" src="./Customizing/global/skin/jlu/images/spacer.png" alt="Siguiente" title="Siguiente" /></a>
+			</div>
+			
+			<div class="ilClearFloat"></div>
+		</div>
+		
+		
+		<div class="ilc_page_cont_PageContainer">
+			<span class="ilAccHidden">
+				<a name="il_lm_head" id="il_lm_head"></a></span>
+			
+
+
+ 
+<script LANGUAGE="JavaScript1.1">
+<!--
+focus();
+//-->
+</script>
+
+<a class="small" id="ilPageShowAdvContent" style="display:none; text-align:right;" href="#"><span>Mostrar conocimiento avanzado</span><span>Ocultar conocimiento avanzado</span></a><h1 class="ilc_page_title_PageTitle">Barrierefreiheit</h1><!--COPage-PageTop--><div class="ilc_Paragraph ilc_text_block_Standard"><p align="justify">Eine barrierefreie Gestaltung von Internetangeboten an Hochschulen betrifft zwei unterschiedliche Aspekte: (1) den Webauftritt von Hochschulen, Informationsseiten zur Studienorganisation, zur Einschreibung etc. sowie Seiten von Fakultäten und Lehrstühlen; (2) den direkten Kontext von Lehre und Lernen, z.B. das Lernmanagementsystem (LMS), digitale Prüfungsformen und Lernmaterialien sowie eine barrierefreie bzw. inklusive Didaktik. Um dieses zweite Themenfeld geht es in der folgenden Einführung.</p><!--Break--></div><div class="ilc_Paragraph ilc_text_block_Standard"><p align="justify">Nach Artikel 3 des Grundgesetzes darf niemand wegen einer Behinderung benachteiligt werden. Zu der Gruppe der betroffenen Personen gehören Blinde, Sehbehinderte, Gehörlose und Schwerhörige, motorisch sowie kognitiv behinderte Menschen. Im Jahr 2002 trat das Bundesgesetz zur Gleichstellung behinderter Menschen in Kraft. In den folgenden Jahren wurden auch in den Bundesländern Landesgleichstellungsgesetze erlassen, die sicherstellen sollen, dass Menschen mit Einschränkungen in allen Lebensbereichen gleiche Zugangsmöglichkeiten haben; dies gilt auch für die Universitätsgesetze der Bundesländer.</p><!--Break--></div><div class="ilc_Paragraph ilc_text_block_Standard"><p align="justify">Durch barrierefrei gestaltete digitale Angebote – Webseiten, Lernmaterialien, Veranstaltungsaufzeichnungen usw. – kann ein erheblicher Beitrag zum Nachteilsausgleich und zur Inklusion von Studierenden mit Behinderungen geleistet werden. Dabei kommen je nach Behinderung unterschiedliche assistive Technologien zum Einsatz, beispielsweise Screenreader, Spracheingaben, Vergrößerungssoftware oder Bildschirmtastaturen. Bei der Gestaltung digitaler Lernangebote muss darauf geachtet werden, dass diese Hilfsmittel unterstützt werden. Inklusion erfordert somit auch die Entwicklung von Kompetenzen zur Bewertung und Vermeidung von Barrieren. Dies betrifft an Hochschulen die folgenden zentralen Bereiche:</p><!--Break--></div><div class="ilc_Paragraph ilc_text_block_Standard"><ul xmlns:xhtml="http://www.w3.org/1999/xhtml" class="ilc_list_u_BulletedList"><li class="ilc_list_item_StandardListItem"><p align="justify"><span class="ilc_text_inline_Emph"><span class="ilc_text_inline_Strong">Lernmanagementsystem (LMS)</span>:</span> An den meisten Hochschulen sind LMS die technische Plattform für E-Learning-Angebote; dennoch wurde lange nicht darauf geachtet, sie barrierefrei zu gestalten. Dies hat sich inzwischen geändert: Es gibt sowohl Plattformen, die speziell in Bezug auf Barrierefreiheit entwickelt wurden (z.B. A-Tutor oder die BFW online Plattform für Blinde) als auch LMS, die für Barrierefreiheit weiterentwickelt wurden (z.B. ILIAS, Moodle oder OPAL). Jedoch kann die Nutzung einzelner Funktionen durch <a class="ilc_link_GlossaryLink" href="ilias.php?ref_id=91312&from_page=98066&back_pg=98066&frame=center_bottom&obj_id=8499&obj_type=GlossaryItem&cmd=glossary&cmdClass=illmpresentationgui&cmdNode=eq&baseClass=ilLMPresentationGUI" target="center_bottom" onclick="return il.LearningModule.showContentFrame(event, 'center_bottom');" id="il__git_8499_98066_1">assistive Technologien</a> wie <a class="ilc_link_GlossaryLink" href="ilias.php?ref_id=91312&from_page=98066&back_pg=98066&frame=center_bottom&obj_id=8529&obj_type=GlossaryItem&cmd=glossary&cmdClass=illmpresentationgui&cmdNode=eq&baseClass=ilLMPresentationGUI" target="center_bottom" onclick="return il.LearningModule.showContentFrame(event, 'center_bottom');" id="il__git_8529_98066_2">Screenreader</a> oder Vergrößerungshilfen sehr unterschiedlich sein, und bei vielen LMS bestehen weiterhin Barrieren (vgl. Weber/Voegler 2014: 6f.).</p></li></ul><!--Break--></div><div class="ilc_Paragraph ilc_text_block_Standard"><ul xmlns:xhtml="http://www.w3.org/1999/xhtml" class="ilc_list_u_BulletedList"><li class="ilc_list_item_StandardListItem"><p align="justify"><span class="ilc_text_inline_Emph"><span class="ilc_text_inline_Strong">Lernmaterialien</span>:</span> Lernressourcen können in unterschiedlichen Formaten zur Verfügung gestellt werden, z.B. als Texte, Grafiken oder multimedial als Audio oder Video aufbereitet. Grundsätzlich erhöhen die Darstellung in unterschiedlichen Modi (visuell, auditiv) die Wahrscheinlichkeit, dass beeinträchtigte Studierende Informationen ihren Möglichkeiten entsprechend verarbeiten können. Dennoch können je nach Behinderung unterschiedliche Barrieren auftreten. So müssen z.B. Texte für Blinde sauber strukturiert werden, damit Screenreader zwischen verschiedenen Gliederungsebenen und -elementen unterscheiden können. Grafiken müssen verbal beschrieben werden; für mathematische Formeln gibt es spezielle geeignete Darstellungsformen. Für Hörbehinderte müssen Videos mit Untertiteln versehen werden, die nicht nur den gesprochenen Text, sondern bspw. auch Geräusche erläutern (vgl. Weber/Voegler 2014: 8).</p></li></ul><!--Break--></div><div class="ilc_Paragraph ilc_text_block_Standard"><ul xmlns:xhtml="http://www.w3.org/1999/xhtml" class="ilc_list_u_BulletedList"><li class="ilc_list_item_StandardListItem"><p align="justify"><span class="ilc_text_inline_Emph"><span class="ilc_text_inline_Strong">E-Assessment</span>:</span> Inzwischen werden an in vielen Hochschulen webgestützte Assessments eingesetzt, sowohl als (meist zeit- und ortsunabhängige) Selbsttests wie auch als E-Klausur zu Prüfungszwecken. Für inklusives E-Learning muss einerseits sichergestellt werden, dass sowohl die gestellten Aufgaben als auch die Rückmeldungen darauf barrierefrei angezeigt werden. Identifizierte Barrieren sind z.B. die fehlende Angabe von Alternativtexten bei Bildern oder dass keine Interaktion mittels Tastatur möglich ist. In Prüfungssituationen sollten solche Aufgabentypen deshalb vermieden werden; zudem muss u.a. sichergestellt werden, dass behinderte Prüflinge ggf. zusätzliche Anwendungen, etwa zur Anfertigung von Nebenrechnungen, nutzen können (vgl. www.e-teaching.org/didaktik/konzeption/barrierefreiheit, Zugriff am 30.10.2018).</p></li></ul><!--Break--></div><div class="ilc_Paragraph ilc_text_block_Additional"><p align="justify"><a class="ilc_link_ExtLink" rel="noopener" target="_blank" href="http://www.uni-giessen.de/fbz/svc/hrz/ueberuns/abt-3/gr-anw/puhl-steffen/puhl-steffen-dr/index">Dr. rer. pol. Steffen Puhl</a> ist <span xmlns:xhtml="http://www.w3.org/1999/xhtml" class="ilc_text_inline_Strong">Koordinator für Barrierefreie Studieninformationssysteme</span> und Inklusive IT am Hochschulrechenzentrum der JLU. Telefon: 0641 99 13093, E-Mail: Steffen.Puhl@hrz.uni-giessen.de. Steffen Puhl beschäftigt sich intensiv mit der Barrierefreiheit von Web-Präsenzen und hilft Ihnen gerne beim Thema "Barrierefreiheit" weiter.</p><!--Break--></div><div class="ilc_Paragraph ilc_text_block_Remark">Weiterführende Begriffe können Sie im <a class="ilc_link_IntLink" href="./goto.php?target=glo_91313" target="_top" id="il__obj_91313_98066_3">Glossar</a> noch einmal nachlesen.<!--Break--></div><div xmlns:xhtml="http://www.w3.org/1999/xhtml" style="clear:both;"><!--Break--></div>
+
+
+
+		</div>
+		
+		
+		<div class="ilc_page_bnav_BottomNavigation">
+			
+			<div class="ilc_page_lnav_LeftNavigation">
+				<a class="ilc_page_lnavlink_LeftNavigationLink" href="ilias.php?ref_id=91312&amp;obj_id=98251&amp;cmd=layout&amp;cmdClass=illmpresentationgui&amp;cmdNode=eq&amp;baseClass=ilLMPresentationGUI" >
+					<img class="ilc_page_lnavimage_LeftNavigationImage" src="./Customizing/global/skin/jlu/images/spacer.png" alt="Anterior" title="Anterior" />Überprüfung&nbsp;</a>
+			</div>
+			
+			
+			<div class="ilc_page_rnav_RightNavigation">
+				<a class="ilc_page_rnavlink_RightNavigationLink" href="ilias.php?ref_id=91312&amp;obj_id=98253&amp;cmd=layout&amp;cmdClass=illmpresentationgui&amp;cmdNode=eq&amp;baseClass=ilLMPresentationGUI" >&nbsp;
+			Überprüfung
+					<img class="ilc_page_rnavimage_RightNavigationImage" src="./Customizing/global/skin/jlu/images/spacer.png" alt="Siguiente" title="Siguiente" /></a>
+			</div>
+			
+			<div class="ilClearFloat"></div>
+		</div>
+		
+		<!--</div>-->
+		<br />
+		
+
+<div class="ilPermanentLinkWrapper form-inline"><div class="ilPermalinkContainer input-group">
+    <label for="current_perma_link">
+	<a href="https://ilias.uni-giessen.de/ilias/goto.php?target=pg_98066_91312&client_id=JLUG" onclick="with(document.getElementById('current_perma_link')){focus();select();} return false;" class="permalink_label"><span class="glyphicon glyphicon-link"></span><span class="hidden-xs">Enlace permanente:</span></a></label>
+    <input class="form-control" id="current_perma_link" type="text" value="https://ilias.uni-giessen.de/ilias/goto.php?target=pg_98066_91312&client_id=JLUG" readonly="readonly" onclick="this.focus();this.select();return false;" />
+    
+</div></div>
+
+
+		<br />
+		<a name="notes_top"></a>
+
+
+
+
+<div class="ilNotesHeader">
+	
+	
+<h3 class="ilHeader"></h3>
+</div>
+<div class="ilNotes" id="ilNotes">
+<form  id="ilNoteForm" action="ilias.php?ref_id=91312&amp;obj_id=97979&amp;note_type=2&amp;cmd=post&amp;cmdClass=ilnotegui&amp;cmdNode=eq:ig&amp;baseClass=ilLMPresentationGUI&amp;fallbackCmd=getNotesHTML&amp;rtoken=#notes_top" name="cmd" method="post">
+	<div class="il_ContainerItemCommands2" style="text-align:right;">
+	
+	
+	
+	
+	
+	</div>
+
+
+<div class="small light">Ningún comentario se ha enviado aún.</div>
+
+<table class="fullwidth_invisible" width="100%" style="clear:both;">
+
+
+
+</table>
+</form>
+</div>
+
+
+
+
+
+	</div>
+
+		</div></div></div></div>
+
+
+<div id="minheight"></div>
+
+
+
+<script type="text/javascript">
+il.Util.addOnLoad(function() {
+il.ExtLink.autolink('.ilc_Paragraph','ilc_link_ExtLink');
+ilCOPageQuestionHandler.initCallback('ilias.php?ref_id=91312&page_id=98066&cmd=processAnswer&cmdClass=illmpagegui&cmdNode=eq:en&baseClass=ilLMPresentationGUI&cmdMode=asynch');
+
+			ilias.questions.txt.wrong_answers = "Anzahl Fehler";
+			ilias.questions.txt.wrong_answers_single = "Falsche Wahl.";
+			ilias.questions.txt.tries_remaining = "Verbleibende Versuche";
+			ilias.questions.txt.please_try_again = "Versuchen Sie es nochmals!";
+			ilias.questions.txt.all_answers_correct = "Richtig!";
+			ilias.questions.txt.enough_answers_correct = "Richtig, aber nicht die bestmögliche Lösung!";
+			ilias.questions.txt.nr_of_tries_exceeded = "Sie haben keine Versuche mehr.";
+			ilias.questions.txt.correct_answers_shown = "Richtige Lösung siehe oben.";
+			ilias.questions.txt.correct_answers_also = "Richtig sind auch:";
+			ilias.questions.txt.correct_answer_also = "Richtig ist auch:";
+			ilias.questions.txt.ov_all_correct = "Sie haben alle Fragen richtig beantwortet.";
+			ilias.questions.txt.ov_some_correct = "Sie haben [x] von [y] Frage(n) richtig beantwortet.";
+			ilias.questions.txt.ov_wrong_answered = "Die folgenden Fragen wurden noch nicht oder falsch beantwortet";
+			ilias.questions.txt.please_select = "Bitte auswählen";
+			ilias.questions.txt.ov_preview = "Die Fragenübersicht funktioniert nicht im Seiteneditor-Kontext. Benutzen Sie stattdessen die Vorschau auf SCO- oder SCORM-Level.";
+			ilias.questions.txt.submit_answers = "Auswerten";
+			ilias.questions.refresh_lang();
+			 il.COPagePres.updateQuestionOverviews();
+il.ExtLink.autolink('.ilc_Paragraph','ilc_link_ExtLink');
+il.Explorer2.init({"container_id":"il_expl2_jstree_cont_lm_exp","container_outer_id":"il_expl2_jstree_cont_out_lm_exp","url":"ilias.php?ref_id=91312&cmd=ilTOC&cmdClass=illmpresentationgui&cmdNode=eq&baseClass=ilLMPresentationGUI&cmdMode=asynch","second_hnodes":[],"ajax":false}, {"core":{"animation":300,"initially_open":["exp_node_lm_exp_1","exp_node_lm_exp_1","exp_node_lm_exp_97979","exp_node_lm_exp_98066"],"open_parents":false,"strings":{"loading":"Loading ...","new_node":"New node"}},"plugins":["html_data","themes","json_data"],"themes":{"dots":false,"icons":false,"theme":""},"html_data":[]});
+il.Tooltip.add("subtab_content", { context:"subtab_content", my:"bottom center", at:"top center", text:"Inhalt, Navigationsübersicht des Lernmoduls, öffentliche Kommentare und den Link zur Seite einsehen und als Bookmark speichern" } );
+il.Tooltip.add("subtab_cont_toc", { context:"subtab_cont_toc", my:"bottom center", at:"top center", text:"Inhaltsverzeichnis vollständig einsehen" } );
+il.Tooltip.add("subtab_cont_print_view", { context:"subtab_cont_print_view", my:"bottom center", at:"top center", text:"Kapitel und Seiten zur Druckansicht auswählen" } );
+il.Tooltip.add("subtab_info_short", { context:"subtab_info_short", my:"bottom center", at:"top center", text:"Auskunft über den Besitzer, Erstellungsdatum und den Link zum Objekt einsehen, als Bookmark speichern und Tags vergeben" } );
+il.Overlay.add("mm_search_menu", {"yuicfg":{"visible":false,"fixedcenter":false},"trigger":null,"trigger_event":null,"anchor_id":null,"auto_hide":false,"close_el":null}); 
+il.Tooltip.add("help_tr", { context:"help_tr", my:"bottom center", at:"top center", text:"Abrir ayuda Online" } );
+il.Tooltip.add("help_tt", { context:"help_tt", my:"bottom center", at:"top center", text:"Activar herramientas de ayuda" } );
+il.Help.setAjaxUrl('ilias.php?help_screen_id=lm/content/content.91312&cmdClass=ilhelpgui&cmdNode=c3&baseClass=ilhelpgui&cmdMode=asynch');
+il.Language.setLangVar('private_notes', "Mis anotaciones");
+il.Language.setLangVar('notes_public_comments', "Comentarios p\u00fablicos");
+ilNotes.setAjaxUrl('ilias.php?ref_id=91312&obj_id=97979&cmdClass=ilnotegui&cmdNode=eq:69:ig&baseClass=ilLMPresentationGUI&cmdMode=asynch');
+il.Language.setLangVar('tagging_tags', "Etiquetas");
+ilTagging.setAjaxUrl('ilias.php?ref_id=91312&obj_id=97979&cmdClass=iltagginggui&cmdNode=eq:69:zr&baseClass=ilLMPresentationGUI&cmdMode=asynch');
+il.Object.setRedrawAHUrl('ilias.php?ref_id=91312&obj_id=97979&cmd=redrawHeaderAction&cmdClass=illmpresentationgui&cmdNode=eq&baseClass=ilLMPresentationGUI&cmdMode=asynch');
+il.LearningModule.setCloseHTML('<span class="sr-only"></span><span class="glyphicon glyphicon-remove"></span>');
+il.LearningModule.setSaveUrl('ilias.php?ref_id=91312&obj_id=97979&cmd=saveFrameUrl&cmdClass=illmpresentationgui&cmdNode=eq&baseClass=ilLMPresentationGUI');
+							il.LearningModule.openInitFrames();
+							
+il.LearningModule.setTocRefreshUrl('ilias.php?ref_id=91312&obj_id=97979&cmd=refreshToc&cmdClass=illmpresentationgui&cmdNode=eq&baseClass=ilLMPresentationGUI');
+							
+
+});
+</script>
+
+<script type="text/javascript">
+il.Util.addOnLoad(function() {
+il.Tooltip.init();
+
+});
+</script>
+
+
+</body>
+</html>
