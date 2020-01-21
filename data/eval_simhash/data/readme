@@ -2,4 +2,5 @@ Die Ordnernamen geben an, wie viele Einträge des WARC Archiv eingelesen wurden.
 
 Der Run mit (den ersten) 1250 Einträgen wurde genauer evaluiert. Shingle Size = 9, Blocks = 8
 1250_entry_data.json enthält alle Hashes der Einträge mit ihrem jeweiligen Offset.
-Beginnend bei 6 Bit Differenz wurde die Differenz auf 8 erhöht. Dabei kann man beobachten, dass neue Near Duplicates hinzukommen. Beispiele von Near Duplicates für die PPT wurden in einzelnen Ordnern abgelegt.
+Beginnend bei 6 Bit Differenz wurde die Differenz auf 8 erhöht. Dabei kann man beobachten, dass neue Near Duplicates hinzukommen. Beispiele von Near Duplicates für die PPT wurden in
+einzelnen Ordnern abgelegt.

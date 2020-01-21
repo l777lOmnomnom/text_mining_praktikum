@@ -45,6 +45,8 @@ class Simhash():
         return self.__hash(self.__shingle(self.__tokenize(text), self.shingle_size))
 
     def evaluate(self, hashes):
+        print(hashes[0])
+        print(type(hashes[0]))
         matches = self.__find_matches(hashes, self.blocks, self.distance)
 
         return matches
@@ -92,8 +94,6 @@ class Minhash:
         :return:
         """
         matches = list()
-
-        hashes = list(hashes)
 
         for i in range(len(hashes)):
             for j in range(len(hashes)):

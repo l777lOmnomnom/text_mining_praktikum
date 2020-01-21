@@ -8,7 +8,7 @@ from lib.data_handler import DataHandler
 from near_duplicate_detection.hasher import Simhash, Minhash, Justushash
 
 FILE = os.path.dirname(os.path.abspath(__file__))  # Points to this folder (/home/something/something/text_mining/)
-BOOL_DICT = {"True": True, "False": False}  # Helps to read in config file
+
 
 parser = argparse.ArgumentParser()  # This is the cmd-line parser
 parser.add_argument("-c", "--config", help="path of the config file (default: conf/example.conf)")
@@ -43,30 +43,7 @@ def __load_conf(_config=os.path.join(FILE, "conf/example.conf")):
         return conf_dict
 
 
-def __to_offset_list(matches, offset_hash_dict):
-    """
-    Converts a list of matched hashes to a dict where the offsets in the warc archive off the different hashes is key
-    and the hash is the valie. Necessary helper function.
 
-    :param matches:
-    :param offset_hash_dict:
-    :return:
-    """
-    offset_list = list()
-    offset_a, offset_b = None, None
-    for hash_tuple in matches:
-        for offset, hash in offset_hash_dict.items():
-            if hash == hash_tuple[0]:
-                offset_a = offset
-            elif hash == hash_tuple[1]:
-                offset_b = offset
-
-            # Stops if both have been found
-            if offset_a and offset_b:
-                offset_list.append((offset_a, offset_b))
-                break
-
-    return offset_list
 
 
 def __store_diff(output_path, _offset_text_dict, offset_a, offset_b):
@@ -132,7 +109,7 @@ def main():
             raise ModuleNotFoundError("Entry mode was not found in the config file!")
 
         # If you want to sped up minash you can your this but enable and format the for clause bellow
-        if os.path.isfile("{}_hashes.json".format(source.split(".")[0])) and values.get("mode") == "minhash":
+        if os.path.isfile("{}_hashes.json".format(source.split(".")[0])) and values.get("mode") == "simhash":
             print("\nLoading hashes from file ...".format(len(offset_text_dict)))
             with open("{}_hashes.json".format(source.split(".")[0]), "r") as file:
                 offset_hash_dict = json.load(file)
@@ -140,7 +117,9 @@ def main():
             print("\nCalculating hashes ...".format(len(offset_text_dict)))
             for offset, text in offset_text_dict.items():
                 offset_hash_dict.update({offset: hasher.hash(text)})
-                if values.get("mode") == "minhash":
+                if len(offset_hash_dict) == 1000:
+                    break
+                if values.get("mode") == "simhash":
                     with open("{}_hashes.json".format(source.split(".")[0]), "w") as file:
                         json.dump(offset_hash_dict, file)
 
@@ -149,10 +128,11 @@ def main():
         hash_list = list(offset_hash_dict.values())
 
         matched_offsets_list = __to_offset_list(hasher.evaluate(hash_list), offset_hash_dict)
+
         print("Found {} matches!\n".format(len(matched_offsets_list)))
 
         # Create an output dir in the sources name without all extensionens + _mode (e.g. simhash, minhash, etc)
-        output_dir = "{}_{}".format(source.split(".")[0], run)
+        output_dir = "{}".format(source.split(".")[0])
         print("Creating a results folder in {} and storing all results there.".format(output_dir))
         if not os.path.isdir(output_dir):
             os.mkdir(output_dir)
@@ -165,13 +145,13 @@ def main():
 
             if int(match[0] > match[1]):
                 offset_a = match[1]
-                offset_b = match[2]
+                offset_b = match[0]
             else:
                 offset_a = match[0]
                 offset_b = match[1]
 
             # Create an output file in the output_dir + _offset_a_offset_b_run
-            with open(os.path.join(output_dir, "{}_{}_{}".format(offset_a, offset_b, run)), "w") as file:
+            with open(os.path.join(output_dir, "{}_{}_{}_{}".format(offset_a, offset_b, run, values.get("mode"))), "w") as file:
                 infos = "Config:\n{}".format(config)
                 text_a = "Offset: {}\nHash: {}\nLength: {}\n\n{}".format(offset_a,
                                                                          offset_hash_dict.get(offset_a),
@@ -190,5 +170,6 @@ def main():
             #    file.write(__store_diff(output, offset_text_dict, offset_a, offset_b))
 
         break
+
 if __name__ == "__main__":  # This is True if main.py was called from a command line
     main()

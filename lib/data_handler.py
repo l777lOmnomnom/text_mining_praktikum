@@ -78,19 +78,17 @@ class DataHandler:
                         text_dict = json.load(file)
                 except json.JSONDecodeError as err:
                     print("Failed: {}".format(err))
-
         else:
             text_dict = self.__read_in(self.source)
 
         return text_dict
 
-    def __read_in(self, source, chunk_size=10000):
+    def __read_in(self, source):
         """
         If the source is a warc.gz archives it will be extracted, stripped from whitelines and put into a dict with its
         offset as key and the text as string of lines as value.
 
         :param source: source warc.gz archive
-        :param chunk_size: NotImplemented
         :return: text_dict
         """
         i = 0
