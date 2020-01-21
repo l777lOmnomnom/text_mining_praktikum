@@ -50,6 +50,14 @@ class Runner:
         self.matched_offsets = self.__to_offset_list(matches, self.offset_hash_map)
 
     def dump(self):
+        # Create an output dir in the sources name without all extensionens + _mode (e.g. simhash, minhash, etc)
+        output_dir = "{}".format(self.source.split(".")[0])
+
+        print("Creating a results folder in {} and storing all results there.".format(output_dir))
+
+        if not os.path.isdir(output_dir):
+            os.mkdir(output_dir)
+
         for match in self.matched_offsets:
 
             if int(match[0] > match[1]):
@@ -78,7 +86,6 @@ class Runner:
             # with open(os.path.join(output, "{}_{}_diff".format(offset_a, offset_b)), "w") as file:
             #    file.write(__store_diff(output, offset_text_dict, offset_a, offset_b))
 
-
     @staticmethod
     def __to_offset_list(matches, offset_hash_map):
         """
@@ -106,8 +113,24 @@ class Runner:
 
         return offset_list
 
-        # Create an output dir in the sources name without all extensionens + _mode (e.g. simhash, minhash, etc)
-        output_dir = "{}".format(source.split(".")[0])
-        print("Creating a results folder in {} and storing all results there.".format(output_dir))
-        if not os.path.isdir(output_dir):
-            os.mkdir(output_dir)
+    @staticmethod
+    def __store_diff(output_path, _offset_text_dict, offset_a, offset_b):
+        """
+        Doesn't work :/
+
+        :param output_path:
+        :param _offset_text_dict:
+        :param offset_a:
+        :param offset_b:
+        :return:
+        """
+        with open(os.path.join(output_path, "a"), "w") as a:
+            a.write(_offset_text_dict.get(str(offset_a)))
+
+        with open(os.path.join(output_path, "b"), "w") as b:
+            b.write(_offset_text_dict.get(str(offset_b)))
+
+        diff = os.system("diff {} {}".format(os.path.join(output_path, "a"),
+                                             os.path.join(output_path, "b")))
+
+        return diff

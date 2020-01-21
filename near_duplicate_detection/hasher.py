@@ -71,7 +71,7 @@ class Simhash():
 
 class Minhash:
     def __init__(self, args):
-        self.minhash_distance = 0.7
+        self.minhash_distance = float(args.get("jaccard_sim", 0.7))
 
     def hash(self, text):
         """
