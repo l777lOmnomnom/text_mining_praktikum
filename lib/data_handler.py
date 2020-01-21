@@ -22,6 +22,7 @@ class DataHandlerException(Exception):
 
 class DataHandler:
     def __init__(self, source, max_elements=5000):
+        self.length = 0
         self.max_elements = max_elements
 
         self.__source = source
@@ -81,6 +82,13 @@ class DataHandler:
         else:
             text_dict = self.__read_in(self.source)
 
+        if len(text_dict) > self.max_elements:
+            while len(text_dict) > self.max_elements:
+                text_dict.popitem()
+
+        for text in text_dict.values():
+            self.length += len(text)
+
         return text_dict
 
     def __read_in(self, source):
@@ -91,7 +99,6 @@ class DataHandler:
         :param source: source warc.gz archive
         :return: text_dict
         """
-        i = 0
         if not os.path.isfile(source):
             raise DataHandlerException("Source {} is not a valid file!".format(source))
 
@@ -111,7 +118,6 @@ class DataHandler:
                         text = soup.body.get_text(separator=' ')
                         text = "\n".join([line.strip() for line in text.split("\n") if line.strip() != ""])
                         text_dict.update({archive_stream.get_record_offset(): text})
-                        i += 1
                     except AttributeError as err:
                         print('Wrong Encoding at offset ' + str(archive_stream.get_record_offset()))
 

@@ -1,6 +1,9 @@
 import sys
 import json
 import argparse
+import cProfile
+import pstats
+
 
 from near_duplicate_detection.runner import Runner
 
@@ -50,6 +53,16 @@ if __name__ == "__main__":  # This is True if main.py was called from a command 
     for run, values in config.items():
         runner = Runner(run, values)
 
-        runner.create_offset_hash_map()
-        runner.find_similar_hashes()
-        runner.dump()
+        __hash = runner.create_offset_hash_map
+        __find = runner.find_similar_hashes
+
+        cProfile.run("__hash()", "{}/profile_calculate_hashes_{}_{}".format(runner.output_dir, run, runner.length))
+        cProfile.run("__find()", "{}/profile_find_similar_hashes_{}_{}".format(runner.output_dir, run, runner.length))
+
+        #runner.dump()
+        p1 = pstats.Stats("{}/profile_calculate_hashes_{}_{}".format(runner.output_dir, run, runner.length))
+        p2 = pstats.Stats("{}/profile_find_similar_hashes_{}_{}".format(runner.output_dir, run, runner.length))
+
+        p1.strip_dirs().sort_stats(-1).dump_stats("{}/times_calculate_hashes_{}_{}".format(runner.output_dir, run, runner.length))
+        p2.strip_dirs().sort_stats(-1).dump_stats("{}/times_find_similar_hashes_{}_{}".format(runner.output_dir, run, runner.length))
+

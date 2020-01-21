@@ -1,5 +1,5 @@
 import os
-
+import cProfile
 from lib.data_handler import DataHandler, DataHandlerException
 from near_duplicate_detection.hasher import Minhash, Simhash, Justushash
 
@@ -15,8 +15,9 @@ class Runner:
         self.name = name
 
         self.mode = str()
+        self.length = int()
         self.source = str()
-        self.output_dir = str()
+        self.output_dir = None
         self.max_elements = int()
         self.matched_offsets = list()
         self.offset_text_map = dict()
@@ -28,14 +29,22 @@ class Runner:
         self.init_attributes(config)
 
         self.data = DataHandler(self.source, self.max_elements)
-        self.hash_class = implemented_hashes_map.get(self.mode)(self.additonal_data) # =~ Simhash(self.additional_data)
+
+        self.offset_text_map = self.data.text_dict
+        self.length = self.data.length
+
+        self.hash_class = implemented_hashes_map.get(self.mode)(self.additonal_data)  # =~ Simhash(self.additional_data)
 
     def init_attributes(self, config):
+
         for key, value in config.items():
             if hasattr(self, key):
                 setattr(self, key, value)
             else:
-                self.additonal_data.update({key, value})
+                self.additonal_data.update(value)
+
+        if not self.output_dir:
+            self.output_dir = "{}".format(self.source.split(".")[0])
 
         return
 
@@ -49,20 +58,20 @@ class Runner:
 
         self.matched_offsets = self.__to_offset_list(matches, self.offset_hash_map)
 
+        print("Found {} matches.".format(len(self.matched_offsets)))
+
     def dump(self):
         # Create an output dir in the sources name without all extensionens + _mode (e.g. simhash, minhash, etc)
-        output_dir = "{}".format(self.source.split(".")[0])
+        print("Creating a results folder in {} and storing all results there.".format(self.output_dir))
 
-        print("Creating a results folder in {} and storing all results there.".format(output_dir))
-
-        if not os.path.isdir(output_dir):
-            os.mkdir(output_dir)
+        if not os.path.isdir(self.output_dir):
+            os.mkdir(self.output_dir)
 
         for match in self.matched_offsets:
 
             if int(match[0] > match[1]):
                 offset_a = match[1]
-                offset_b = match[2]
+                offset_b = match[0]
             else:
                 offset_a = match[0]
                 offset_b = match[1]
@@ -98,8 +107,9 @@ class Runner:
         """
 
         offset_list = list()
-        offset_a, offset_b = None, None
+
         for hash_tuple in matches:
+            offset_a, offset_b = None, None
             for offset, hash in offset_hash_map.items():
                 if hash == hash_tuple[0]:
                     offset_a = offset
