@@ -53,6 +53,7 @@ def __to_offset_list(matches, offset_hash_dict):
     :return:
     """
     offset_list = list()
+    offset_a, offset_b = None, None
     for hash_tuple in matches:
         for offset, hash in offset_hash_dict.items():
             if hash == hash_tuple[0]:
@@ -123,27 +124,29 @@ def main():
             raise ModuleNotFoundError("Entry mode was not found in the config file!")
 
         # If you want to sped up minash you can your this but enable and format the for clause bellow
-        #if os.path.isfile("{}_hashes.json".format(source.split(".")[0])):
-        #    print("\nLoading hashes from file ...".format(len(offset_text_dict)))
-        #    with open("{}_hashes.json".format(source.split(".")[0]), "r") as file:
-        #        offset_hash_dict = json.load(file)
-        #else:
-
-        print("\nCalculating hashes ...".format(len(offset_text_dict)))
-        for offset, text in offset_text_dict.items():
-            offset_hash_dict.update({offset: hasher.hash(text)})
-                #with open("{}_hashes.json".format(source.split(".")[0]), "w") as file:
-                #    json.dump(offset_hash_dict, file)
+        if os.path.isfile("{}_hashes.json".format(source.split(".")[0])) and values.get("mode") == "minhash":
+            print("\nLoading hashes from file ...".format(len(offset_text_dict)))
+            with open("{}_hashes.json".format(source.split(".")[0]), "r") as file:
+                offset_hash_dict = json.load(file)
+        else:
+            print("\nCalculating hashes ...".format(len(offset_text_dict)))
+            for offset, text in offset_text_dict.items():
+                offset_hash_dict.update({offset: hasher.hash(text)})
+                if values.get("mode") == "minhash":
+                    with open("{}_hashes.json".format(source.split(".")[0]), "w") as file:
+                        json.dump(offset_hash_dict, file)
 
         # Searches for similar documents and formats them to a offset tuple list
         print("Searching for similar documents ...")
-        matched_offsets_list = __to_offset_list(hasher.evaluate(list(offset_hash_dict.values())), offset_hash_dict)
+        hash_list = list(offset_hash_dict.values())
+
+        matched_offsets_list = __to_offset_list(hasher.evaluate(hash_list), offset_hash_dict)
         print("Found {} matches!\n".format(len(matched_offsets_list)))
 
         # Create an output dir in the sources name without all extensionens + _mode (e.g. simhash, minhash, etc)
-        output_dir = "{}_{}".format(source.split(".")[0], config.get("mode"))
+        output_dir = "{}_{}".format(source.split(".")[0], run)
         print("Creating a results folder in {} and storing all results there.".format(output_dir))
-        if not os.path.isdir("{}_{}".format(output_dir, config.get("mode"))):
+        if not os.path.isdir(output_dir):
             os.mkdir(output_dir)
 
         i = 0
@@ -180,4 +183,4 @@ def main():
 
         break
 if __name__ == "__main__":  # This is True if main.py was called from a command line
-    cProfile.run(main())
+    main()

@@ -42,7 +42,7 @@ class Simhash():
         self.distance = args.get("distance", 4)
 
     def hash(self, text):
-        self.hashvalue = self.__hash(self.__shingle(self.__tokenize(text), self.shingle_size))
+        return self.__hash(self.__shingle(self.__tokenize(text), self.shingle_size))
 
     def evaluate(self, hashes):
         matches = self.__find_matches(hashes, self.blocks, self.distance)
