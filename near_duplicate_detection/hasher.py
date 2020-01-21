@@ -11,7 +11,9 @@ class HashInterface:
     This is the explanation class. All classes should inhert from it. All abc.abstractmethods need to be implemented in
     your child class. This ensures that all classes can reuse the input provides by the data_handler
     """
-    @abc.abstractmethod
+    def __init__(self, offset, text):
+        pass
+
     def hash(self, text):
         """
         This is the hash function which is called from the main function. Put all hashing logic in here.
@@ -21,10 +23,8 @@ class HashInterface:
         :param text: the input from the data handlers text_dict
         :return: return the hash or the object on which you want to do the evaluation on
         """
-        return
 
-    @abc.abstractmethod
-    def evaluate(self, args):
+    def evaluate(self, hashes):
         """
         This is the evaluation method which takes whatever parameter you want as input and should yield a certain
         output about the similarities of different html documents.
@@ -35,18 +35,14 @@ class HashInterface:
         """
 
 
-class Simhash:
+class Simhash():
     def __init__(self, args):
-        self.shingle_size = 9
-        self.blocks = 8
-        self.distance = 4
-
-        for attr, value in args.items():
-            if hasattr(self, attr):
-                setattr(self, attr, value)
+        self.shingle_size = args.get("shingle_size", 9)
+        self.blocks = args.get("blocks", 8)
+        self.distance = args.get("distance", 4)
 
     def hash(self, text):
-        return self.__hash(self.__shingle(self.__tokenize(text), self.shingle_size))
+        self.hashvalue = self.__hash(self.__shingle(self.__tokenize(text), self.shingle_size))
 
     def evaluate(self, hashes):
         matches = self.__find_matches(hashes, self.blocks, self.distance)
@@ -72,6 +68,9 @@ class Simhash:
 
 
 class Minhash:
+    def __init__(self, args):
+        self.minhash_distance = 0.9
+
     def hash(self, text):
         """
         Creates a min-hash for a given text by updating a MinHash with every word contained in the text.
@@ -82,42 +81,32 @@ class Minhash:
         m = MinHash()
 
         for line in text.split("\n"):
-            m = self.__hash(m, line)
+            self.__hash(m, line.encode('utf-8'))
 
         return m
 
-    def evaulate(self, text_dict, minhash_distance=0.9):
+    def evaluate(self, hashes):
         """ This estimates the jaccard similarity between all entries in a set of min hashes. The results are stored
             in a special database.
 
         :return:
         """
-        i = 0
-        _time = 0
-        matches = 0
+        matches = list()
 
-        for offset1, hash1 in text_dict.items():
-            i += 1
-            j = 0
-            for offset2, hash2 in text_dict.items():
-                j += 1
+        hashes = list(hashes)
+
+        for i in range(len(hashes)):
+            for j in range(len(hashes)):
                 if j > i:
-                    start = time.time()
-                    estimated_jaccard_sim = self.__estimate_jaccard_sim(hash1.get("minhash"), hash2.get("minhash"))
-                    _time = float(_time) + time.time() - start
-                    if float(estimated_jaccard_sim) >= float(minhash_distance):
-                        matches += 1
+                    estimated_jaccard_sim = self.__estimate_jaccard_sim(hashes[i], hashes[j])
+                    if float(estimated_jaccard_sim) >= float(self.minhash_distance):
+                        matches.append((hashes[i], hashes[j]))
 
-        if matches == 0:
-            print("There were no documents with a similarity over {} found with minhash!".format(minhash_distance))
-        else:
-            print("Found {} document with a jaccard similarity of {} or higher".format(matches, minhash_distance))
-
-        return _time
+        return matches
 
     @staticmethod
     def __hash(m, line):
-        return m.update(line)
+        m.update(line)
 
     @staticmethod
     def __estimate_jaccard_sim(minhash1, minhash2):
@@ -134,10 +123,6 @@ class Justushash:
         self.shingle_size = 9
         self.blocks = 8
         self.distance = 4
-
-        for attr, value in args.items():
-            if hasattr(self, attr):
-                setattr(self, attr, value)
 
     def hash(self, text):
         shingles = self.__shingle(text, self.shingle_size)
