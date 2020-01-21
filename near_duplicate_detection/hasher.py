@@ -44,7 +44,7 @@ class Simhash():
     def hash(self, text):
         return self.__hash(self.__shingle(self.__tokenize(text), self.shingle_size))
 
-    def evaluate(self, hashes):
+    def find_matches(self, hashes):
         print(hashes[0])
         print(type(hashes[0]))
         matches = self.__find_matches(hashes, self.blocks, self.distance)
@@ -71,7 +71,7 @@ class Simhash():
 
 class Minhash:
     def __init__(self, args):
-        self.minhash_distance = 0.9
+        self.minhash_distance = 0.7
 
     def hash(self, text):
         """
@@ -87,7 +87,7 @@ class Minhash:
 
         return m
 
-    def evaluate(self, hashes):
+    def find_matches(self, hashes):
         """ This estimates the jaccard similarity between all entries in a set of min hashes. The results are stored
             in a special database.
 
@@ -130,7 +130,7 @@ class Justushash:
 
         return self.__bitShift(hash)
 
-    def evaluate(self, hashes):
+    def find_matches(self, hashes):
         matches = list()
         sorted_hashes = self.__sort(hashes)
         # print(similarity)
