@@ -137,7 +137,7 @@ def main():
 
         # Searches for similar documents and formats them to a offset tuple list
         print("Searching for similar documents ...")
-        matched_offsets_list = __to_offset_list(hasher.evaluate(offset_hash_dict.values()), offset_hash_dict)
+        matched_offsets_list = __to_offset_list(hasher.evaluate(list(offset_hash_dict.values())), offset_hash_dict)
         print("Found {} matches!\n".format(len(matched_offsets_list)))
 
         # Create an output dir in the sources name without all extensionens + _mode (e.g. simhash, minhash, etc)
