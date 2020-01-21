@@ -8,6 +8,7 @@ from lib.data_handler import DataHandler
 from near_duplicate_detection.hasher import Simhash, Minhash, Justushash
 
 FILE = os.path.dirname(os.path.abspath(__file__))  # Points to this folder (/home/something/something/text_mining/)
+bool_map = {"True": True, "False": False}  # Helps to read in config file
 
 
 parser = argparse.ArgumentParser()  # This is the cmd-line parser
@@ -36,14 +37,11 @@ def __load_conf(_config=os.path.join(FILE, "conf/example.conf")):
 
             # This makes sure that values that are 'True' in the config are also set to True in the code
             if value == "true" or value =="False":
-                conf_dict[key] = BOOL_DICT[value]
+                conf_dict[key] = bool_map[value]
             else:
                 conf_dict[key] = value
 
         return conf_dict
-
-
-
 
 
 def __store_diff(output_path, _offset_text_dict, offset_a, offset_b):
@@ -109,6 +107,7 @@ def main():
             raise ModuleNotFoundError("Entry mode was not found in the config file!")
 
         # If you want to sped up minash you can your this but enable and format the for clause bellow
+<<<<<<< Updated upstream
         if os.path.isfile("{}_hashes.json".format(source.split(".")[0])) and values.get("mode") == "simhash":
             print("\nLoading hashes from file ...".format(len(offset_text_dict)))
             with open("{}_hashes.json".format(source.split(".")[0]), "r") as file:
@@ -129,6 +128,24 @@ def main():
 
         matched_offsets_list = __to_offset_list(hasher.evaluate(hash_list), offset_hash_dict)
 
+=======
+        #if os.path.isfile("{}_hashes.json".format(source.split(".")[0])):
+        #    print("\nLoading hashes from file ...".format(len(offset_text_dict)))
+        #    with open("{}_hashes.json".format(source.split(".")[0]), "r") as file:
+        #        offset_hash_dict = json.load(file)
+        #else:
+
+        print("\nCalculating hashes ...".format(len(offset_text_dict)))
+        for offset, text in offset_text_dict.items():
+            offset_hash_dict.update({offset: hasher.hash(text)})
+                #with open("{}_hashes.json".format(source.split(".")[0]), "w") as file:
+                #    json.dump(offset_hash_dict, file)
+        print(len(offset_hash_dict))
+        # Searches for similar documents and formats them to a offset tuple list
+        print("Searching for similar documents ...")
+        hashes_list = list(offset_hash_dict.values())
+        matched_offsets_list = __to_offset_list(hasher.evaluate(hashes_list), offset_hash_dict)
+>>>>>>> Stashed changes
         print("Found {} matches!\n".format(len(matched_offsets_list)))
 
         # Create an output dir in the sources name without all extensionens + _mode (e.g. simhash, minhash, etc)
