@@ -108,7 +108,15 @@ def main():
     data = DataHandler(source, config.get("max_elements"))
 
     offset_text_dict = data.text_dict  # This is the dict which maps offsets to their text
+
     for run, values in config.items():
+        if values.get("max_elements"):
+            i = int(values.get("max_elements")) + 1
+            while i > values.get("max_elements"):
+                offset_text_dict.popitem()
+                i = len(offset_text_dict)
+        print("Reduced elements to {}".format(len(offset_text_dict)))
+
         offset_hash_dict = dict()  # This will be the dict which maps offsets to their hashes
 
         print("\nStarting run {} with following values:\n{}".format(run, values))
