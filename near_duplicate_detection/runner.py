@@ -1,5 +1,6 @@
 import os
-import cProfile
+import json
+
 from lib.data_handler import DataHandler, DataHandlerException
 from near_duplicate_detection.hasher import Minhash, Simhash, Justushash
 
@@ -14,10 +15,14 @@ class Runner:
     def __init__(self, name, config):
         self.name = name
 
+        self.diff = None
         self.mode = str()
         self.length = int()
         self.source = str()
+        self.dump_text = False
+        self.max_length = None
         self.output_dir = None
+        self.max_matches = None
         self.max_elements = int()
         self.matched_offsets = list()
         self.offset_text_map = dict()
@@ -29,6 +34,9 @@ class Runner:
         self.init_attributes(config)
 
         self.data = DataHandler(self.source, self.max_elements)
+
+        if self.max_length:
+            self.limit_text_size()
 
         self.offset_text_map = self.data.text_dict
         self.length = self.data.length
@@ -44,7 +52,7 @@ class Runner:
                 self.additonal_data.update(value)
 
         if not self.output_dir:
-            self.output_dir = "{}".format(self.source.split(".")[0])
+            self.output_dir = "{}_results".format(self.source.split(".")[0])
 
         return
 
@@ -60,15 +68,14 @@ class Runner:
 
         print("Found {} matches.".format(len(self.matched_offsets)))
 
-    def dump(self):
+    def dump(self, dump_text=False):
         # Create an output dir in the sources name without all extensionens + _mode (e.g. simhash, minhash, etc)
         print("Creating a results folder in {} and storing all results there.".format(self.output_dir))
 
         if not os.path.isdir(self.output_dir):
             os.mkdir(self.output_dir)
 
-        for match in self.matched_offsets:
-
+        for i, match in enumerate(self.matched_offsets):
             if int(match[0] > match[1]):
                 offset_a = match[1]
                 offset_b = match[0]
@@ -76,24 +83,39 @@ class Runner:
                 offset_a = match[0]
                 offset_b = match[1]
 
-            # Create an output file in the output_dir + _offset_a_offset_b_run
             with open(os.path.join(self.output_dir, "{}_{}_{}_{}".format(offset_a, offset_b, self.name, self.mode)), "w") as file:
-                infos = "Config:\n{}".format(self.__config)
-                text_a = "Offset: {}\nHash: {}\nLength: {}\n\n{}".format(offset_a,
-                                                                         self.offset_hash_map.get(offset_a),
-                                                                         len(self.offset_text_map.get(offset_a)),
-                                                                         self.offset_text_map.get(offset_a))
+                text_a = self.offset_text_map.get(offset_a)
+                text_b = self.offset_text_map.get(offset_b)
 
-                text_b = "Offset: {}\nHash: {}\nLength: {}\n\n{}".format(offset_b,
-                                                                         self.offset_hash_map.get(offset_b),
-                                                                         len(self.offset_text_map.get(offset_b)),  # noqa
-                                                                         self.offset_text_map.get(offset_b))  # noqa
+                self.diff = self.__diff(text_a, text_b)
+
+                infos = "Config:\n{}\nTextlength: {}\nDifflength: {}".format(self.__config,
+                                                                             int(0.5 * len(text_a) + len(text_b)),
+                                                                             len(self.diff[0] + self.diff[1]))
+
+                text_a = "Offset: {}\nHash: {}\nMisses:\n{}\n".format(offset_a,
+                                                                      self.offset_hash_map.get(offset_a),
+                                                                      self.diff[0])
+
+                text_b = "Offset: {}\nHash: {}\nMisses:\n{}\n".format(offset_b,
+                                                                      self.offset_hash_map.get(offset_b),
+                                                                      self.diff[1])
+                if dump_text:
+                    text_a = text_a + "Text:\n{}".format(text_a)
+                    text_b = text_b + "Text:\n{}".format(text_b)
 
                 file.write("{}\n\n{}\n\n{}\n\n{}".format(infos, text_a, "#"*25, text_b))
 
-            # This should save the diff but doesn't work ...
-            # with open(os.path.join(output, "{}_{}_diff".format(offset_a, offset_b)), "w") as file:
-            #    file.write(__store_diff(output, offset_text_dict, offset_a, offset_b))
+            if self.max_matches:
+                i += 1
+                if i >= self.max_matches:
+                    print("Stopping after {} matches have been dumped. Text dumping is {}.".format(self.max_matches,
+                                                                                                   self.dump_text))
+                    break
+
+            #x.append(int(0.5 * (len(text_a) + len(text_b))))
+            #y.append(len(self.diff[0]) + len(self.diff[1]))
+        #self.__plot(self.name, x, y)
 
     @staticmethod
     def __to_offset_list(matches, offset_hash_map):
@@ -124,7 +146,7 @@ class Runner:
         return offset_list
 
     @staticmethod
-    def __store_diff(output_path, _offset_text_dict, offset_a, offset_b):
+    def __diff(text_a, text_b):
         """
         Doesn't work :/
 
@@ -134,13 +156,42 @@ class Runner:
         :param offset_b:
         :return:
         """
-        with open(os.path.join(output_path, "a"), "w") as a:
-            a.write(_offset_text_dict.get(str(offset_a)))
+        import difflib
 
-        with open(os.path.join(output_path, "b"), "w") as b:
-            b.write(_offset_text_dict.get(str(offset_b)))
+        diff = None
 
-        diff = os.system("diff {} {}".format(os.path.join(output_path, "a"),
-                                             os.path.join(output_path, "b")))
+        try:
+            diff = [li for li in difflib.ndiff(text_a, text_b) if li[0] != ' ']
+        except TypeError as err:
+            print(err)
 
-        return diff
+        diff_a = ""
+        diff_b = ""
+
+        if not diff:
+            return ("There was a problem with the diff!", "There was a problem with the diff!")
+
+        for _diff in diff:
+            if "+" in _diff:
+                diff_a += _diff.replace("+ ", "")
+            elif "-" in _diff:
+                diff_b += _diff.replace("- ", "")
+
+        return (diff_a, diff_b)
+
+    @staticmethod
+    def __plot(name, x, y):
+        import matplotlib.pyplot as plt
+
+        plt.plot(x, y)
+        plt.xlabel('text length')
+        plt.ylabel('diff length')
+        plt.savefig("figure_{}".format(name))
+
+    def limit_text_size(self):
+        print("Limiting text size to {} ...".format(self.max_length))
+        tmp_dict = dict()
+        for offset, text in self.offset_text_map.items():
+            if len(text) <= self.max_length:
+                tmp_dict.update({offset: text})
+        self.offset_text_map = tmp_dict

@@ -15,6 +15,11 @@ args = parser.parse_args()
 bool_map = {"True": True, "False": False}  # Helps to read in config file
 
 
+def __print(string):
+    print(string)
+    return None
+
+
 def __load_conf(_config="conf/example.conf"):
     """ This is the first function to be called. It will load all config entries from the config file.
     You can specify a config by calling this script with -c /path/to/conf.file
@@ -24,7 +29,6 @@ def __load_conf(_config="conf/example.conf"):
     :return:
     """
     try:
-        print(_config)
         with open(_config, "r") as conf:
             conf_dict = json.load(conf)
     except IOError as err:
@@ -33,14 +37,16 @@ def __load_conf(_config="conf/example.conf"):
     else:
         print("Config:\n")
         for key, value in conf_dict.items():
-            print("    {}: {}".format(key, value))
+            print("    {}:".format(key))
+            for _key, _value in value.items():
+                print("        {}: {}".format(_key, _value))
 
             # This makes sure that values that are 'True' in the config are also set to True in the code
-            if value == "true" or value =="False":
+            if value == "True" or value =="False":
                 conf_dict[key] = bool_map[value]
             else:
                 conf_dict[key] = value
-
+        print("\n")
         return conf_dict
 
 
@@ -56,13 +62,18 @@ if __name__ == "__main__":  # This is True if main.py was called from a command 
         __hash = runner.create_offset_hash_map
         __find = runner.find_similar_hashes
 
-        cProfile.run("__hash()", "{}/profile_calculate_hashes_{}_{}".format(runner.output_dir, run, runner.length))
-        cProfile.run("__find()", "{}/profile_find_similar_hashes_{}_{}".format(runner.output_dir, run, runner.length))
+        print("\nHashing ...")
+        __hash()
+        print("Searching ...")
+        __find()
+        print("Dumping ...")
+        runner.dump()
 
-        #runner.dump()
-        p1 = pstats.Stats("{}/profile_calculate_hashes_{}_{}".format(runner.output_dir, run, runner.length))
-        p2 = pstats.Stats("{}/profile_find_similar_hashes_{}_{}".format(runner.output_dir, run, runner.length))
+        #cProfile.run("__hash()", "{}/profile_calculate_hashes_{}_{}".format(runner.output_dir, run, runner.length))
+        #cProfile.run("__find()", "{}/profile_find_similar_hashes_{}_{}".format(runner.output_dir, run, runner.length))
 
-        p1.strip_dirs().sort_stats(-1).dump_stats("{}/times_calculate_hashes_{}_{}".format(runner.output_dir, run, runner.length))
-        p2.strip_dirs().sort_stats(-1).dump_stats("{}/times_find_similar_hashes_{}_{}".format(runner.output_dir, run, runner.length))
+        #p1 = pstats.Stats("{}/profile_calculate_hashes_{}_{}".format(runner.output_dir, run, runner.length))
+        #p2 = pstats.Stats("{}/profile_find_similar_hashes_{}_{}".format(runner.output_dir, run, runner.length))
 
+        #p1.strip_dirs().sort_stats(-1).dump_stats("{}/times_calculate_hashes_{}_{}".format(runner.output_dir, run, runner.length))
+        #p2.strip_dirs().sort_stats(-1).dump_stats("{}/times_find_similar_hashes_{}_{}".format(runner.output_dir, run, runner.length))

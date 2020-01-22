@@ -3,7 +3,7 @@ from datasketch import MinHash
 import time
 import ctypes
 import re
-import abc
+import time
 
 
 class HashInterface:
@@ -37,15 +37,23 @@ class HashInterface:
 
 class Simhash():
     def __init__(self, args):
+        self.hash_time = 0
+        self.find_time = 0
         self.shingle_size = args.get("shingle_size", 9)
         self.blocks = args.get("blocks", 8)
         self.distance = args.get("distance", 4)
 
     def hash(self, text):
-        return self.__hash(self.__shingle(self.__tokenize(text), self.shingle_size))
+        start = time.time()
+        h = self.__hash(self.__shingle(self.__tokenize(text), self.shingle_size))
+        self.hash_time += time.time() - start
+
+        return h
 
     def find_matches(self, hashes):
+        start = time.time()
         matches = self.__find_matches(hashes, self.blocks, self.distance)
+        self.find_time += time.time() - start
 
         return matches
 
@@ -69,6 +77,8 @@ class Simhash():
 
 class Minhash:
     def __init__(self, args):
+        self.hash_time = 0
+        self.find_time = 0
         self.minhash_distance = float(args.get("jaccard_sim", 0.7))
 
     def hash(self, text):
@@ -79,10 +89,10 @@ class Minhash:
         :return: MinHash()
         """
         m = MinHash()
-
+        start = time.time()
         for line in text.split("\n"):
             self.__hash(m, line.encode('utf-8'))
-
+        self.hash_time += time.time() - start
         return m
 
     def find_matches(self, hashes):
@@ -93,14 +103,14 @@ class Minhash:
         """
         matches = list()
         hashes = list(hashes)
-
+        start = time.time()
         for i in range(len(hashes)):
             for j in range(len(hashes)):
                 if j > i:
                     estimated_jaccard_sim = self.__estimate_jaccard_sim(hashes[i], hashes[j])
                     if float(estimated_jaccard_sim) >= float(self.minhash_distance):
                         matches.append((hashes[i], hashes[j]))
-
+        self.find_time += time.time() - start
         return matches
 
     @staticmethod
@@ -119,27 +129,31 @@ class Minhash:
 
 class Justushash:
     def __init__(self, args):
+        self.hash_time = 0
+        self.find_time = 0
         self.shingle_size = 9
         self.blocks = 8
         self.distance = 4
 
     def hash(self, text):
+        start = time.time()
         shingles = self.__shingle(text, self.shingle_size)
         hash = self.__hash(shingles)
-
+        self.hash_time += time.time() - start
         return self.__bitShift(hash)
 
     def find_matches(self, hashes):
         matches = list()
         sorted_hashes = self.__sort(hashes)
         # print(similarity)
+        start = time.time()
         for i in range(0, len(sorted_hashes)):
             for j in range(1, len(sorted_hashes)):
                 if self.__hamming(sorted_hashes[i], sorted_hashes[j]) <= self.distance:
                     matches.append((sorted_hashes[i], sorted_hashes[j]))
                 else:
                     break
-
+        self.find_time += time.time() - start
         return matches
 
     @staticmethod
