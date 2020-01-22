@@ -21,7 +21,7 @@ class DataHandlerException(Exception):
 
 
 class DataHandler:
-    def __init__(self, source, max_elements=5000):
+    def __init__(self, source, max_elements=9999999):
         self.length = 0
         self.max_elements = max_elements
 

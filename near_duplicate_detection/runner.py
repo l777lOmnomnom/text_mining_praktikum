@@ -21,6 +21,7 @@ class Runner:
         self.source = str()
         self.dump_text = False
         self.max_length = None
+        self.min_length = 0
         self.output_dir = None
         self.max_matches = None
         self.max_elements = int()
@@ -34,6 +35,7 @@ class Runner:
         self.init_attributes(config)
 
         self.data = DataHandler(self.source, self.max_elements)
+        self.max_elements = len(self.data.text_dict)
 
         if self.max_length:
             self.limit_text_size()
@@ -74,6 +76,10 @@ class Runner:
 
         if not os.path.isdir(self.output_dir):
             os.mkdir(self.output_dir)
+
+        text_size = "{}-{}".format(self.min_length, self.max_length)
+        with open(os.path.join(self.output_dir, "profile_{}_{}_{}_elements_{}_size".format(self.name, self.mode, self.max_elements, text_size)), "a") as file:
+            json.dump({"config": self.__config, "hash": self.hash_class.hash_time, "find": self.hash_class.find_time}, file)
 
         for i, match in enumerate(self.matched_offsets):
             if int(match[0] > match[1]):
@@ -116,6 +122,7 @@ class Runner:
             #x.append(int(0.5 * (len(text_a) + len(text_b))))
             #y.append(len(self.diff[0]) + len(self.diff[1]))
         #self.__plot(self.name, x, y)
+
 
     @staticmethod
     def __to_offset_list(matches, offset_hash_map):
@@ -192,6 +199,6 @@ class Runner:
         print("Limiting text size to {} ...".format(self.max_length))
         tmp_dict = dict()
         for offset, text in self.offset_text_map.items():
-            if len(text) <= self.max_length:
+            if len(text) <= self.max_length and len(text) >= self.min_length:
                 tmp_dict.update({offset: text})
         self.offset_text_map = tmp_dict

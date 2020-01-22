@@ -1,6 +1,5 @@
 import simhash
 from datasketch import MinHash
-import time
 import ctypes
 import re
 import time
@@ -108,8 +107,10 @@ class Minhash:
             for j in range(len(hashes)):
                 if j > i:
                     estimated_jaccard_sim = self.__estimate_jaccard_sim(hashes[i], hashes[j])
+
                     if float(estimated_jaccard_sim) >= float(self.minhash_distance):
-                        matches.append((hashes[i], hashes[j]))
+                        matches.append((hashes[i], hashes[j], estimated_jaccard_sim))
+
         self.find_time += time.time() - start
         return matches
 
