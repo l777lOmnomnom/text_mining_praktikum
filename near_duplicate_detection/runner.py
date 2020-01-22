@@ -37,10 +37,13 @@ class Runner:
         self.data = DataHandler(self.source, self.max_elements)
         self.max_elements = len(self.data.text_dict)
 
+        self.offset_text_map = self.data.text_dict
+
         if self.max_length:
+            self.length = 0
             self.limit_text_size()
 
-        self.offset_text_map = self.data.text_dict
+        print(len(self.offset_text_map))
         self.length = self.data.length
 
         self.hash_class = implemented_hashes_map.get(self.mode)(self.additonal_data)  # =~ Simhash(self.additional_data)
@@ -79,7 +82,10 @@ class Runner:
 
         text_size = "{}-{}".format(self.min_length, self.max_length)
         with open(os.path.join(self.output_dir, "profile_{}_{}_{}_elements_{}_size".format(self.name, self.mode, self.max_elements, text_size)), "a") as file:
-            json.dump({"config": self.__config, "hash": self.hash_class.hash_time, "find": self.hash_class.find_time}, file)
+            json.dump({"config": self.__config,
+                       "hash": self.hash_class.hash_time,
+                       "find": self.hash_class.find_time,
+                       "size": self.length}, file)
 
         for i, match in enumerate(self.matched_offsets):
             if int(match[0] > match[1]):
@@ -122,7 +128,7 @@ class Runner:
             #x.append(int(0.5 * (len(text_a) + len(text_b))))
             #y.append(len(self.diff[0]) + len(self.diff[1]))
         #self.__plot(self.name, x, y)
-
+        
 
     @staticmethod
     def __to_offset_list(matches, offset_hash_map):
@@ -201,4 +207,7 @@ class Runner:
         for offset, text in self.offset_text_map.items():
             if len(text) <= self.max_length and len(text) >= self.min_length:
                 tmp_dict.update({offset: text})
+                self.length += len(text)
+
+        print("Now {} elements are loaded".format(len(tmp_dict)))
         self.offset_text_map = tmp_dict
