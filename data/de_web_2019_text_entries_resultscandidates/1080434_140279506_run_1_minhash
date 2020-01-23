@@ -1,0 +1,21 @@
+Config:
+{'mode': 'minhash', 'source': 'data/de_web_2019_text_entries', 'max_elements': 10000, 'dump_text': 'False', 'additional_parameter': {'jaccard_sim': 0.8}}
+Textlength: 3682
+Difflength: 60
+Sim: 0.9609375
+
+Offset: 1080434
+Hash: <datasketch.minhash.MinHash object at 0x7f534da8a358>
+Misses:
+Shanghai Shanghai
+   (1)
+Shanghai
+
+
+#########################
+
+Offset: 140279506
+Hash: <datasketch.minhash.MinHash object at 0x7f534ceb7c88>
+Misses:
+ City City     (1)
+Shanghai

@@ -1,0 +1,21 @@
+Config:
+{'mode': 'minhash', 'source': 'data/de_web_2019_text_entries', 'max_elements': 10000, 'dump_text': 'False', 'additional_parameter': {'jaccard_sim': 0.8}}
+Textlength: 3696
+Difflength: 82
+Sim: 0.9453125
+
+Offset: 1080434
+Hash: <datasketch.minhash.MinHash object at 0x7f534da8a358>
+Misses:
+Präfekur Tokio
+Präfekur Tokio   (1)
+Präfektur Tokio
+
+
+#########################
+
+Offset: 69798999
+Hash: <datasketch.minhash.MinHash object at 0x7f534cfc0588>
+Misses:
+Ciy Ciy     (1)
+Präfektur Tokio

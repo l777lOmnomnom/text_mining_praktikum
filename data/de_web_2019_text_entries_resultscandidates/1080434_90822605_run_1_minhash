@@ -1,0 +1,33 @@
+Config:
+{'mode': 'minhash', 'source': 'data/de_web_2019_text_entries', 'max_elements': 10000, 'dump_text': 'False', 'additional_parameter': {'jaccard_sim': 0.8}}
+Textlength: 4102
+Difflength: 558
+Sim: 0.8046875
+
+Offset: 1080434
+Hash: <datasketch.minhash.MinHash object at 0x7f534da8a358>
+Misses:
+2sRegion Brüssel-Hauptstadt 19.09.2019
+Referendare (w/m/d) für alle Rechtsgebiete
+BEITEN BURKHARDT Rechtsanwaltsgesellschaft mbH
+Berlin, Brüssel, Belgien, Düsseldorf, Frankfurt am ai, Hamburg, Moskau, Russland, Mnchen, Peking, China, St. Petersburg, Russland
+Referendariat / Praktikum / Wahlstation
+Apply to job
+Bewerben
+Job merken
+Job merken
+MenüRegion Brüssel-Hauptstadt
+2   (1)
+Region Brüssel-Hauptstadt Brüssel   (1)222BEITEN BURHARDT Rechtsanwaltsgesellschaft mbH   (1)
+Arbeitgeberart
+K2
+
+
+#########################
+
+Offset: 90822605
+Hash: <datasketch.minhash.MinHash object at 0x7f534cf47518>
+Misses:
+1 Citye City1  Region Brüssel-Hauptstadt   (1)
+111Arbeitgeberart
+1

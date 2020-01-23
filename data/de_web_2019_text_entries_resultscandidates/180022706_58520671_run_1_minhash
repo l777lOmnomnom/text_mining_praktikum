@@ -1,0 +1,21 @@
+Config:
+{'mode': 'minhash', 'source': 'data/de_web_2019_text_entries', 'max_elements': 10000, 'dump_text': 'False', 'additional_parameter': {'jaccard_sim': 0.8}}
+Textlength: 6787
+Difflength: 138
+Sim: 0.9765625
+
+Offset: 180022706
+Hash: <datasketch.minhash.MinHash object at 0x7f534cd48b00>
+Misses:
+TdDeutschenEinheit
+zurÃ¼ck zur anstaltungs03
+
+
+#########################
+
+Offset: 58520671
+Hash: <datasketch.minhash.MinHash object at 0x7f534d19b048>
+Misses:
+GenerlversammlunAlthren-B Knheim e.V.
+zuck zur VeranstaltungsÃ¼11
+Veranstalter BV Kneheim e.V.
