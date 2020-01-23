@@ -70,13 +70,13 @@ class DataHandler:
                 * else read the archive in and return a text_dict
         :return:  text_dict
         """
-        text_dict = None
+        text_dict = dict()
 
         if "text_entries" in self.source:
             if os.path.isfile(self.source):
                 try:
                     with open(self.source, "r") as file:
-                        text_dict = json.load(file)
+                        text_dict.update(json.load(file))
                 except json.JSONDecodeError as err:
                     print("Failed: {}".format(err))
         else:

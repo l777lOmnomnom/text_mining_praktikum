@@ -36,6 +36,7 @@ class Runner:
 
         self.data = DataHandler(self.source, self.max_elements)
         self.max_elements = len(self.data.text_dict)
+        self.offset_text_map = self.data.text_dict
 
         self.offset_text_map = self.data.text_dict
 
@@ -43,7 +44,10 @@ class Runner:
             self.length = 0
             self.limit_text_size()
 
+<<<<<<< Updated upstream
         print(len(self.offset_text_map))
+=======
+>>>>>>> Stashed changes
         self.length = self.data.length
 
         self.hash_class = implemented_hashes_map.get(self.mode)(self.additonal_data)  # =~ Simhash(self.additional_data)
@@ -57,7 +61,7 @@ class Runner:
                 self.additonal_data.update(value)
 
         if not self.output_dir:
-            self.output_dir = "{}_results".format(self.source.split(".")[0])
+            self.output_dir = "{}_results_small".format(self.source.split(".")[0])
 
         return
 
@@ -80,12 +84,18 @@ class Runner:
         if not os.path.isdir(self.output_dir):
             os.mkdir(self.output_dir)
 
+<<<<<<< Updated upstream
         text_size = "{}-{}".format(self.min_length, self.max_length)
         with open(os.path.join(self.output_dir, "profile_{}_{}_{}_elements_{}_size".format(self.name, self.mode, self.max_elements, text_size)), "a") as file:
             json.dump({"config": self.__config,
                        "hash": self.hash_class.hash_time,
                        "find": self.hash_class.find_time,
                        "size": self.length}, file)
+=======
+        #text_size = "{}-{}".format(self.min_length, self.max_length)
+        #with open(os.path.join(self.output_dir, "profile_{}_{}_{}_elements_{}_size".format(self.name, self.mode, self.max_elements, text_size)), "a") as file:
+        #    json.dump({"config": self.__config, "hash": self.hash_class.hash_time, "find": self.hash_class.find_time}, file)
+>>>>>>> Stashed changes
 
         for i, match in enumerate(self.matched_offsets):
             if int(match[0] > match[1]):
@@ -98,12 +108,15 @@ class Runner:
             with open(os.path.join(self.output_dir, "{}_{}_{}_{}".format(offset_a, offset_b, self.name, self.mode)), "w") as file:
                 text_a = self.offset_text_map.get(offset_a)
                 text_b = self.offset_text_map.get(offset_b)
+                try:
+                    self.diff = self.__diff(text_a, text_b)
+                except Exception:
+                    self.diff = "None found. Error"
 
-                self.diff = self.__diff(text_a, text_b)
-
-                infos = "Config:\n{}\nTextlength: {}\nDifflength: {}".format(self.__config,
+                infos = "Config:\n{}\nTextlength: {}\nDifflength: {}\nSim: {}".format(self.__config,
                                                                              int(0.5 * len(text_a) + len(text_b)),
-                                                                             len(self.diff[0] + self.diff[1]))
+                                                                             len(self.diff[0] + self.diff[1]),
+                                                                                      match[2])
 
                 text_a = "Offset: {}\nHash: {}\nMisses:\n{}\n".format(offset_a,
                                                                       self.offset_hash_map.get(offset_a),
@@ -153,7 +166,7 @@ class Runner:
 
                 # Stops if both have been found
                 if offset_a and offset_b:
-                    offset_list.append((offset_a, offset_b))
+                    offset_list.append((offset_a, offset_b, hash_tuple[2]))
                     break
 
         return offset_list
