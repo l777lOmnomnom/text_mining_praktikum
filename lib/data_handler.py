@@ -26,8 +26,8 @@ class DataHandler:
         self.max_elements = max_elements
 
         self.__source = source
+        print(source)
         self.__text_dict = self.__check_source()
-
         print("{} elements loaded ...".format(len(self.text_dict)))
 
         if not self.text_dict:
@@ -73,12 +73,13 @@ class DataHandler:
         text_dict = dict()
 
         if "text_entries" in self.source:
-            if os.path.isfile(self.source):
-                try:
-                    with open(self.source, "r") as file:
-                        text_dict.update(json.load(file))
-                except json.JSONDecodeError as err:
-                    print("Failed: {}".format(err))
+            #if os.path.isfile(self.source):
+            try:
+                with open(self.source, "r") as file:
+                    text_dict = json.load(file)
+                    #print(text_dict)
+            except json.JSONDecodeError as err:
+                print("Failed: {}".format(err))
         else:
             text_dict = self.__read_in(self.source)
 
@@ -124,6 +125,7 @@ class DataHandler:
         archive_stream.close()
 
         with open("{}_text_entries.json".format(source.split(".")[0]), "w") as out:
+            print("Fumping {} records to {}".format(len(text_dict), "{}_text_entries.json".format(source.split(".")[0])))
             json.dump(text_dict, out)
 
         return text_dict

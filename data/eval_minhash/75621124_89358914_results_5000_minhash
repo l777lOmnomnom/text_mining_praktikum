@@ -1,0 +1,15 @@
+Config:
+{'mode': 'minhash', 'source': 'data/de_web_2019_text_entries.json', 'max_elements': 5000, 'dump_text': 'False', 'additional_parameter': {'jaccard_sim': 0.5}}
+Textlength: 10529
+Sim: 0.875
+
+Offset: 75621124
+Hash: <datasketch.minhash.MinHash object at 0x7fbc097b5be0>
+Misses:
+
+
+#########################
+
+Offset: 89358914
+Hash: <datasketch.minhash.MinHash object at 0x7fbc097060b8>
+Misses:

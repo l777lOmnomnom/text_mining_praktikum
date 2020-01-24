@@ -1,1 +1,0 @@
-{"config": {"mode": "simhash", "source": "data/de_web_2019_text_entries", "max_length": 500, "min_length": 0, "additional_parameter": {"shingle_size": 12, "distance": 8, "blocks": 10}}, "hash": 0.850787878036499, "find": 0.02235555648803711, "size": 320207882}

@@ -36,25 +36,27 @@ class HashInterface:
 
 class Simhash():
     def __init__(self, args):
-        self.hash_time = 0
-        self.find_time = 0
+        self.__i = 0
+        self.hash_time_dict = dict()
+        self.find_time_dict = dict()
         self.shingle_size = args.get("shingle_size", 9)
         self.blocks = args.get("blocks", 8)
         self.distance = args.get("distance", 4)
 
+    @property
+    def i(self):
+        self.__i += 1
+        return self.__i
+
     def hash(self, text):
         start = time.time()
         h = self.__hash(self.__shingle(self.__tokenize(text), self.shingle_size))
-        self.hash_time += time.time() - start
+        self.hash_time_dict.update({self.i: (time.time() - start)})
 
         return h
 
     def find_matches(self, hashes):
-        start = time.time()
-        matches = self.__find_matches(hashes, self.blocks, self.distance)
-        self.find_time += time.time() - start
-
-        return matches
+        return self.__find_matches(hashes, self.blocks, self.distance)
 
     @staticmethod
     def __hash(shingles):
@@ -69,9 +71,12 @@ class Simhash():
     def __shingle(token, shingle_size):
         return (' '.join(tokens) for tokens in simhash.shingle(token, shingle_size))
 
-    @staticmethod
-    def __find_matches(hashes, blocks, distance):
-        return simhash.find_all(hashes, blocks, distance)
+    def __find_matches(self, hashes, blocks, distance):
+        self.__i = 0
+        start = time.time()
+        m = simhash.find_all(hashes, blocks, distance)
+        self.find_time_dict.update({self.i: (time.time() - start)})
+        return m
 
 
 class Minhash:
@@ -144,10 +149,10 @@ class Justushash:
         return self.__bitShift(hash)
 
     def find_matches(self, hashes):
+        start = time.time()
         matches = list()
         sorted_hashes = self.__sort(hashes)
         # print(similarity)
-        start = time.time()
         for i in range(0, len(sorted_hashes)):
             for j in range(1, len(sorted_hashes)):
                 if self.__hamming(sorted_hashes[i], sorted_hashes[j]) <= self.distance:

@@ -44,10 +44,6 @@ class Runner:
             self.length = 0
             self.limit_text_size()
 
-<<<<<<< Updated upstream
-        print(len(self.offset_text_map))
-=======
->>>>>>> Stashed changes
         self.length = self.data.length
 
         self.hash_class = implemented_hashes_map.get(self.mode)(self.additonal_data)  # =~ Simhash(self.additional_data)
@@ -84,18 +80,12 @@ class Runner:
         if not os.path.isdir(self.output_dir):
             os.mkdir(self.output_dir)
 
-<<<<<<< Updated upstream
         text_size = "{}-{}".format(self.min_length, self.max_length)
-        with open(os.path.join(self.output_dir, "profile_{}_{}_{}_elements_{}_size".format(self.name, self.mode, self.max_elements, text_size)), "a") as file:
+        with open(os.path.join(self.output_dir, "profile_{}_{}".format(self.name, self.mode)), "a") as file:
             json.dump({"config": self.__config,
-                       "hash": self.hash_class.hash_time,
-                       "find": self.hash_class.find_time,
+                       "hash": self.hash_class.hash_time_dict,
+                       "find": self.hash_class.find_time_dict,
                        "size": self.length}, file)
-=======
-        #text_size = "{}-{}".format(self.min_length, self.max_length)
-        #with open(os.path.join(self.output_dir, "profile_{}_{}_{}_elements_{}_size".format(self.name, self.mode, self.max_elements, text_size)), "a") as file:
-        #    json.dump({"config": self.__config, "hash": self.hash_class.hash_time, "find": self.hash_class.find_time}, file)
->>>>>>> Stashed changes
 
         for i, match in enumerate(self.matched_offsets):
             if int(match[0] > match[1]):
@@ -108,40 +98,27 @@ class Runner:
             with open(os.path.join(self.output_dir, "{}_{}_{}_{}".format(offset_a, offset_b, self.name, self.mode)), "w") as file:
                 text_a = self.offset_text_map.get(offset_a)
                 text_b = self.offset_text_map.get(offset_b)
-                try:
-                    self.diff = self.__diff(text_a, text_b)
-                except Exception:
-                    self.diff = "None found. Error"
 
-                infos = "Config:\n{}\nTextlength: {}\nDifflength: {}\nSim: {}".format(self.__config,
+                infos = "Config:\n{}\nTextlength: {}\nSim: {}".format(self.__config,
                                                                              int(0.5 * len(text_a) + len(text_b)),
-                                                                             len(self.diff[0] + self.diff[1]),
-                                                                                      match[2])
+                                                                             match[2])
 
-                text_a = "Offset: {}\nHash: {}\nMisses:\n{}\n".format(offset_a,
-                                                                      self.offset_hash_map.get(offset_a),
-                                                                      self.diff[0])
+                text_a = "Offset: {}\nHash: {}\nMisses:\n".format(offset_a,
+                                                                  self.offset_hash_map.get(offset_a))
 
-                text_b = "Offset: {}\nHash: {}\nMisses:\n{}\n".format(offset_b,
-                                                                      self.offset_hash_map.get(offset_b),
-                                                                      self.diff[1])
+                text_b = "Offset: {}\nHash: {}\nMisses:\n".format(offset_b,
+                                                                  self.offset_hash_map.get(offset_b))
                 if dump_text:
                     text_a = text_a + "Text:\n{}".format(text_a)
                     text_b = text_b + "Text:\n{}".format(text_b)
 
                 file.write("{}\n\n{}\n\n{}\n\n{}".format(infos, text_a, "#"*25, text_b))
 
-            if self.max_matches:
-                i += 1
-                if i >= self.max_matches:
-                    print("Stopping after {} matches have been dumped. Text dumping is {}.".format(self.max_matches,
-                                                                                                   self.dump_text))
-                    break
-
             #x.append(int(0.5 * (len(text_a) + len(text_b))))
             #y.append(len(self.diff[0]) + len(self.diff[1]))
-        #self.__plot(self.name, x, y)
-        
+        #self.__plot(self.name, x, y)"""
+
+        return
 
     @staticmethod
     def __to_offset_list(matches, offset_hash_map):
