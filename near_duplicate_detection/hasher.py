@@ -75,15 +75,21 @@ class Simhash():
         self.__i = 0
         start = time.time()
         m = simhash.find_all(hashes, blocks, distance)
-        self.find_time_dict.update({self.i: (time.time() - start)})
+
         return m
 
 
 class Minhash:
     def __init__(self, args):
-        self.hash_time = 0
-        self.find_time = 0
+        self.__i = 0
+        self.hash_time_dict = dict()
+        self.find_time_dict = dict()
         self.minhash_distance = float(args.get("jaccard_sim", 0.7))
+
+    @property
+    def i(self):
+        self.__i += 1
+        return self.__i
 
     def hash(self, text):
         """
@@ -96,7 +102,7 @@ class Minhash:
         start = time.time()
         for line in text.split("\n"):
             self.__hash(m, line.encode('utf-8'))
-        self.hash_time += time.time() - start
+        self.hash_time_dict.update({self.i: (time.time() - start)})
         return m
 
     def find_matches(self, hashes):
@@ -105,18 +111,22 @@ class Minhash:
 
         :return:
         """
+        self.__i = 0
         matches = list()
         hashes = list(hashes)
-        start = time.time()
+
         for i in range(len(hashes)):
+            start = time.time()
             for j in range(len(hashes)):
+
                 if j > i:
                     estimated_jaccard_sim = self.__estimate_jaccard_sim(hashes[i], hashes[j])
 
                     if float(estimated_jaccard_sim) >= float(self.minhash_distance):
                         matches.append((hashes[i], hashes[j], estimated_jaccard_sim))
 
-        self.find_time += time.time() - start
+            self.find_time_dict.update({i: (time.time() - start)})
+
         return matches
 
     @staticmethod

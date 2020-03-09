@@ -1,10 +1,11 @@
 import os
 import json
 
-from lib.data_handler import DataHandler, DataHandlerException
+from lib.config_handler import Config
+from lib.data_handler import DataHandler
 from near_duplicate_detection.hasher import Minhash, Simhash, Justushash
 
-implemented_hashes_map = {"simhash": Simhash, "minhash": Minhash, "justushash": Justushash}
+implemented_hashes = {"simhash": Simhash, "minhash": Minhash, "justushash": Justushash}
 
 
 class RunnerException(Exception):
@@ -13,55 +14,27 @@ class RunnerException(Exception):
 
 class Runner:
     def __init__(self, name, config):
-        self.name = name
+        self.__name = name
+        self.__config = Config(config).load()
 
-        self.diff = None
-        self.mode = str()
-        self.length = int()
-        self.source = str()
-        self.dump_text = False
-        self.max_length = None
-        self.min_length = 0
-        self.output_dir = None
-        self.max_matches = None
-        self.max_elements = int()
-        self.matched_offsets = list()
-        self.offset_text_map = dict()
-        self.offset_hash_map = dict()
-        self.additonal_data = dict()
+        self.data = DataHandler(self.config.source, self.config.max_elements)
+        self.data_iterator = iter(self.data)
 
-        self.__config = config
+        self.hash_class = implemented_hashes.get(config.mode)  # =~ Simhash(self.additional_data)
 
-        self.init_attributes(config)
+        self.__matched_offsets = list()
+        self.__offset_text_map = dict()
+        self.__offset_hash_map = dict()
 
-        self.data = DataHandler(self.source, self.max_elements)
-        self.max_elements = len(self.data.text_dict)
-        self.offset_text_map = self.data.text_dict
+    @property
+    def name(self):
+        return self.__name
 
-        self.offset_text_map = self.data.text_dict
+    @property
+    def config(self):
+        return self.__config
 
-        if self.max_length:
-            self.length = 0
-            self.limit_text_size()
-
-        self.length = self.data.length
-
-        self.hash_class = implemented_hashes_map.get(self.mode)(self.additonal_data)  # =~ Simhash(self.additional_data)
-
-    def init_attributes(self, config):
-
-        for key, value in config.items():
-            if hasattr(self, key):
-                setattr(self, key, value)
-            else:
-                self.additonal_data.update(value)
-
-        if not self.output_dir:
-            self.output_dir = "{}_results_small".format(self.source.split(".")[0])
-
-        return
-
-    def create_offset_hash_map(self):
+    def hash(self):
         for offset, text in self.offset_text_map.items():
             self.offset_hash_map.update({offset: self.hash_class.hash(text)})
 
