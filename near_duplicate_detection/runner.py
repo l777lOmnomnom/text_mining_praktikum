@@ -2,8 +2,8 @@ import os
 import json
 
 from lib.config_handler import Config
-from lib.data_handler import DataHandler
-from near_duplicate_detection.hasher import Minhash, Simhash, Justushash
+from lib.data_handler import Data
+from lib.hash_handler import import Hash
 
 implemented_hashes = {"simhash": Simhash, "minhash": Minhash, "justushash": Justushash}
 
@@ -15,9 +15,9 @@ class RunnerException(Exception):
 class Runner:
     def __init__(self, name, config):
         self.__name = name
-        self.__config = Config(config).load()
+        self.__config = Config(config)
 
-        self.data = DataHandler(self.config.source, self.config.max_elements)
+        self.data = Data().read_in(self.config.source)
         self.data_iterator = iter(self.data)
 
         self.hash_class = implemented_hashes.get(config.mode)  # =~ Simhash(self.additional_data)
@@ -163,14 +163,3 @@ class Runner:
         plt.xlabel('text length')
         plt.ylabel('diff length')
         plt.savefig("figure_{}".format(name))
-
-    def limit_text_size(self):
-        print("Limiting text size to {} ...".format(self.max_length))
-        tmp_dict = dict()
-        for offset, text in self.offset_text_map.items():
-            if len(text) <= self.max_length and len(text) >= self.min_length:
-                tmp_dict.update({offset: text})
-                self.length += len(text)
-
-        print("Now {} elements are loaded".format(len(tmp_dict)))
-        self.offset_text_map = tmp_dict

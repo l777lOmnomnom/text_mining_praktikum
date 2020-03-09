@@ -16,10 +16,11 @@ class Config:
         self.__output_dir = str()
         self.__hash_data = dict()
 
-        self.config = config
+        self.load(config)
 
     @property
     def config(self):
+        """ Path to config """
         return self.__config
 
     @config.setter
@@ -31,6 +32,7 @@ class Config:
 
     @property
     def mode(self):
+        """ Selected hashing algorithm """
         return self.__mode
 
     @mode.setter
@@ -39,6 +41,7 @@ class Config:
 
     @property
     def source(self):
+        """ Path to data archive """
         return self.__source
 
     @source.setter
@@ -47,6 +50,7 @@ class Config:
 
     @property
     def dump_text(self):
+        """ Bool if text should be dumped too. Memory intense! """
         return self.__dump_text
 
     @dump_text.setter
@@ -55,6 +59,7 @@ class Config:
 
     @property
     def output_dir(self):
+        """ Path to directory where the results are stored """
         return self.__output_dir
 
     @output_dir.setter
@@ -67,21 +72,20 @@ class Config:
 
     @hash_data.setter
     def hash_data(self, __hash_data):
+        """ The additional data as dictionary used for the hashing algorithm """
         self.__hash_data = __hash_data
 
     @property
     def bool_map(self):
         return {"True": True, "False": False}
 
-    def load(self):
-        """ This is the first function to be called. It will load all config entries from the config file.
-        You can specify a config by calling this script with -c /path/to/conf.file
-        All values loaded from the config are stored in a dictionary and handed to the runner.
-
-        :return:
+    def load(self, config):
+        """
+        This function is called on class-creation. It will load all config entries from the config file.
+        All values loaded from the config are stored as class arguments.
         """
         try:
-            with open(self.config, "r") as conf:
+            with open(config, "r") as conf:
                 conf = json.load(conf)
         except IOError as err:
             print("Failed to load config: {}".format(err))
