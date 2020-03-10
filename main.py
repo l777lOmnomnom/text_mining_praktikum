@@ -1,7 +1,4 @@
-import sys
 import argparse
-import cProfile
-import pstats
 import json
 import os
 
@@ -18,8 +15,11 @@ if __name__ == "__main__":  # This is True if main.py was called from a command 
     """
     from near_duplicate_detection.runner import Runner
 
-    if not os.path.isfile(args.config):
+    if not args.config:
         raise SystemExit("Parameter -c missing!")
+
+    if not os.path.isfile(args.config):
+        raise SystemExit("Config not found: {}".format(args.config))
     else:
         with open(args.config, "r") as file:
             runner_config = json.load(file)
@@ -29,19 +29,10 @@ if __name__ == "__main__":  # This is True if main.py was called from a command 
         runner = Runner(run_name, run_config)
 
         print("\nHashing ...")
-        __hash = runner.create_offset_hash_map()
+        __hash = runner.hash()
 
         print("Searching ...")
         __find = runner.find_similar_hashes()
 
         print("Dumping ...")
         runner.dump()
-
-        #cProfile.run("__hash()", "{}/profile_calculate_hashes_{}_{}".format(runner.output_dir, run, runner.length))
-        #cProfile.run("__find()", "{}/profile_find_similar_hashes_{}_{}".format(runner.output_dir, run, runner.length))
-
-        #p1 = pstats.Stats("{}/profile_calculate_hashes_{}_{}".format(runner.output_dir, run, runner.length))
-        #p2 = pstats.Stats("{}/profile_find_similar_hashes_{}_{}".format(runner.output_dir, run, runner.length))
-
-        #p1.strip_dirs().sort_stats(-1).dump_stats("{}/times_calculate_hashes_{}_{}".format(runner.output_dir, run, runner.length))
-        #p2.strip_dirs().sort_stats(-1).dump_stats("{}/times_find_similar_hashes_{}_{}".format(runner.output_dir, run, runner.length))
