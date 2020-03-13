@@ -11,6 +11,16 @@ class RunnerException(Exception):
 
 
 class Runner:
+    """
+
+    The Runner is the actual executor and will bundle all relevant values as class attributes. It will:
+        1. Load the config                                  - self.config
+        2. Create an iterator fot the given data archive    - self.data_iterator
+        3. Initialize the hash class                        - self.hasher
+
+    You can access the data through these properties.
+
+    """
     def __init__(self, name, config):
         self.__name = name
 
@@ -32,10 +42,20 @@ class Runner:
 
     @property
     def name(self):
+        """
+        Returns the run name.
+
+        :return: str() - run name
+        """
         return self.__name
 
     @property
     def config(self):
+        """
+        Returns the config object
+
+        :return: Config() - config object of the current run
+        """
         return self.__config
 
     def hash(self):
@@ -45,11 +65,9 @@ class Runner:
         :return:
         """
         for offset, text in next(self.data_iterator):
-            hash = self.hasher.hash(text)
+            _hash = self.hasher.hash(text)
             self.__offset_text_map.update({offset: text})
-            self.__offset_hash_map.update({offset: hash})
-
-        return
+            self.__offset_hash_map.update({offset: _hash})
 
     def find_similar_hashes(self):
         """
@@ -60,10 +78,10 @@ class Runner:
         """
         matches = self.hasher.find_matches(self.__offset_hash_map.values())
 
+        print("Found {} matches.".format(len(self.__matched_offsets)))
+
         print("Formatting the found matches. This takes some time ...")
         self.__matched_offsets = self.__to_offset_list(matches, self.__offset_hash_map)
-
-        print("Found {} matches.".format(len(self.__matched_offsets)))
 
         return
 
@@ -76,18 +94,16 @@ class Runner:
         self.hasher.update_time_dicts()  # Makes the time measurements available
 
         print("Creating a results folder in {} and storing all results there.".format(self.config.output_dir))
-
         if not os.path.isdir(self.config.output_dir):
             os.mkdir(self.config.output_dir)
 
-        profile_file_name = "{}_{}_profile".format(self.name, self.config.mode)
-
         print("Dumping profile ...")
+        profile_file_name = "{}_{}_profile".format(self.name, self.config.mode)
         with open(os.path.join(self.config.output_dir, profile_file_name), "a") as file:
             profile = {"config": self.config.dump(),
                        "hash": self.hasher.hash_time_dict,
                        "find": self.hasher.find_time_dict}
-            
+
             json.dump(profile, file)
 
         print("Dumping matches ...")
@@ -109,7 +125,7 @@ class Runner:
 
                 file.write("{}\n\n{}\n\n{}\n\n{}".format(infos, text_a, "#"*25, text_b))
 
-
+        print("Creating graphs ...")
             #x.append(int(0.5 * (len(text_a) + len(text_b))))
             #y.append(len(self.diff[0]) + len(self.diff[1]))
             #self.__plot(self.name, x, y)"""
@@ -147,13 +163,11 @@ class Runner:
     @staticmethod
     def __diff(text_a, text_b):
         """
-        Doesn't work :/
+        Diffs two texts against each other and returns the diff(a, b).
 
-        :param output_path:
-        :param _offset_text_dict:
-        :param offset_a:
-        :param offset_b:
-        :return:
+        :param text_a: str() - text
+        :param text_b: str() - text
+        :return: diff(a, b)
         """
         import difflib
 

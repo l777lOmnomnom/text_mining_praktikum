@@ -36,7 +36,7 @@ class Hash:
         """
         return self.parent.hash(text)
 
-    def find_maches(self, hashes):
+    def find_matches(self, hashes):
         """
         This is the evaluation method which takes whatever parameter you want as input and should yield a certain
         output about the similarities of different html documents.
@@ -118,9 +118,12 @@ class Minhash:
         """
         m = MinHash()
         start = time.time()
+
         for line in text.split("\n"):
             self.__hash(m, line.encode('utf-8'))
+
         self.hash_time_dict.update({self.i: (time.time() - start)})
+
         return m
 
     def find_matches(self, hashes):
@@ -149,13 +152,22 @@ class Minhash:
 
     @staticmethod
     def __hash(m, line):
+        """
+        Actual updating of the minhash set.
+
+        :param m: Minhash()
+        :param line: str() - text
+
+        :return: Minhash()
+        """
         m.update(line)
 
     @staticmethod
     def __estimate_jaccard_sim(minhash1, minhash2):
         """
 
-        :param body_tuple:
+        :param minhash1: first minhash
+        :param minhash2: second minhash
         :return:
         """
         return minhash1.jaccard(minhash2)
