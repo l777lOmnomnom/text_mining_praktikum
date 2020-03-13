@@ -5,36 +5,7 @@ import re
 import time
 
 
-class Hash:
-    """
-    This is the explanation class. All classes should inhert from it. All abc.abstractmethods need to be implemented in
-    your child class. This ensures that all classes can reuse the input provides by the data_handler
-    """
-    def __init__(self, offset, text):
-        pass
-
-    def hash(self, text):
-        """
-        This is the hash function which is called from the main function. Put all hashing logic in here.
-        If you want measurments seperate the parts you want to measure in sindle functions so that they are tracked by
-        cprofile (which tracks the time for all function calls)
-
-        :param text: the input from the data handlers text_dict
-        :return: return the hash or the object on which you want to do the evaluation on
-        """
-
-    def find_similar(self, hashes):
-        """
-        This is the evaluation method which takes whatever parameter you want as input and should yield a certain
-        output about the similarities of different html documents.
-        If the evaluation should be measured to use the same approach as above.
-
-        :param args:
-        :return: you can return something or write your results directly to disk
-        """
-
-
-class Simhash():
+class Hash():
     def __init__(self, args):
         self.__i = 0
         self.hash_time_dict = dict()
@@ -50,6 +21,7 @@ class Simhash():
 
     def hash(self, text):
         start = time.time()
+
         h = self.__hash(self.__shingle(self.__tokenize(text), self.shingle_size))
         self.hash_time_dict.update({self.i: (time.time() - start)})
 
@@ -72,9 +44,12 @@ class Simhash():
         return (' '.join(tokens) for tokens in simhash.shingle(token, shingle_size))
 
     def __find_matches(self, hashes, blocks, distance):
-        self.__i = 0
         start = time.time()
         m = simhash.find_all(hashes, blocks, distance)
+        average_time = (time.time() - start) / len(hashes)
+
+        for i in range(len(hashes)):
+            self.find_time_dict.update({i: average_time})
 
         return m
 
@@ -123,7 +98,7 @@ class Minhash:
                     estimated_jaccard_sim = self.__estimate_jaccard_sim(hashes[i], hashes[j])
 
                     if float(estimated_jaccard_sim) >= float(self.minhash_distance):
-                        matches.append((hashes[i], hashes[j], estimated_jaccard_sim))
+                        matches.append((hashes[i], hashes[j]))
 
             self.find_time_dict.update({i: (time.time() - start)})
 
@@ -270,3 +245,33 @@ class Justushash:
             if bin1[i] != bin2[i]:
                 ham += 1
         return ham
+
+
+class aasdHash():
+    """
+    This is the explanation class. All classes should inhert from it. All abc.abstractmethods need to be implemented in
+    your child class. This ensures that all classes can reuse the input provides by the data_handler
+    """
+
+    def __init__(self, mode, args):
+        pass
+
+    def hash(self, text):
+        """
+        This is the hash function which is called from the main function. Put all hashing logic in here.
+        If you want measurments seperate the parts you want to measure in sindle functions so that they are tracked by
+        cprofile (which tracks the time for all function calls)
+
+        :param text: the input from the data handlers text_dict
+        :return: return the hash or the object on which you want to do the evaluation on
+        """
+
+    def find_similar(self, hashes):
+        """
+        This is the evaluation method which takes whatever parameter you want as input and should yield a certain
+        output about the similarities of different html documents.
+        If the evaluation should be measured to use the same approach as above.
+
+        :param args:
+        :return: you can return something or write your results directly to disk
+        """

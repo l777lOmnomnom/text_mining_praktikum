@@ -84,22 +84,18 @@ class Config:
         This function is called on class-creation. It will load all config entries from the config file.
         All values loaded from the config are stored as class arguments.
         """
-        try:
-            with open(config, "r") as conf:
-                conf = json.load(conf)
-        except IOError as err:
-            print("Failed to load config: {}".format(err))
-            sys.exit(1)
-            
         print("#########################   CONFIG   #########################\n")
 
-        for key, value in conf.items():
-            print("    {}:".format(key))
-            if hasattr(self, key):
-                setattr(self, key, value)
+        for key, value in config.items():
 
-            if key == "hash_data":
-                for _key, _value in value.items():
-                    print("        {}: {}".format(_key, _value))
+            if hasattr(self, key):
+                if key == "hash_data":
+                    for _key, _value in value.items():
+                        print("        {}: {}".format(_key, _value))
+                else:
+                    setattr(self, key, value)
+                    print("    {}: {}".format(key, value))
+
+
 
         print("\n############################################################\n")

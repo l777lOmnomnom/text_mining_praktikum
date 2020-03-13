@@ -1,30 +1,61 @@
 from warcio import ArchiveIterator
 from bs4 import BeautifulSoup
+import json
 
 
 class Data:
-    def __init__(self):
+    def __init__(self, source):
         self.current_elements = 0
+        self.source = source
         self.__archive = None
         self.__archive_stream = None
 
     def __iter__(self):
         return self
 
-    def __del__(self):
-        try:
-            self.__archive.close()
-            self.__archive_stream.close()
-        except Exception as err:
-            print("Got {} while closing Archive!".format(err))
-
     def __next__(self):
+        print("call")
+        i = 1
         text = ""
         valid_record = False
 
-        while not valid_record:
-            record = next(self.__archive_stream)
+        #while not valid_record:
+        #    print("no valid record")
+        """
+            try:
+                print(self.__archive_stream)
+                print(next(self.__archive_stream))
+                record = next(self.__archive_stream)
+                print(record)
+            except Exception as err:
+                print(err)
+                text = "Asd"
+            else:
+                if record.rec_type == 'response' and record.http_headers.get_header('Content-Type') in self.utf_8:
+                    soup = BeautifulSoup(record.content_stream(), 'lxml', from_encoding='utf-8')
+                    for script in soup(["script", "style"]):
+                        script.extract()
 
+                    try:
+                        text = soup.body.get_text(separator=' ')
+                        text = "\n".join([line.strip() for line in text.split("\n") if line.strip() != ""])
+                    except AttributeError:
+                        print('Wrong Encoding at offset ' + str(self.__archive_stream.get_record_offset()))
+                    else:
+                        valid_record = True
+                        self.current_elements += 1
+            if i == 5:
+                break
+            i += 1
+        return self.__archive_stream.get_record_offset(), text
+        """
+
+        """
+        print(self.source)
+        __archive = open(self.source, "r")
+        __archive_stream = ArchiveIterator(__archive)
+
+        for record in __archive_stream:
             if record.rec_type == 'response' and record.http_headers.get_header('Content-Type') in self.utf_8:
                 soup = BeautifulSoup(record.content_stream(), 'lxml', from_encoding='utf-8')
                 for script in soup(["script", "style"]):
@@ -34,22 +65,16 @@ class Data:
                     text = soup.body.get_text(separator=' ')
                     text = "\n".join([line.strip() for line in text.split("\n") if line.strip() != ""])
                 except AttributeError:
-                    print('Wrong Encoding at offset ' + str(self.__archive_stream.get_record_offset()))
+                    print('Wrong Encoding at offset ' + str(__archive_stream.get_record_offset()))
                 else:
                     valid_record = True
                     self.current_elements += 1
-
-        yield self.__archive_stream.get_record_offset()
-        yield text
-
-    def read_in(self, source):
+                    yield __archive_stream.get_record_offset(), text
         """
-
-        :return:
-        """
-        self.__archive = open(source, "r")
-        self.__archive_stream = ArchiveIterator(self.__archive_stream)
-
+        with open(self.source, 'r') as tmp:
+            records = json.load(tmp)
+            for offset, text in records.items():
+                yield offset, text
     @property
     def utf_8(self):
         """

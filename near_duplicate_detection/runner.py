@@ -3,9 +3,7 @@ import json
 
 from lib.config_handler import Config
 from lib.data_handler import Data
-from lib.hash_handler import import Hash
-
-implemented_hashes = {"simhash": Simhash, "minhash": Minhash, "justushash": Justushash}
+from lib.hash_handler import Hash
 
 
 class RunnerException(Exception):
@@ -15,16 +13,22 @@ class RunnerException(Exception):
 class Runner:
     def __init__(self, name, config):
         self.__name = name
+
+        # Create a config class
         self.__config = Config(config)
 
-        self.data = Data().read_in(self.config.source)
-        self.data_iterator = iter(self.data)
+        # Create an iterable Data class which yields offset, text from the archive
+        self.data = Data(self.config.source)
+        self.data_iterator = self.data
 
-        self.hash_class = implemented_hashes.get(config.mode)  # =~ Simhash(self.additional_data)
+        # Create the Hash class
+        self.hasher = Hash(self.config.hash_data)
 
-        self.__matched_offsets = list()
+        # Maps to keep track of offset - hash - text
         self.__offset_text_map = dict()
         self.__offset_hash_map = dict()
+
+        self.__matched_offsets = list()
 
     @property
     def name(self):
@@ -35,32 +39,54 @@ class Runner:
         return self.__config
 
     def hash(self):
-        for offset, text in self.offset_text_map.items():
-            self.offset_hash_map.update({offset: self.hash_class.hash(text)})
+        """
+        Start the hashing process with the configured hashing algorithm. The hasher tracks its time by itself.
+
+        :return:
+        """
+        for offset, text in next(self.data_iterator):
+            hash = self.hasher.hash(text)
+            self.__offset_text_map.update({offset: text})
+            self.__offset_hash_map.update({offset: hash})
+
+        return
 
     def find_similar_hashes(self):
-        hashes = self.offset_hash_map.values()
-        matches = self.hash_class.find_matches(hashes)
+        """
+        Finds similar matches and creates a list for all matched hashes where a offset tuple belonging to the match
+        can be found.
 
-        self.matched_offsets = self.__to_offset_list(matches, self.offset_hash_map)
+        :return:
+        """
+        matches = self.hasher.find_matches(self.__offset_hash_map.values())
 
-        print("Found {} matches.".format(len(self.matched_offsets)))
+        print("Formatting the found matches. This takes some time ...")
+        self.__matched_offsets = self.__to_offset_list(matches, self.__offset_hash_map)
 
-    def dump(self, dump_text=False):
-        # Create an output dir in the sources name without all extensionens + _mode (e.g. simhash, minhash, etc)
-        print("Creating a results folder in {} and storing all results there.".format(self.output_dir))
+        print("Found {} matches.".format(len(self.__matched_offsets)))
 
-        if not os.path.isdir(self.output_dir):
-            os.mkdir(self.output_dir)
+        return
 
-        text_size = "{}-{}".format(self.min_length, self.max_length)
-        with open(os.path.join(self.output_dir, "profile_{}_{}".format(self.name, self.mode)), "a") as file:
-            json.dump({"config": self.__config,
-                       "hash": self.hash_class.hash_time_dict,
-                       "find": self.hash_class.find_time_dict,
-                       "size": self.length}, file)
+    def dump(self):
+        """
+        Dumps all results accoring to the settings in the config.
 
-        for i, match in enumerate(self.matched_offsets):
+        :return:
+        """
+        print("Creating a results folder in {} and storing all results there.".format(self.config.output_dir))
+
+        if not os.path.isdir(self.config.output_dir):
+            os.mkdir(self.config.output_dir)
+
+        profile_file_name = "{}_{}_profile".format(self.name, self.config.mode)
+
+        print("Dumping profile ...")
+        with open(os.path.join(self.config.output_dir, profile_file_name), "a") as file:
+            profile = {"config": self.config, "hash": self.hasher.hash_time_dict, "find": self.hasher.find_time_dict}
+            json.dump(profile, file)
+
+        print("Dumping matches ...")
+        for i, match in enumerate(self.__matched_offsets):
             if int(match[0] > match[1]):
                 offset_a = match[1]
                 offset_b = match[0]
@@ -68,28 +94,20 @@ class Runner:
                 offset_a = match[0]
                 offset_b = match[1]
 
-            with open(os.path.join(self.output_dir, "{}_{}_{}_{}".format(offset_a, offset_b, self.name, self.mode)), "w") as file:
-                text_a = self.offset_text_map.get(offset_a)
-                text_b = self.offset_text_map.get(offset_b)
+            match_file_name = "{}_{}_{}_{}".format(self.name, self.config.mode, offset_a, offset_b)
+            with open(os.path.join(self.config.output_dir, match_file_name), "w") as file:
+                infos = "Config:\n: {}".format(self.config)
 
-                infos = "Config:\n{}\nTextlength: {}\nSim: {}".format(self.__config,
-                                                                             int(0.5 * len(text_a) + len(text_b)),
-                                                                             match[2])
-
-                text_a = "Offset: {}\nHash: {}\nMisses:\n".format(offset_a,
-                                                                  self.offset_hash_map.get(offset_a))
-
-                text_b = "Offset: {}\nHash: {}\nMisses:\n".format(offset_b,
-                                                                  self.offset_hash_map.get(offset_b))
-                if dump_text:
-                    text_a = text_a + "Text:\n{}".format(text_a)
-                    text_b = text_b + "Text:\n{}".format(text_b)
+                if self.config.dump_text:
+                    text_a = "Text:\n{}".format(self.__offset_text_map.get(offset_a))
+                    text_b = "Text:\n{}".format(self.__offset_text_map.get(offset_b))
 
                 file.write("{}\n\n{}\n\n{}\n\n{}".format(infos, text_a, "#"*25, text_b))
 
+
             #x.append(int(0.5 * (len(text_a) + len(text_b))))
             #y.append(len(self.diff[0]) + len(self.diff[1]))
-        #self.__plot(self.name, x, y)"""
+            #self.__plot(self.name, x, y)"""
 
         return
 
@@ -116,7 +134,7 @@ class Runner:
 
                 # Stops if both have been found
                 if offset_a and offset_b:
-                    offset_list.append((offset_a, offset_b, hash_tuple[2]))
+                    offset_list.append((offset_a, offset_b))
                     break
 
         return offset_list
