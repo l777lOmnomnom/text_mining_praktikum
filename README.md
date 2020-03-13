@@ -1,6 +1,6 @@
-# Text Mining - Near duplicate document detection
+# Text Mining - near duplicate document detection
 
-Goal of this project is to find near duplicates of html web pages inside a warc IO archive using different hashing algorithms and whilst probing the hashing algorithms.
+Goal of this project is to find near duplicates of html web pages inside a warc IO archive using different hashing algorithms and measuring their time consumption.
 
 ## Getting Started
 
@@ -9,7 +9,7 @@ Goal of this project is to find near duplicates of html web pages inside a warc 
 . venv/bin/acrtivate
 ```
 
-2. Create or choose a config (you can find example configs in "conf/". ) and start the main script with it a parameter:
+2. Create or choose a config (you can find example configs in "conf/". ) and start the main script with it as parameter:
 ```
 python3 main.py -c path/to/config.conf
 ```
