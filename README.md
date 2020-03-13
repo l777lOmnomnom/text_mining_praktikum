@@ -6,7 +6,7 @@ Goal of this project is to find near duplicates of html web pages inside a warc 
 
 1. Enable the virtual environment in the projects root directory with:
 ```
-. venv/bin/acrtivate
+. venv/bin/activate
 ```
 
 2. Create or choose a config (you can find example configs in "conf/". ) and start the main script with it as parameter:
@@ -18,9 +18,9 @@ python3 main.py -c path/to/config.conf
 
 ### Prerequisites
 
-If you want to get all dependencies use the pip requirements file in the projects root directory:
+You need to have all dependencies available. Use a virtual environment or install them manually using the pip_requirements file in the projects root directoy:
 ```
-pip3 install -r pip_requirements.txt
+python3 -m venv venv --no-site-packages && . venv/bin/activate && pip3 install -r pip_requirements.txt
 ```
 
 ## Running the tests
