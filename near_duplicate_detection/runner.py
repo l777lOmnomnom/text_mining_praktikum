@@ -22,7 +22,7 @@ class Runner:
         self.data_iterator = self.data
 
         # Create the Hash class
-        self.hasher = Hash(self.config.hash_data)
+        self.hasher = Hash(self.config.mode, self.config.hash_data)
 
         # Maps to keep track of offset - hash - text
         self.__offset_text_map = dict()
@@ -73,6 +73,8 @@ class Runner:
 
         :return:
         """
+        self.hasher.update_time_dicts()  # Makes the time measurements available
+
         print("Creating a results folder in {} and storing all results there.".format(self.config.output_dir))
 
         if not os.path.isdir(self.config.output_dir):
@@ -82,7 +84,10 @@ class Runner:
 
         print("Dumping profile ...")
         with open(os.path.join(self.config.output_dir, profile_file_name), "a") as file:
-            profile = {"config": self.config, "hash": self.hasher.hash_time_dict, "find": self.hasher.find_time_dict}
+            profile = {"config": self.config.dump(),
+                       "hash": self.hasher.hash_time_dict,
+                       "find": self.hasher.find_time_dict}
+            
             json.dump(profile, file)
 
         print("Dumping matches ...")

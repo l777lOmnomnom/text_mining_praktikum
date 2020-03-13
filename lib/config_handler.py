@@ -98,4 +98,15 @@ class Config:
 
 
 
-        print("\n############################################################\n")
+        print("\n##############################################################\n")
+
+    def dump(self):
+        """
+        This functions dumps the config into a string.
+
+        :return: dict() - config as a dict.
+        """
+        ret = {"mode": self.mode, "source": self.source, "dump_text": self.dump_text, "output_dir": self.output_dir,
+               "hash_data": self.hash_data}
+
+        return ret

@@ -11,11 +11,19 @@ class Data:
         self.__archive_stream = None
 
     def __iter__(self):
+        """
+        Returns an iterator of Data()
+
+        :return: Iterator(Data)
+        """
         return self
 
     def __next__(self):
-        print("call")
-        i = 1
+        """
+        Returns the next entry in the warc.io archive.
+
+        :return: int(), str() - offset, text
+        """
         text = ""
         valid_record = False
 
@@ -75,6 +83,7 @@ class Data:
             records = json.load(tmp)
             for offset, text in records.items():
                 yield offset, text
+
     @property
     def utf_8(self):
         """

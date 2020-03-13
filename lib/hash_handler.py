@@ -5,7 +5,50 @@ import re
 import time
 
 
-class Hash():
+class Hash:
+    """
+    This is the explanation class. All classes should inhert from it. All abc.abstractmethods need to be implemented in
+    your child class. This ensures that all classes can reuse the input provides by the data_handler
+    """
+
+    def __init__(self, mode, args):
+        self.hash_time_dict = dict()
+        self.find_time_dict = dict()
+        self.parent = MODE_HASH_DICT.get(mode)(args)
+
+    def update_time_dicts(self):
+        """
+        This updates the time dicts of the Hash() class. Could be improved with dynamic inheritance.
+
+        :return:
+        """
+        self.hash_time_dict = self.parent.hash_time_dict
+        self.find_time_dict = self.parent.find_time_dict
+
+    def hash(self, text):
+        """
+        This is the hash function which is called from the main function. Put all hashing logic in here.
+        If you want measurments seperate the parts you want to measure in sindle functions so that they are tracked by
+        cprofile (which tracks the time for all function calls)
+
+        :param text: the input from the data handlers text_dict
+        :return: return the hash or the object on which you want to do the evaluation on
+        """
+        return self.parent.hash(text)
+
+    def find_maches(self, hashes):
+        """
+        This is the evaluation method which takes whatever parameter you want as input and should yield a certain
+        output about the similarities of different html documents.
+        If the evaluation should be measured to use the same approach as above.
+
+        :param args:
+        :return: you can return something or write your results directly to disk
+        """
+        return self.parent.find_matches(hashes)
+
+
+class Simhash():
     def __init__(self, args):
         self.__i = 0
         self.hash_time_dict = dict()
@@ -247,31 +290,4 @@ class Justushash:
         return ham
 
 
-class aasdHash():
-    """
-    This is the explanation class. All classes should inhert from it. All abc.abstractmethods need to be implemented in
-    your child class. This ensures that all classes can reuse the input provides by the data_handler
-    """
-
-    def __init__(self, mode, args):
-        pass
-
-    def hash(self, text):
-        """
-        This is the hash function which is called from the main function. Put all hashing logic in here.
-        If you want measurments seperate the parts you want to measure in sindle functions so that they are tracked by
-        cprofile (which tracks the time for all function calls)
-
-        :param text: the input from the data handlers text_dict
-        :return: return the hash or the object on which you want to do the evaluation on
-        """
-
-    def find_similar(self, hashes):
-        """
-        This is the evaluation method which takes whatever parameter you want as input and should yield a certain
-        output about the similarities of different html documents.
-        If the evaluation should be measured to use the same approach as above.
-
-        :param args:
-        :return: you can return something or write your results directly to disk
-        """
+MODE_HASH_DICT = {"simhash": Simhash, "minhash": Minhash, "justushash": Justushash}
