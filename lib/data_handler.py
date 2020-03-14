@@ -82,6 +82,7 @@ class Data:
         with open(self.source, 'r') as tmp:
             records = json.load(tmp)
             for offset, text in records.items():
+                self.current_elements += 1
                 yield offset, text
 
     @property

@@ -130,6 +130,8 @@ class Runner:
             #y.append(len(self.diff[0]) + len(self.diff[1]))
             #self.__plot(self.name, x, y)"""
 
+        print("\n\n")
+
         return
 
     @staticmethod
