@@ -55,9 +55,8 @@ class Data:
         return self.__archive_stream.get_record_offset(), text
         """
 
-        """
         print(self.source)
-        __archive = open(self.source, "r")
+        __archive = open(self.source, "rb")
         __archive_stream = ArchiveIterator(__archive)
 
         for record in __archive_stream:
@@ -72,7 +71,6 @@ class Data:
                 except AttributeError:
                     print('Wrong Encoding at offset ' + str(__archive_stream.get_record_offset()))
                 else:
-                    valid_record = True
                     self.current_elements += 1
                     yield __archive_stream.get_record_offset(), text
         """
@@ -81,7 +79,7 @@ class Data:
             for offset, text in records.items():
                 self.current_elements += 1
                 yield offset, text
-
+        """
     @property
     def utf_8(self):
         """
