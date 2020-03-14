@@ -42,7 +42,7 @@ class Hash:
         output about the similarities of different html documents.
         If the evaluation should be measured to use the same approach as above.
 
-        :param args:
+        :param hashes:
         :return: you can return something or write your results directly to disk
         """
         return self.parent.find_matches(hashes)

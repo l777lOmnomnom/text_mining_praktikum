@@ -20,15 +20,11 @@ class Data:
 
     def __next__(self):
         """
-        Returns the next entry in the warc.io archive.
+        Returns the next entry in the warc IO archive.
 
         :return: int(), str() - offset, text
         """
         text = ""
-        valid_record = False
-
-        #while not valid_record:
-        #    print("no valid record")
         """
             try:
                 print(self.__archive_stream)
@@ -55,6 +51,7 @@ class Data:
             if i == 5:
                 break
             i += 1
+            
         return self.__archive_stream.get_record_offset(), text
         """
 

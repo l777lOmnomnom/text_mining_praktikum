@@ -20,11 +20,20 @@ class Config:
 
     @property
     def config(self):
-        """ Path to config """
+        """ 
+        Returns path to config file
+        
+        :return: str() - config_path
+        """
         return self.__config
 
     @config.setter
     def config(self, config):
+        """ 
+        Setter for config path
+        
+        :param config: str() - config_path
+        """
         if os.path.isfile(str(config)):
             self.__config = config
         else:
@@ -32,57 +41,111 @@ class Config:
 
     @property
     def mode(self):
-        """ Selected hashing algorithm """
+        """
+        Returns the choosen hashing mode
+        
+        :return: str() - hashing mode 
+        """
         return self.__mode
 
     @mode.setter
-    def mode(self, __mode):
-        self.__mode = __mode
+    def mode(self, mode):
+        """ 
+        Setter for hashing mode
+        
+        :param mode: str() - hashing mode
+        """
+        self.__mode = mode
 
     @property
     def source(self):
-        """ Path to data archive """
+        """
+        Path to warc IO archivee
+        
+        :return: str() - path to warc IO archive 
+        """
         return self.__source
 
     @source.setter
     def source(self, __source):
+        """
+        Setter for the warc IO archives source
+        
+        :param __source: 
+        :return: 
+        """
         self.__source = __source
 
     @property
     def dump_text(self):
-        """ Bool if text should be dumped too. Memory intense! """
+        """
+        Returns dump_text flag (True or False)
+        
+        :return: bool() - dump_text_flag
+        """
         return self.__dump_text
 
     @dump_text.setter
-    def dump_text(self, __dump_text):
-        self.__dump_text = __dump_text
+    def dump_text(self, dump_text):
+        """
+        Setter for dump_text flag
+        
+        :param dump_text: bool() - dump_text_flag
+        """
+        self.__dump_text = dump_text
 
     @property
     def output_dir(self):
-        """ Path to directory where the results are stored """
+        """
+        Returns path to directory where the results are stored
+        
+        :return: str() - output_dir 
+        """
         return self.__output_dir
 
     @output_dir.setter
-    def output_dir(self, __output_dir):
-        self.__output_dir = __output_dir
+    def output_dir(self, output_dir):
+        """
+        Setter for the path of the output dir
+        
+        :param output_dir: str() - output_dir 
+        """
+        self.__output_dir = output_dir
 
     @property
     def hash_data(self):
+        """
+        Returns the hash data as dict which is supplied to the hashing class.
+        
+        :return: dict() - hash_data
+        """
         return self.__hash_data
 
     @hash_data.setter
-    def hash_data(self, __hash_data):
-        """ The additional data as dictionary used for the hashing algorithm """
-        self.__hash_data = __hash_data
+    def hash_data(self, hash_data):
+        """
+        Setter for the hashing data
+        
+        :param hash_data: dict() - hash_data  
+        """
+        self.__hash_data = hash_data
 
     @property
     def bool_map(self):
+        """
+        Translate a True or False string to boolean.
+        
+        :return: bool() 
+        """
         return {"True": True, "False": False}
 
     def load(self, config):
         """
         This function is called on class-creation. It will load all config entries from the config file.
         All values loaded from the config are stored as class arguments.
+        
+        :param config: config dict.
+        :return: 
         """
         print("#########################   CONFIG   #########################\n")
 
@@ -95,8 +158,6 @@ class Config:
                 else:
                     setattr(self, key, value)
                     print("    {}: {}".format(key, value))
-
-
 
         print("\n##############################################################")
 
