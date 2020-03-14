@@ -31,8 +31,8 @@ if __name__ == "__main__":  # This is True if main.py was called from a command 
         print("\nHashing ...")
         __hash = runner.hash()
 
-        print("Searching ...")
+        print("\nSearching ...")
         __find = runner.find_similar_hashes()
 
-        print("Dumping ...")
+        print("\nDumping ...")
         runner.dump()
