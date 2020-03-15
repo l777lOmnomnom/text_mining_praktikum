@@ -12,6 +12,7 @@ class Config:
         self.__config = str()
         self.__mode = str()
         self.__source = str()
+        self.__dump_graph = False
         self.__dump_text = False
         self.__output_dir = str()
         self.__hash_data = dict()
@@ -20,18 +21,18 @@ class Config:
 
     @property
     def config(self):
-        """ 
+        """
         Returns path to config file
-        
+
         :return: str() - config_path
         """
         return self.__config
 
     @config.setter
     def config(self, config):
-        """ 
+        """
         Setter for config path
-        
+
         :param config: str() - config_path
         """
         if os.path.isfile(str(config)):
@@ -43,16 +44,16 @@ class Config:
     def mode(self):
         """
         Returns the choosen hashing mode
-        
-        :return: str() - hashing mode 
+
+        :return: str() - hashing mode
         """
         return self.__mode
 
     @mode.setter
     def mode(self, mode):
-        """ 
+        """
         Setter for hashing mode
-        
+
         :param mode: str() - hashing mode
         """
         self.__mode = mode
@@ -61,8 +62,8 @@ class Config:
     def source(self):
         """
         Path to warc IO archivee
-        
-        :return: str() - path to warc IO archive 
+
+        :return: str() - path to warc IO archive
         """
         return self.__source
 
@@ -70,9 +71,9 @@ class Config:
     def source(self, __source):
         """
         Setter for the warc IO archives source
-        
-        :param __source: 
-        :return: 
+
+        :param __source:
+        :return:
         """
         self.__source = __source
 
@@ -80,7 +81,7 @@ class Config:
     def dump_text(self):
         """
         Returns dump_text flag (True or False)
-        
+
         :return: bool() - dump_text_flag
         """
         return self.__dump_text
@@ -89,17 +90,35 @@ class Config:
     def dump_text(self, dump_text):
         """
         Setter for dump_text flag
-        
+
         :param dump_text: bool() - dump_text_flag
         """
         self.__dump_text = dump_text
 
     @property
+    def dump_graph(self):
+        """
+        Returns dump_graph flag (True or False)
+
+        :return: bool() - dump_graph_flag
+        """
+        return self.__dump_graph
+
+    @dump_graph.setter
+    def dump_graph(self, dump_graph):
+        """
+        Setter for dump_text flag
+
+        :param dump_graph: bool() - dump_graph_flag
+        """
+        self.__dump_graph = dump_graph
+
+    @property
     def output_dir(self):
         """
         Returns path to directory where the results are stored
-        
-        :return: str() - output_dir 
+
+        :return: str() - output_dir
         """
         return self.__output_dir
 
@@ -107,8 +126,8 @@ class Config:
     def output_dir(self, output_dir):
         """
         Setter for the path of the output dir
-        
-        :param output_dir: str() - output_dir 
+
+        :param output_dir: str() - output_dir
         """
         self.__output_dir = output_dir
 
@@ -116,7 +135,7 @@ class Config:
     def hash_data(self):
         """
         Returns the hash data as dict which is supplied to the hashing class.
-        
+
         :return: dict() - hash_data
         """
         return self.__hash_data
@@ -125,8 +144,8 @@ class Config:
     def hash_data(self, hash_data):
         """
         Setter for the hashing data
-        
-        :param hash_data: dict() - hash_data  
+
+        :param hash_data: dict() - hash_data
         """
         self.__hash_data = hash_data
 
@@ -134,8 +153,8 @@ class Config:
     def bool_map(self):
         """
         Translate a True or False string to boolean.
-        
-        :return: bool() 
+
+        :return: bool()
         """
         return {"True": True, "False": False}
 
@@ -143,9 +162,9 @@ class Config:
         """
         This function is called on class-creation. It will load all config entries from the config file.
         All values loaded from the config are stored as class arguments.
-        
+
         :param config: config dict.
-        :return: 
+        :return:
         """
         print("#########################   CONFIG   #########################\n")
 
@@ -160,6 +179,8 @@ class Config:
                     print("    {}: {}".format(key, value))
 
         print("\n##############################################################")
+
+        return self
 
     def dump(self):
         """

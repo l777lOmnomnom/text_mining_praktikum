@@ -28,11 +28,11 @@ class Runner:
         self.__config = Config(config)
 
         # Create an iterable Data class which yields offset, text from the archive
-        self.data = Data(self.config.source)
-        self.data_iterator = self.data
+        self.__data = Data(self.config.source)
+        self.__data_iterator = self.data
 
         # Create the Hash class
-        self.hasher = Hash(self.config.mode, self.config.hash_data)
+        self.__hasher = Hash(self.config.mode, self.config.hash_data)
 
         # Maps to keep track of offset - hash - text
         self.__offset_text_map = dict()
@@ -50,6 +50,15 @@ class Runner:
         return self.__name
 
     @property
+    def data(self):
+        """
+        Returns the data handler object.
+
+        :return: Data()
+        """
+        return self.__data
+
+    @property
     def config(self):
         """
         Returns the config object
@@ -58,16 +67,27 @@ class Runner:
         """
         return self.__config
 
+    @property
+    def hasher(self):
+        """
+        Returns the hasher
+
+        :return: Hash()
+        """
+        return self.__hasher
+
     def hash(self):
         """
         Start the hashing process with the configured hashing algorithm. The hasher tracks its time by itself.
 
         :return:
         """
-        for offset, text in next(self.data_iterator):
+        for offset, text in next(self.__data_iterator):
             _hash = self.hasher.hash(text)
             self.__offset_text_map.update({offset: text})
             self.__offset_hash_map.update({offset: _hash})
+
+        return
 
     def find_similar_hashes(self):
         """
@@ -78,9 +98,9 @@ class Runner:
         """
         matches = self.hasher.find_matches(self.__offset_hash_map.values())
 
-        print("Found {} matches.".format(len(self.__matched_offsets)))
+        print("    Found {} matches.".format(len(matches)))
 
-        print("Formatting the found matches. This takes some time ...")
+        print("    Formatting the found matches. This takes some time ...")
         self.__matched_offsets = self.__to_offset_list(matches, self.__offset_hash_map)
 
         return
@@ -93,11 +113,11 @@ class Runner:
         """
         self.hasher.update_time_dicts()  # Makes the time measurements available
 
-        print("Creating a results folder in {} and storing all results there.".format(self.config.output_dir))
+        print("    Creating a results folder in {} and storing all results there.".format(self.config.output_dir))
         if not os.path.isdir(self.config.output_dir):
             os.mkdir(self.config.output_dir)
 
-        print("Dumping profile ...")
+        print("    Dumping profile ...")
         profile_file_name = "{}_{}_profile".format(self.name, self.config.mode)
         with open(os.path.join(self.config.output_dir, profile_file_name), "a") as file:
             profile = {"config": self.config.dump(),
@@ -106,7 +126,7 @@ class Runner:
 
             json.dump(profile, file)
 
-        print("Dumping matches ...")
+        print("    Dumping matches ...")
         for i, match in enumerate(self.__matched_offsets):
             if int(match[0] > match[1]):
                 offset_a = match[1]
@@ -118,17 +138,32 @@ class Runner:
             match_file_name = "{}_{}_{}_{}".format(self.name, self.config.mode, offset_a, offset_b)
             with open(os.path.join(self.config.output_dir, match_file_name), "w") as file:
                 infos = "Config:\n: {}".format(self.config)
-
+                text_a = ""
+                text_b = ""
                 if self.config.dump_text:
                     text_a = "Text:\n{}".format(self.__offset_text_map.get(offset_a))
                     text_b = "Text:\n{}".format(self.__offset_text_map.get(offset_b))
 
                 file.write("{}\n\n{}\n\n{}\n\n{}".format(infos, text_a, "#"*25, text_b))
 
-        print("Creating graphs ...")
-            #x.append(int(0.5 * (len(text_a) + len(text_b))))
-            #y.append(len(self.diff[0]) + len(self.diff[1]))
-            #self.__plot(self.name, x, y)"""
+        if self.config.dump_graph:
+            print("    Creating graphs ...")
+            x1, x2 = list(), list()
+            y1, y2 = list(), list()
+            t_all = 0
+            for element, t in self.hasher.hash_time_dict.items():
+                t_all += t
+                x1.append(element)
+                y1.append(t_all)
+
+            t_all = 0
+            for element, t in self.hasher.find_time_dict.items():
+                t_all += t
+                x2.append(element)
+                y2.append(t_all)
+
+            self.__plot(os.path.join(self.config.output_dir, "hash_time"), x1, y1)
+            self.__plot(os.path.join(self.config.output_dir, "find_time"), x2, y2)
 
         print("\n\n")
 
@@ -199,6 +234,6 @@ class Runner:
         import matplotlib.pyplot as plt
 
         plt.plot(x, y)
-        plt.xlabel('text length')
-        plt.ylabel('diff length')
-        plt.savefig("figure_{}".format(name))
+        plt.xlabel('elements')
+        plt.ylabel('time (seconds)')
+        plt.savefig("{}".format(name))

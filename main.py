@@ -28,7 +28,7 @@ if __name__ == "__main__":  # This is True if main.py was called from a command 
         # Threading could be added here
         runner = Runner(run_name, run_config)
 
-        print("\nHashing ...")
+        print("\nHashing ...\n")
         __hash = runner.hash()
 
         print("\nSearching ...")

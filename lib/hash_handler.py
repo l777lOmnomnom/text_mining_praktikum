@@ -14,7 +14,7 @@ class Hash:
     def __init__(self, mode, args):
         self.hash_time_dict = dict()
         self.find_time_dict = dict()
-        self.parent = MODE_HASH_DICT.get(mode)(args)
+        self.__parent = MODE_HASH_DICT.get(mode)(args)
 
     def update_time_dicts(self):
         """
@@ -22,8 +22,8 @@ class Hash:
 
         :return:
         """
-        self.hash_time_dict = self.parent.hash_time_dict
-        self.find_time_dict = self.parent.find_time_dict
+        self.hash_time_dict = self.__parent.hash_time_dict
+        self.find_time_dict = self.__parent.find_time_dict
 
     def hash(self, text):
         """
@@ -34,7 +34,7 @@ class Hash:
         :param text: the input from the data handlers text_dict
         :return: return the hash or the object on which you want to do the evaluation on
         """
-        return self.parent.hash(text)
+        return self.__parent.hash(text)
 
     def find_matches(self, hashes):
         """
@@ -45,28 +45,24 @@ class Hash:
         :param hashes:
         :return: you can return something or write your results directly to disk
         """
-        return self.parent.find_matches(hashes)
+        return self.__parent.find_matches(hashes)
 
 
 class Simhash():
     def __init__(self, args):
-        self.__i = 0
+        self.i = 0
         self.hash_time_dict = dict()
         self.find_time_dict = dict()
         self.shingle_size = args.get("shingle_size", 9)
         self.blocks = args.get("blocks", 8)
         self.distance = args.get("distance", 4)
 
-    @property
-    def i(self):
-        self.__i += 1
-        return self.__i
-
     def hash(self, text):
         start = time.time()
 
         h = self.__hash(self.__shingle(self.__tokenize(text), self.shingle_size))
         self.hash_time_dict.update({self.i: (time.time() - start)})
+        self.i += 1
 
         return h
 
@@ -99,15 +95,11 @@ class Simhash():
 
 class Minhash:
     def __init__(self, args):
-        self.__i = 0
+        self.i = 0
+
         self.hash_time_dict = dict()
         self.find_time_dict = dict()
         self.minhash_distance = float(args.get("jaccard_sim", 0.7))
-
-    @property
-    def i(self):
-        self.__i += 1
-        return self.__i
 
     def hash(self, text):
         """
@@ -123,6 +115,7 @@ class Minhash:
             self.__hash(m, line.encode('utf-8'))
 
         self.hash_time_dict.update({self.i: (time.time() - start)})
+        self.i += 1
 
         return m
 
@@ -132,7 +125,6 @@ class Minhash:
 
         :return:
         """
-        self.__i = 0
         matches = list()
         hashes = list(hashes)
 
@@ -147,6 +139,7 @@ class Minhash:
                         matches.append((hashes[i], hashes[j]))
 
             self.find_time_dict.update({i: (time.time() - start)})
+            self.i += 1
 
         return matches
 
