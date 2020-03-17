@@ -2,7 +2,6 @@ import argparse
 import json
 import os
 
-# This is command line parser, its quite self explanatory
 parser = argparse.ArgumentParser()  # This is the cmd-line parser
 parser.add_argument("-c", "--config", help="path to the config file")
 

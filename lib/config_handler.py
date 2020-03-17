@@ -8,6 +8,10 @@ class ConfigException(Exception):
 
 
 class Config:
+    """
+    This is the config class. It has class attributes for all parameter the config supports. If you need more config
+    parameter just add a setter and getter for it in here.
+    """
     def __init__(self, config):
         self.__config = str()
         self.__mode = str()
@@ -17,14 +21,14 @@ class Config:
         self.__output_dir = str()
         self.__hash_data = dict()
 
-        self.load(config)
+        self.load(config)  # Loads the config
 
     @property
     def config(self):
         """
         Returns path to config file
 
-        :return: str() - config_path
+        :return: str() - config path
         """
         return self.__config
 
@@ -33,7 +37,7 @@ class Config:
         """
         Setter for config path
 
-        :param config: str() - config_path
+        :param config: str() - config path
         """
         if os.path.isfile(str(config)):
             self.__config = config
@@ -43,7 +47,7 @@ class Config:
     @property
     def mode(self):
         """
-        Returns the choosen hashing mode
+        Returns the chosen hashing mode
 
         :return: str() - hashing mode
         """
@@ -61,7 +65,7 @@ class Config:
     @property
     def source(self):
         """
-        Path to warc IO archivee
+        Path to warc IO archive
 
         :return: str() - path to warc IO archive
         """
@@ -184,7 +188,7 @@ class Config:
 
     def dump(self):
         """
-        This functions dumps the config into a string.
+        This functions dumps the config into a dict.
 
         :return: dict() - config as a dict.
         """

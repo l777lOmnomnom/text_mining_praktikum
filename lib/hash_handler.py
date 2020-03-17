@@ -7,13 +7,14 @@ import time
 
 class Hash:
     """
-    This is the explanation class. All classes should inhert from it. All abc.abstractmethods need to be implemented in
-    your child class. This ensures that all classes can reuse the input provides by the data_handler
+    This is a general class. Due to required dynamic inheritance it will set a parent from the MODE_HASH_DICT and call
+    functions of this class.
     """
 
     def __init__(self, mode, args):
         self.hash_time_dict = dict()
         self.find_time_dict = dict()
+
         self.__parent = MODE_HASH_DICT.get(mode)(args)
 
     def update_time_dicts(self):
@@ -27,46 +28,58 @@ class Hash:
 
     def hash(self, text):
         """
-        This is the hash function which is called from the main function. Put all hashing logic in here.
-        If you want measurments seperate the parts you want to measure in sindle functions so that they are tracked by
-        cprofile (which tracks the time for all function calls)
+        This is the hash function which is called from the main function runners.
 
-        :param text: the input from the data handlers text_dict
-        :return: return the hash or the object on which you want to do the evaluation on
+        :param text: the input from the data handler
+        :return: bytes() - hashes text
         """
         return self.__parent.hash(text)
 
     def find_matches(self, hashes):
         """
-        This is the evaluation method which takes whatever parameter you want as input and should yield a certain
-        output about the similarities of different html documents.
-        If the evaluation should be measured to use the same approach as above.
+        This functions finds matches for certain hashes and a defined distance measure.
 
         :param hashes:
-        :return: you can return something or write your results directly to disk
+        :return: list() - matched hashes as tuples
         """
         return self.__parent.find_matches(hashes)
 
 
-class Simhash():
+class Simhash:
     def __init__(self, args):
         self.i = 0
+
         self.hash_time_dict = dict()
         self.find_time_dict = dict()
+
         self.shingle_size = args.get("shingle_size", 9)
         self.blocks = args.get("blocks", 8)
         self.distance = args.get("distance", 4)
 
     def hash(self, text):
+        """
+        This takes a text as argument and hashes it using the simhash algorithm
+
+        :param text: str()
+        :return: bytes() - hash
+        """
+        self.i += 1
+
         start = time.time()
 
         h = self.__hash(self.__shingle(self.__tokenize(text), self.shingle_size))
+
         self.hash_time_dict.update({self.i: (time.time() - start)})
-        self.i += 1
 
         return h
 
     def find_matches(self, hashes):
+        """
+        This finds hashes that have a distance lower than self.distance. It'll return a list of tuples of matches.
+
+        :param hashes: list(bytes())
+        :return: list(tuple())
+        """
         return self.__find_matches(hashes, self.blocks, self.distance)
 
     @staticmethod
@@ -99,6 +112,7 @@ class Minhash:
 
         self.hash_time_dict = dict()
         self.find_time_dict = dict()
+
         self.minhash_distance = float(args.get("jaccard_sim", 0.7))
 
     def hash(self, text):
@@ -108,6 +122,8 @@ class Minhash:
         :param text: the string which should be hashed
         :return: MinHash()
         """
+        self.i += 1
+
         m = MinHash()
         start = time.time()
 
@@ -115,7 +131,6 @@ class Minhash:
             self.__hash(m, line.encode('utf-8'))
 
         self.hash_time_dict.update({self.i: (time.time() - start)})
-        self.i += 1
 
         return m
 
@@ -145,28 +160,18 @@ class Minhash:
 
     @staticmethod
     def __hash(m, line):
-        """
-        Actual updating of the minhash set.
-
-        :param m: Minhash()
-        :param line: str() - text
-
-        :return: Minhash()
-        """
         m.update(line)
 
     @staticmethod
     def __estimate_jaccard_sim(minhash1, minhash2):
-        """
-
-        :param minhash1: first minhash
-        :param minhash2: second minhash
-        :return:
-        """
         return minhash1.jaccard(minhash2)
 
 
 class Justushash:
+    """
+    Justushash implements the simhash idea in our own algorithm. It is way slower than simhash but gives a good insight
+    on how the algorithm works.
+    """
     def __init__(self, args):
         self.hash_time = 0
         self.find_time = 0

@@ -25,18 +25,19 @@ python3 -m venv venv --no-site-packages && . venv/bin/activate && pip3 install -
 
 ## Running the tests
 
-There is a test script with a smaller subset of data contained in "test/".
+There is a test script with a smaller subset of data contained in "test/". You can start it with:
 ```
 python3 test.py
 ```
+This enables user to get in touch with the software.
 
 ## Authors
 
 * **Alexander Krebs**
 * **Robby Wagner**
-* **Tim**
-* **Justus**
-* **Andre**
+* **Tim Wille**
+* **Justus Stahlhelm**
+* **Andre Soudah**
 
 ## License
 

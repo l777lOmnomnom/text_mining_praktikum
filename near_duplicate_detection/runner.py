@@ -97,7 +97,6 @@ class Runner:
         :return:
         """
         matches = self.hasher.find_matches(self.__offset_hash_map.values())
-
         print("    Found {} matches.".format(len(matches)))
 
         print("    Formatting the found matches. This takes some time ...")
@@ -219,7 +218,7 @@ class Runner:
         diff_b = ""
 
         if not diff:
-            return ("There was a problem with the diff!", "There was a problem with the diff!")
+            return "There was a problem with the diff!", "There was a problem with the diff!"
 
         for _diff in diff:
             if "+" in _diff:
@@ -227,10 +226,19 @@ class Runner:
             elif "-" in _diff:
                 diff_b += _diff.replace("- ", "")
 
-        return (diff_a, diff_b)
+        return diff_a, diff_b
 
     @staticmethod
     def __plot(name, x, y):
+        """
+        Plots a graph with x and y as koordinate lists and the given name.
+
+        :param name: name and location where the graph is saved
+        :param x: list of element numbers
+        :param y: list of time it took to do something with element from x
+
+        :return: None
+        """
         import matplotlib.pyplot as plt
 
         plt.plot(x, y)
