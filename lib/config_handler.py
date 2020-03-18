@@ -18,6 +18,7 @@ class Config:
         self.__source = str()
         self.__dump_graph = False
         self.__dump_text = False
+        self.__max_elements = 0
         self.__output_dir = str()
         self.__hash_data = dict()
 
@@ -116,6 +117,24 @@ class Config:
         :param dump_graph: bool() - dump_graph_flag
         """
         self.__dump_graph = dump_graph
+
+    @property
+    def max_elements(self):
+        """
+        Returns the maximum elements to be hashed from the archive
+
+        :return: int() - maximum elements to hash
+        """
+        return self.__max_elements
+
+    @max_elements.setter
+    def max_elements(self, max):
+        """
+        Setter for hashing mode
+
+        :param max: int() - maximum elements
+        """
+        self.__max_elements = max
 
     @property
     def output_dir(self):

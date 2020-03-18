@@ -8,8 +8,9 @@ class Data:
     This is the Data class which reads in the archive and returns an iterator with which you can go through all archive
     entries.
     """
-    def __init__(self, source):
+    def __init__(self, source, max_elements):
         self.source = source
+        self.max_elements = max_elements
         self.__archive = None
         self.__archive_stream = None
 
@@ -29,7 +30,6 @@ class Data:
 
         :return: int(), str() - offset, text
         """
-        tmp = list()
         __archive = open(self.source, "rb")
         __archive_stream = ArchiveIterator(__archive)
 
@@ -37,33 +37,34 @@ class Data:
 
         current_element = 0
         for record in __archive_stream:
+
             # Extracts the responses
             if record.rec_type == 'response' and record.http_headers.get_header('Content-Type') in self.utf_8:
                 soup = BeautifulSoup(record.content_stream(), 'lxml', from_encoding='utf-8')
                 for script in soup(["script", "style"]):
                     script.extract()
+
                 try:
                     text = soup.body.get_text(separator=' ')
                     text = "\n".join([line.strip() for line in text.split("\n") if line.strip() != ""])
                 except AttributeError:
                     wrong_encoding_list.append(__archive_stream.get_record_offset())
                 else:
+                    current_element += 1
+
                     # Prints the current element to command line if it is divisable by 100
                     if current_element % 100 == 0:
                         self.__clear_line()
                         print("{} elements hashed ...".format(current_element))
 
-
-                    if current_element != 1000:
-                        tmp.append(record)
-                    elif current_element == 1000:
-                        self.__write_example_archive(tmp)
+                    # Checks if the maximum number of elements has passed and stops if so
+                    if current_element >= self.max_elements:
+                        self.__clear_line()
+                        print("{} elements hashed ...".format(current_element))
+                        print("Wrong encoding found in offsets {}".format(wrong_encoding_list))
+                        return __archive_stream.get_record_offset(), text  # returns offset and text
                     else:
-                        pass
-
-
-                    current_element += 1
-                    yield __archive_stream.get_record_offset(), text  # yields offset and text
+                        yield __archive_stream.get_record_offset(), text  # yields offset and text
 
         print('Wrong Encoding at offsets {}'.format(wrong_encoding_list))
 
@@ -89,16 +90,3 @@ class Data:
         """
         sys.stdout.write("\033[F")  # back to previous line
         sys.stdout.write("\033[K")  # clear line
-
-    @staticmethod
-    def __write_example_archive(records):
-        """
-
-        :param records:
-        :return:
-        """
-
-        with open("/tmp/test_archive.warc.gz", "rb") as archive:
-            writer = WARCWriter(archive, gzip=True)
-            for record in records:
-                writer.write_record(record)

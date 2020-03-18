@@ -28,7 +28,7 @@ class Runner:
         self.__config = Config(config)
 
         # Create an iterable Data class which yields offset, text from the archive
-        self.__data = Data(self.config.source)
+        self.__data = Data(self.config.source, self.config.max_elements)
         self.__data_iterator = self.data
 
         # Create the Hash class

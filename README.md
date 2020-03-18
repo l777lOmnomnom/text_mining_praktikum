@@ -13,7 +13,7 @@ Goal of this project is to find near duplicates of html web pages inside a warc 
 ```
 python3 main.py -c path/to/config.conf
 ```
-
+(Don't forget to specify a valid warc.gz as source in the config file!)
 3. Find the results in the path specified in the config (run.output_dir)
 
 ### Prerequisites
@@ -22,14 +22,6 @@ You need to have all dependencies available. Use a virtual environment or instal
 ```
 python3 -m venv venv --no-site-packages && . venv/bin/activate && pip3 install -r pip_requirements.txt
 ```
-
-## Running the tests
-
-There is a test script with a smaller subset of data contained in "test/". You can start it with:
-```
-python3 test.py
-```
-This enables user to get in touch with the software.
 
 ## Authors
 
